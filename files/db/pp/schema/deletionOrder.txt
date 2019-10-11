@@ -1,0 +1,12 @@
+usuario
+asientomodeloitem
+cuentacontable
+asientomodelo
+puntoequilibrio
+seguridadpuerta
+centrocostocontable
+tipopuntoequilibrio
+seguridadmodulo
+cuentacontableestado
+costoventa
+ejerciciocontable
