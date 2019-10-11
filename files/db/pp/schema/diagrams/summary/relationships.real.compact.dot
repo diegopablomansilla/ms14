@@ -19,6 +19,48 @@ digraph "compactRelationshipsDiagram" {
   edge [
     arrowsize="0.8"
   ];
+  "asientocontable" [
+    label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">asientocontable</TD></TR>
+      <TR><TD PORT="id" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">id</TD></TR>
+      <TR><TD PORT="numero" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">numero</TD></TR>
+      <TR><TD PORT="ejerciciocontable" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">ejerciciocontable</TD></TR>
+      <TR><TD PORT="minutacontable" COLSPAN="3" ALIGN="LEFT">minutacontable</TD></TR>
+      <TR><TD PORT="sucursal" COLSPAN="3" ALIGN="LEFT">sucursal</TD></TR>
+      <TR><TD PORT="asientocontablemodulo" COLSPAN="3" ALIGN="LEFT">asientocontablemodulo</TD></TR>
+      <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 4</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1 &gt;</TD></TR>
+    </TABLE>>
+    URL="tables/asientocontable.html"
+    tooltip="asientocontable"
+  ];
+  "asientocontableitem" [
+    label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">asientocontableitem</TD></TR>
+      <TR><TD PORT="id" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">id</TD></TR>
+      <TR><TD PORT="numero" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">numero</TD></TR>
+      <TR><TD PORT="asientocontable" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">asientocontable</TD></TR>
+      <TR><TD PORT="cuentacontable" COLSPAN="3" ALIGN="LEFT">cuentacontable</TD></TR>
+      <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 2</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
+    </TABLE>>
+    URL="tables/asientocontableitem.html"
+    tooltip="asientocontableitem"
+  ];
+  "asientocontablemodulo" [
+    label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">asientocontablemodulo</TD></TR>
+      <TR><TD PORT="id" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">id</TD></TR>
+      <TR><TD PORT="numero" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">numero</TD></TR>
+      <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">3 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1 &gt;</TD></TR>
+    </TABLE>>
+    URL="tables/asientocontablemodulo.html"
+    tooltip="asientocontablemodulo"
+  ];
   "asientomodelo" [
     label=<
     <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
@@ -84,7 +126,7 @@ digraph "compactRelationshipsDiagram" {
       <TR><TD PORT="costoventa" COLSPAN="3" ALIGN="LEFT">costoventa</TD></TR>
       <TR><TD PORT="seguridadpuerta" COLSPAN="3" ALIGN="LEFT">seguridadpuerta</TD></TR>
       <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 6</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">11.360 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 6</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">11.360 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">2 &gt;</TD></TR>
     </TABLE>>
     URL="tables/cuentacontable.html"
     tooltip="cuentacontable"
@@ -108,10 +150,22 @@ digraph "compactRelationshipsDiagram" {
       <TR><TD PORT="id" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">id</TD></TR>
       <TR><TD PORT="numero" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">numero</TD></TR>
       <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">17 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">4 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">17 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">5 &gt;</TD></TR>
     </TABLE>>
     URL="tables/ejerciciocontable.html"
     tooltip="ejerciciocontable"
+  ];
+  "minutacontable" [
+    label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">minutacontable</TD></TR>
+      <TR><TD PORT="id" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">id</TD></TR>
+      <TR><TD PORT="numero" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">numero</TD></TR>
+      <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">9 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1 &gt;</TD></TR>
+    </TABLE>>
+    URL="tables/minutacontable.html"
+    tooltip="minutacontable"
   ];
   "puntoequilibrio" [
     label=<
@@ -152,6 +206,19 @@ digraph "compactRelationshipsDiagram" {
     URL="tables/seguridadpuerta.html"
     tooltip="seguridadpuerta"
   ];
+  "sucursal" [
+    label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">sucursal</TD></TR>
+      <TR><TD PORT="id" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">id</TD></TR>
+      <TR><TD PORT="numero" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">numero</TD></TR>
+      <TR><TD PORT="tiposucursal" COLSPAN="3" ALIGN="LEFT">tiposucursal</TD></TR>
+      <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 1</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1 &gt;</TD></TR>
+    </TABLE>>
+    URL="tables/sucursal.html"
+    tooltip="sucursal"
+  ];
   "tipopuntoequilibrio" [
     label=<
     <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
@@ -159,11 +226,29 @@ digraph "compactRelationshipsDiagram" {
       <TR><TD PORT="id" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">id</TD></TR>
       <TR><TD PORT="numero" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">numero</TD></TR>
       <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">30 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">6 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1 &gt;</TD></TR>
     </TABLE>>
     URL="tables/tipopuntoequilibrio.html"
     tooltip="tipopuntoequilibrio"
   ];
+  "tiposucursal" [
+    label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">tiposucursal</TD></TR>
+      <TR><TD PORT="id" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">id</TD></TR>
+      <TR><TD PORT="numero" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">numero</TD></TR>
+      <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1 &gt;</TD></TR>
+    </TABLE>>
+    URL="tables/tiposucursal.html"
+    tooltip="tiposucursal"
+  ];
+  "asientocontable":"asientocontablemodulo":sw -> "asientocontablemodulo":"id":se [arrowhead=none dir=back arrowtail=crowodot];
+  "asientocontable":"ejerciciocontable":sw -> "ejerciciocontable":"id":se [arrowhead=none dir=back arrowtail=crowodot];
+  "asientocontable":"minutacontable":sw -> "minutacontable":"id":se [arrowhead=none dir=back arrowtail=crowodot];
+  "asientocontable":"sucursal":sw -> "sucursal":"id":se [arrowhead=none dir=back arrowtail=crowodot];
+  "asientocontableitem":"asientocontable":sw -> "asientocontable":"id":se [arrowhead=none dir=back arrowtail=crowodot];
+  "asientocontableitem":"cuentacontable":sw -> "cuentacontable":"id":se [arrowhead=none dir=back arrowtail=crowodot];
   "asientomodelo":"ejerciciocontable":sw -> "ejerciciocontable":"id":se [arrowhead=none dir=back arrowtail=teeodot];
   "asientomodeloitem":"asientomodelo":sw -> "asientomodelo":"id":se [arrowhead=none dir=back arrowtail=crowodot];
   "asientomodeloitem":"cuentacontable":sw -> "cuentacontable":"id":se [arrowhead=none dir=back arrowtail=crowodot];
@@ -177,4 +262,5 @@ digraph "compactRelationshipsDiagram" {
   "puntoequilibrio":"ejerciciocontable":sw -> "ejerciciocontable":"id":se [arrowhead=none dir=back arrowtail=teeodot];
   "puntoequilibrio":"tipopuntoequilibrio":sw -> "tipopuntoequilibrio":"id":se [arrowhead=none dir=back arrowtail=crowodot];
   "seguridadpuerta":"seguridadmodulo":sw -> "seguridadmodulo":"id":se [arrowhead=none dir=back arrowtail=teeodot];
+  "sucursal":"tiposucursal":sw -> "tiposucursal":"id":se [arrowhead=none dir=back arrowtail=crowodot];
 }

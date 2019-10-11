@@ -32,7 +32,7 @@
 <div class='indent'>
 <table width='100%'>
 <tr><td class='container' valign='bottom'><b>
-13 Foreign Key Constraints:</b>
+20 Foreign Key Constraints:</b>
 </td><td class='container' align='right'>
 <table>
   <tr><td class='container' align='right' valign='top'><a href='http://sourceforge.net' target='_blank'><img src='http://sourceforge.net/sflogo.php?group_id=137197&amp;type=1' alt='SourceForge.net' border='0' height='31' width='88'></a></td></tr>
@@ -71,6 +71,48 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 </tr>
 </thead>
 <tbody>
+  <tr class='even'>
+  <td class='detail'>asientocontable_asientocontablemodulo_fkey</td>
+  <td class='detail'><a href='tables/asientocontable.html'>asientocontable</a>.asientocontablemodulo</td>
+  <td class='detail'><a href='tables/asientocontablemodulo.html'>asientocontablemodulo</a>.id</td>
+  <td class='detail'><span title='Restrict delete:
+ Parent cannot be deleted if children exist'>Restrict delete&nbsp;</span></td>
+ </tr>
+  <tr class='odd'>
+  <td class='detail'>asientocontable_ejerciciocontable_fkey</td>
+  <td class='detail'><a href='tables/asientocontable.html'>asientocontable</a>.ejerciciocontable</td>
+  <td class='detail'><a href='tables/ejerciciocontable.html'>ejerciciocontable</a>.id</td>
+  <td class='detail'><span title='Restrict delete:
+ Parent cannot be deleted if children exist'>Restrict delete&nbsp;</span></td>
+ </tr>
+  <tr class='even'>
+  <td class='detail'>asientocontable_minutacontable_fkey</td>
+  <td class='detail'><a href='tables/asientocontable.html'>asientocontable</a>.minutacontable</td>
+  <td class='detail'><a href='tables/minutacontable.html'>minutacontable</a>.id</td>
+  <td class='detail'><span title='Restrict delete:
+ Parent cannot be deleted if children exist'>Restrict delete&nbsp;</span></td>
+ </tr>
+  <tr class='odd'>
+  <td class='detail'>asientocontable_sucursal_fkey</td>
+  <td class='detail'><a href='tables/asientocontable.html'>asientocontable</a>.sucursal</td>
+  <td class='detail'><a href='tables/sucursal.html'>sucursal</a>.id</td>
+  <td class='detail'><span title='Restrict delete:
+ Parent cannot be deleted if children exist'>Restrict delete&nbsp;</span></td>
+ </tr>
+  <tr class='even'>
+  <td class='detail'>asientocontableitem_asientocontable_fkey</td>
+  <td class='detail'><a href='tables/asientocontableitem.html'>asientocontableitem</a>.asientocontable</td>
+  <td class='detail'><a href='tables/asientocontable.html'>asientocontable</a>.id</td>
+  <td class='detail'><span title='Restrict delete:
+ Parent cannot be deleted if children exist'>Restrict delete&nbsp;</span></td>
+ </tr>
+  <tr class='odd'>
+  <td class='detail'>asientocontableitem_cuentacontable_fkey</td>
+  <td class='detail'><a href='tables/asientocontableitem.html'>asientocontableitem</a>.cuentacontable</td>
+  <td class='detail'><a href='tables/cuentacontable.html'>cuentacontable</a>.id</td>
+  <td class='detail'><span title='Restrict delete:
+ Parent cannot be deleted if children exist'>Restrict delete&nbsp;</span></td>
+ </tr>
   <tr class='even'>
   <td class='detail'>asientomodelo_ejerciciocontable_fkey</td>
   <td class='detail'><a href='tables/asientomodelo.html'>asientomodelo</a>.ejerciciocontable</td>
@@ -159,6 +201,13 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
   <td class='detail'>seguridadpuerta_seguridadmodulo_fkey</td>
   <td class='detail'><a href='tables/seguridadpuerta.html'>seguridadpuerta</a>.seguridadmodulo</td>
   <td class='detail'><a href='tables/seguridadmodulo.html'>seguridadmodulo</a>.id</td>
+  <td class='detail'><span title='Restrict delete:
+ Parent cannot be deleted if children exist'>Restrict delete&nbsp;</span></td>
+ </tr>
+  <tr class='odd'>
+  <td class='detail'>sucursal_tiposucursal_fkey</td>
+  <td class='detail'><a href='tables/sucursal.html'>sucursal</a>.tiposucursal</td>
+  <td class='detail'><a href='tables/tiposucursal.html'>tiposucursal</a>.id</td>
   <td class='detail'><span title='Restrict delete:
  Parent cannot be deleted if children exist'>Restrict delete&nbsp;</span></td>
  </tr>

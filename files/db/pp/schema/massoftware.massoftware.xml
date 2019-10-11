@@ -1,6 +1,71 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <database name="massoftware" schema="massoftware" type="PostgreSQL - 9.6.2">
    <tables>
+      <table name="asientocontable" numRows="0" remarks="" schema="massoftware" type="TABLE">
+         <column autoUpdated="false" defaultValue="uuid_generate_v4()" digits="0" id="0" name="id" nullable="false" remarks="" size="36" type="varchar">
+            <child column="asientocontable" foreignKey="asientocontableitem_asientocontable_fkey" implied="false" onDeleteCascade="false" table="asientocontableitem"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="numero" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="fecha" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="3" name="detalle" nullable="true" remarks="" size="100" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="ejerciciocontable" nullable="false" remarks="" size="36" type="varchar">
+            <parent column="id" foreignKey="asientocontable_ejerciciocontable_fkey" implied="false" onDeleteCascade="false" table="ejerciciocontable"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="5" name="minutacontable" nullable="false" remarks="" size="36" type="varchar">
+            <parent column="id" foreignKey="asientocontable_minutacontable_fkey" implied="false" onDeleteCascade="false" table="minutacontable"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="6" name="sucursal" nullable="false" remarks="" size="36" type="varchar">
+            <parent column="id" foreignKey="asientocontable_sucursal_fkey" implied="false" onDeleteCascade="false" table="sucursal"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="7" name="asientocontablemodulo" nullable="false" remarks="" size="36" type="varchar">
+            <parent column="id" foreignKey="asientocontable_asientocontablemodulo_fkey" implied="false" onDeleteCascade="false" table="asientocontablemodulo"/>
+         </column>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="asientocontable_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="u_asientocontable_0" unique="true">
+            <column ascending="true" name="ejerciciocontable"/>
+            <column ascending="true" name="numero"/>
+         </index>
+      </table>
+      <table name="asientocontableitem" numRows="0" remarks="" schema="massoftware" type="TABLE">
+         <column autoUpdated="false" defaultValue="uuid_generate_v4()" digits="0" id="0" name="id" nullable="false" remarks="" size="36" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="1" name="numero" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="fecha" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="3" name="detalle" nullable="true" remarks="" size="100" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="asientocontable" nullable="false" remarks="" size="36" type="varchar">
+            <parent column="id" foreignKey="asientocontableitem_asientocontable_fkey" implied="false" onDeleteCascade="false" table="asientocontable"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="5" name="cuentacontable" nullable="false" remarks="" size="36" type="varchar">
+            <parent column="id" foreignKey="asientocontableitem_cuentacontable_fkey" implied="false" onDeleteCascade="false" table="cuentacontable"/>
+         </column>
+         <column autoUpdated="false" digits="5" id="6" name="debe" nullable="false" remarks="" size="13" type="numeric"/>
+         <column autoUpdated="false" digits="5" id="7" name="haber" nullable="false" remarks="" size="13" type="numeric"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="asientocontableitem_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="u_asientocontableitem_0" unique="true">
+            <column ascending="true" name="asientocontable"/>
+            <column ascending="true" name="numero"/>
+         </index>
+      </table>
+      <table name="asientocontablemodulo" numRows="3" remarks="" schema="massoftware" type="TABLE">
+         <column autoUpdated="false" defaultValue="uuid_generate_v4()" digits="0" id="0" name="id" nullable="false" remarks="" size="36" type="varchar">
+            <child column="asientocontablemodulo" foreignKey="asientocontable_asientocontablemodulo_fkey" implied="false" onDeleteCascade="false" table="asientocontable"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="numero" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="nombre" nullable="false" remarks="" size="50" type="varchar"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="asientocontablemodulo_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="u_asientocontablemodulo_0" unique="true">
+            <column ascending="true" name="numero"/>
+         </index>
+         <index name="u_asientocontablemodulo_1" unique="true"/>
+      </table>
       <table name="asientomodelo" numRows="0" remarks="" schema="massoftware" type="TABLE">
          <column autoUpdated="false" defaultValue="uuid_generate_v4()" digits="0" id="0" name="id" nullable="false" remarks="" size="36" type="varchar">
             <child column="asientomodelo" foreignKey="asientomodeloitem_asientomodelo_fkey" implied="false" onDeleteCascade="false" table="asientomodeloitem"/>
@@ -86,6 +151,7 @@
       </table>
       <table name="cuentacontable" numRows="11360" remarks="" schema="massoftware" type="TABLE">
          <column autoUpdated="false" defaultValue="uuid_generate_v4()" digits="0" id="0" name="id" nullable="false" remarks="" size="36" type="varchar">
+            <child column="cuentacontable" foreignKey="asientocontableitem_cuentacontable_fkey" implied="false" onDeleteCascade="false" table="asientocontableitem"/>
             <child column="cuentacontable" foreignKey="asientomodeloitem_cuentacontable_fkey" implied="false" onDeleteCascade="false" table="asientomodeloitem"/>
          </column>
          <column autoUpdated="false" digits="0" id="1" name="codigo" nullable="false" remarks="" size="11" type="varchar"/>
@@ -148,6 +214,7 @@
       </table>
       <table name="ejerciciocontable" numRows="17" remarks="" schema="massoftware" type="TABLE">
          <column autoUpdated="false" defaultValue="uuid_generate_v4()" digits="0" id="0" name="id" nullable="false" remarks="" size="36" type="varchar">
+            <child column="ejerciciocontable" foreignKey="asientocontable_ejerciciocontable_fkey" implied="false" onDeleteCascade="false" table="asientocontable"/>
             <child column="ejerciciocontable" foreignKey="asientomodelo_ejerciciocontable_fkey" implied="false" onDeleteCascade="false" table="asientomodelo"/>
             <child column="ejerciciocontable" foreignKey="centrocostocontable_ejerciciocontable_fkey" implied="false" onDeleteCascade="false" table="centrocostocontable"/>
             <child column="ejerciciocontable" foreignKey="cuentacontable_ejerciciocontable_fkey" implied="false" onDeleteCascade="false" table="cuentacontable"/>
@@ -166,6 +233,21 @@
          <index name="u_ejerciciocontable_0" unique="true">
             <column ascending="true" name="numero"/>
          </index>
+      </table>
+      <table name="minutacontable" numRows="9" remarks="" schema="massoftware" type="TABLE">
+         <column autoUpdated="false" defaultValue="uuid_generate_v4()" digits="0" id="0" name="id" nullable="false" remarks="" size="36" type="varchar">
+            <child column="minutacontable" foreignKey="asientocontable_minutacontable_fkey" implied="false" onDeleteCascade="false" table="asientocontable"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="numero" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="nombre" nullable="false" remarks="" size="50" type="varchar"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="minutacontable_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="u_minutacontable_0" unique="true">
+            <column ascending="true" name="numero"/>
+         </index>
+         <index name="u_minutacontable_1" unique="true"/>
       </table>
       <table name="puntoequilibrio" numRows="4250" remarks="" schema="massoftware" type="TABLE">
          <column autoUpdated="false" defaultValue="uuid_generate_v4()" digits="0" id="0" name="id" nullable="false" remarks="" size="36" type="varchar">
@@ -228,7 +310,41 @@
             <column ascending="true" name="seguridadmodulo"/>
          </index>
       </table>
-      <table name="tipopuntoequilibrio" numRows="30" remarks="" schema="massoftware" type="TABLE">
+      <table name="sucursal" numRows="0" remarks="" schema="massoftware" type="TABLE">
+         <column autoUpdated="false" defaultValue="uuid_generate_v4()" digits="0" id="0" name="id" nullable="false" remarks="" size="36" type="varchar">
+            <child column="sucursal" foreignKey="asientocontable_sucursal_fkey" implied="false" onDeleteCascade="false" table="asientocontable"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="numero" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="nombre" nullable="false" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="abreviatura" nullable="false" remarks="" size="5" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="tiposucursal" nullable="false" remarks="" size="36" type="varchar">
+            <parent column="id" foreignKey="sucursal_tiposucursal_fkey" implied="false" onDeleteCascade="false" table="tiposucursal"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="5" name="cuentaclientesdesde" nullable="true" remarks="" size="7" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="6" name="cuentaclienteshasta" nullable="true" remarks="" size="7" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="7" name="cantidadcaracteresclientes" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="8" name="identificacionnumericaclientes" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="9" name="permitecambiarclientes" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="10" name="cuentaproveedoresdesde" nullable="true" remarks="" size="7" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="11" name="cuentaproveedoreshasta" nullable="true" remarks="" size="7" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="12" name="cantidadcaracteresproveedores" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="13" name="identificacionnumericaproveedores" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="14" name="permitecambiarproveedores" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="15" name="clientesocacionalesdesde" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="16" name="clientesocacionaleshasta" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="17" name="numerocobranzadesde" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="18" name="numerocobranzahasta" nullable="false" remarks="" size="10" type="int4"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="sucursal_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="u_sucursal_0" unique="true">
+            <column ascending="true" name="numero"/>
+         </index>
+         <index name="u_sucursal_1" unique="true"/>
+         <index name="u_sucursal_2" unique="true"/>
+      </table>
+      <table name="tipopuntoequilibrio" numRows="6" remarks="" schema="massoftware" type="TABLE">
          <column autoUpdated="false" defaultValue="uuid_generate_v4()" digits="0" id="0" name="id" nullable="false" remarks="" size="36" type="varchar">
             <child column="tipopuntoequilibrio" foreignKey="puntoequilibrio_tipopuntoequilibrio_fkey" implied="false" onDeleteCascade="false" table="puntoequilibrio"/>
          </column>
@@ -242,6 +358,21 @@
             <column ascending="true" name="numero"/>
          </index>
          <index name="u_tipopuntoequilibrio_1" unique="true"/>
+      </table>
+      <table name="tiposucursal" numRows="0" remarks="" schema="massoftware" type="TABLE">
+         <column autoUpdated="false" defaultValue="uuid_generate_v4()" digits="0" id="0" name="id" nullable="false" remarks="" size="36" type="varchar">
+            <child column="tiposucursal" foreignKey="sucursal_tiposucursal_fkey" implied="false" onDeleteCascade="false" table="sucursal"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="numero" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="nombre" nullable="false" remarks="" size="50" type="varchar"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="tiposucursal_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="u_tiposucursal_0" unique="true">
+            <column ascending="true" name="numero"/>
+         </index>
+         <index name="u_tiposucursal_1" unique="true"/>
       </table>
       <table name="usuario" numRows="0" remarks="" schema="massoftware" type="TABLE">
          <column autoUpdated="false" defaultValue="uuid_generate_v4()" digits="0" id="0" name="id" nullable="false" remarks="" size="36" type="varchar"/>

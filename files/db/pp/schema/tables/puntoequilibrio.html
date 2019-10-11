@@ -101,7 +101,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 </tr>
 </thead>
 <tbody valign='top'>
-<tr class='odd'>
+<tr class='even'>
  <td class='primaryKey' title='Primary Key'>id</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>36</td>
@@ -110,7 +110,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='detail' align='right'>uuid_generate_v4()</td>
  <td class='detail'>
   <table border='0' width='100%' cellspacing='0' cellpadding='0'>
-   <tr class='relative odd' valign='top'>
+   <tr class='relative even' valign='top'>
     <td class='relatedTable detail' title="cuentacontable.puntoequilibrio refs puntoequilibrio.id via cuentacontable_puntoequilibrio_fkey"><a href='cuentacontable.html'>cuentacontable</a><span class='relatedKey'>.puntoequilibrio</span>
     </td>
     <td class='constraint detail'>cuentacontable_puntoequilibrio_fkey<span title='Restrict delete:
@@ -121,7 +121,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='indexedColumn' title='Indexed'>numero</td>
  <td class='detail'>int4</td>
  <td class='detail' align='right'>10</td>
@@ -132,7 +132,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>nombre</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>50</td>
@@ -143,7 +143,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>tipopuntoequilibrio</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>36</td>
@@ -153,7 +153,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='detail'></td>
  <td class='detail'>
   <table border='0' width='100%' cellspacing='0' cellpadding='0'>
-   <tr class='relative even' valign='top'>
+   <tr class='relative odd' valign='top'>
     <td class='relatedTable detail' title="puntoequilibrio.tipopuntoequilibrio refs tipopuntoequilibrio.id via puntoequilibrio_tipopuntoequilibrio_fkey"><a href='tipopuntoequilibrio.html'>tipopuntoequilibrio</a><span class='relatedKey'>.id</span>
     </td>
     <td class='constraint detail'>puntoequilibrio_tipopuntoequilibrio_fkey<span title='Restrict delete:
@@ -163,7 +163,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='indexedColumn' title='Indexed'>ejerciciocontable</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>36</td>
@@ -173,7 +173,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='detail'></td>
  <td class='detail'>
   <table border='0' width='100%' cellspacing='0' cellpadding='0'>
-   <tr class='relative odd' valign='top'>
+   <tr class='relative even' valign='top'>
     <td class='relatedTable detail' title="puntoequilibrio.ejerciciocontable refs ejerciciocontable.id via puntoequilibrio_ejerciciocontable_fkey"><a href='ejerciciocontable.html'>ejerciciocontable</a><span class='relatedKey'>.id</span>
     </td>
     <td class='constraint detail'>puntoequilibrio_ejerciciocontable_fkey<span title='Restrict delete:
@@ -184,7 +184,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='comment detail'></td>
 </tr>
 </table>
-<p title='5 columns'>Table contained 4.250 rows at jue oct 10 21:19 ART 2019<p/>
+<p title='5 columns'>Table contained 4.250 rows at vie oct 11 17:09 ART 2019<p/>
 </td></tr></table>
 <div class='indent'>
 <b>Indexes:</b>
@@ -229,16 +229,18 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 </map>
   <a name='diagram'><img id='oneDegreeImg' src='../diagrams/puntoequilibrio.1degree.png' usemap='#oneDegreeRelationshipsDiagram' class='diagram' border='0' alt='' align='left'></a>
 <map id="twoDegreesRelationshipsDiagram" name="twoDegreesRelationshipsDiagram">
-<area shape="rect" href="asientomodelo.html" title="asientomodelo" alt="" coords="509,8,642,88" >
-<area shape="rect" href="ejerciciocontable.html" title="ejerciciocontable" alt="" coords="13,178,154,394" >
-<area shape="rect" href="asientomodeloitem.html" title="asientomodeloitem" alt="" coords="708,56,862,136" >
+<area shape="rect" href="asientocontable.html" title="asientocontable" alt="" coords="508,8,644,88" >
+<area shape="rect" href="ejerciciocontable.html" title="ejerciciocontable" alt="" coords="13,246,154,462" >
+<area shape="rect" href="asientocontableitem.html" title="asientocontableitem" alt="" coords="708,56,870,136" >
 <area shape="rect" href="cuentacontable.html" title="cuentacontable" alt="" coords="488,105,664,524" >
-<area shape="rect" href="centrocostocontable.html" title="centrocostocontable" alt="" coords="242,298,405,378" >
-<area shape="rect" href="costoventa.html" title="costoventa" alt="" coords="262,589,385,669" >
-<area shape="rect" href="cuentacontableestado.html" title="cuentacontableestado" alt="" coords="236,201,412,281" >
-<area shape="rect" href="puntoequilibrio.html" title="puntoequilibrio" alt="" coords="204,396,444,572" >
-<area shape="rect" href="seguridadpuerta.html" title="seguridadpuerta" alt="" coords="249,686,398,766" >
-<area shape="rect" href="tipopuntoequilibrio.html" title="tipopuntoequilibrio" alt="" coords="8,466,160,592" >
+<area shape="rect" href="centrocostocontable.html" title="centrocostocontable" alt="" coords="242,278,405,358" >
+<area shape="rect" href="costoventa.html" title="costoventa" alt="" coords="262,569,385,649" >
+<area shape="rect" href="cuentacontableestado.html" title="cuentacontableestado" alt="" coords="236,181,412,261" >
+<area shape="rect" href="puntoequilibrio.html" title="puntoequilibrio" alt="" coords="204,376,444,552" >
+<area shape="rect" href="seguridadpuerta.html" title="seguridadpuerta" alt="" coords="249,666,398,746" >
+<area shape="rect" href="asientomodelo.html" title="asientomodelo" alt="" coords="509,621,642,701" >
+<area shape="rect" href="asientomodeloitem.html" title="asientomodeloitem" alt="" coords="712,362,866,442" >
+<area shape="rect" href="tipopuntoequilibrio.html" title="tipopuntoequilibrio" alt="" coords="8,480,160,605" >
 </map>
 
   <a name='diagram'><img id='twoDegreesImg' src='../diagrams/puntoequilibrio.2degrees.png' usemap='#twoDegreesRelationshipsDiagram' class='diagram' border='0' alt='' align='left'></a>

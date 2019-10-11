@@ -16,6 +16,8 @@ public class DataBase extends AbstractDataBase {
 	private UsuarioDAO usuarioDAO;
 	private SeguridadModuloDAO seguridadModuloDAO;
 	private SeguridadPuertaDAO seguridadPuertaDAO;
+	private TipoSucursalDAO tipoSucursalDAO;
+	private SucursalDAO sucursalDAO;
 	private EjercicioContableDAO ejercicioContableDAO;
 	private CentroCostoContableDAO centroCostoContableDAO;
 	private TipoPuntoEquilibrioDAO tipoPuntoEquilibrioDAO;
@@ -25,6 +27,10 @@ public class DataBase extends AbstractDataBase {
 	private CuentaContableDAO cuentaContableDAO;
 	private AsientoModeloDAO asientoModeloDAO;
 	private AsientoModeloItemDAO asientoModeloItemDAO;
+	private MinutaContableDAO minutaContableDAO;
+	private AsientoContableModuloDAO asientoContableModuloDAO;
+	private AsientoContableDAO asientoContableDAO;
+	private AsientoContableItemDAO asientoContableItemDAO;
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -34,6 +40,8 @@ public class DataBase extends AbstractDataBase {
 		usuarioDAO = new UsuarioDAO(this.sourceSQL);	
 		seguridadModuloDAO = new SeguridadModuloDAO(this.sourceSQL);	
 		seguridadPuertaDAO = new SeguridadPuertaDAO(this.sourceSQL);	
+		tipoSucursalDAO = new TipoSucursalDAO(this.sourceSQL);	
+		sucursalDAO = new SucursalDAO(this.sourceSQL);	
 		ejercicioContableDAO = new EjercicioContableDAO(this.sourceSQL);	
 		centroCostoContableDAO = new CentroCostoContableDAO(this.sourceSQL);	
 		tipoPuntoEquilibrioDAO = new TipoPuntoEquilibrioDAO(this.sourceSQL);	
@@ -42,7 +50,11 @@ public class DataBase extends AbstractDataBase {
 		cuentaContableEstadoDAO = new CuentaContableEstadoDAO(this.sourceSQL);	
 		cuentaContableDAO = new CuentaContableDAO(this.sourceSQL);	
 		asientoModeloDAO = new AsientoModeloDAO(this.sourceSQL);	
-		asientoModeloItemDAO = new AsientoModeloItemDAO(this.sourceSQL);			
+		asientoModeloItemDAO = new AsientoModeloItemDAO(this.sourceSQL);	
+		minutaContableDAO = new MinutaContableDAO(this.sourceSQL);	
+		asientoContableModuloDAO = new AsientoContableModuloDAO(this.sourceSQL);	
+		asientoContableDAO = new AsientoContableDAO(this.sourceSQL);	
+		asientoContableItemDAO = new AsientoContableItemDAO(this.sourceSQL);			
 	}	
 	
 	// ---------------------------------------------------------------------------------------------------------------------------
@@ -71,6 +83,24 @@ public class DataBase extends AbstractDataBase {
 
 	public Long count(SeguridadPuertaFilterQ1 filter) throws Exception {
 		return seguridadPuertaDAO.count(connection, filter);
+	}	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
+	public List<TipoSucursal> find(TipoSucursalFilterQ1 filter) throws Exception {
+		return tipoSucursalDAO.find(connection, filter);
+	}
+
+	public Long count(TipoSucursalFilterQ1 filter) throws Exception {
+		return tipoSucursalDAO.count(connection, filter);
+	}	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
+	public List<Sucursal> find(SucursalFilterQ1 filter) throws Exception {
+		return sucursalDAO.find(connection, filter);
+	}
+
+	public Long count(SucursalFilterQ1 filter) throws Exception {
+		return sucursalDAO.count(connection, filter);
 	}	
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -152,6 +182,42 @@ public class DataBase extends AbstractDataBase {
 
 	public Long count(AsientoModeloItemFilterQ1 filter) throws Exception {
 		return asientoModeloItemDAO.count(connection, filter);
+	}	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
+	public List<MinutaContable> find(MinutaContableFilterQ1 filter) throws Exception {
+		return minutaContableDAO.find(connection, filter);
+	}
+
+	public Long count(MinutaContableFilterQ1 filter) throws Exception {
+		return minutaContableDAO.count(connection, filter);
+	}	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
+	public List<AsientoContableModulo> find(AsientoContableModuloFilterQ1 filter) throws Exception {
+		return asientoContableModuloDAO.find(connection, filter);
+	}
+
+	public Long count(AsientoContableModuloFilterQ1 filter) throws Exception {
+		return asientoContableModuloDAO.count(connection, filter);
+	}	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
+	public List<AsientoContable> find(AsientoContableFilterQ1 filter) throws Exception {
+		return asientoContableDAO.find(connection, filter);
+	}
+
+	public Long count(AsientoContableFilterQ1 filter) throws Exception {
+		return asientoContableDAO.count(connection, filter);
+	}	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
+	public List<AsientoContableItem> find(AsientoContableItemFilterQ1 filter) throws Exception {
+		return asientoContableItemDAO.find(connection, filter);
+	}
+
+	public Long count(AsientoContableItemFilterQ1 filter) throws Exception {
+		return asientoContableItemDAO.count(connection, filter);
 	}	
 	
 } // END CLASS -----------------------------------------------------------------

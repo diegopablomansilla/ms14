@@ -58,7 +58,7 @@ digraph "oneDegreeRelationshipsDiagram" {
       <TR><TD PORT="cerrado" COLSPAN="3" ALIGN="LEFT">cerrado</TD></TR>
       <TR><TD PORT="cerradomodulos" COLSPAN="3" ALIGN="LEFT">cerradomodulos</TD></TR>
       <TR><TD PORT="comentario" COLSPAN="3" ALIGN="LEFT">comentario</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">17 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">4 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">17 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">5 &gt;</TD></TR>
     </TABLE>>
     URL="ejerciciocontable.html"
     tooltip="ejerciciocontable"

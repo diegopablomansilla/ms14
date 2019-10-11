@@ -9,20 +9,24 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.massoftware.a.model.AsientoContableModulo;
 import com.massoftware.a.model.CentroCostoContable;
 import com.massoftware.a.model.CostoVenta;
 import com.massoftware.a.model.CuentaContable;
 import com.massoftware.a.model.CuentaContableEstado;
 import com.massoftware.a.model.EjercicioContable;
+import com.massoftware.a.model.MinutaContable;
 import com.massoftware.a.model.PuntoEquilibrio;
 import com.massoftware.a.model.SeguridadModulo;
 import com.massoftware.a.model.SeguridadPuerta;
 import com.massoftware.a.model.TipoPuntoEquilibrio;
+import com.massoftware.b.service.AsientoContableModuloFilterQ1;
 import com.massoftware.b.service.CentroCostoContableFilterQ1;
 import com.massoftware.b.service.CostoVentaFilterQ1;
 import com.massoftware.b.service.CuentaContableEstadoFilterQ1;
 import com.massoftware.b.service.CuentaContableFilterQ1;
 import com.massoftware.b.service.EjercicioContableFilterQ1;
+import com.massoftware.b.service.MinutaContableFilterQ1;
 import com.massoftware.b.service.PuntoEquilibrioFilterQ1;
 import com.massoftware.b.service.SeguridadModuloFilterQ1;
 import com.massoftware.b.service.SeguridadPuertaFilterQ1;
@@ -31,7 +35,6 @@ import com.massoftware.b.service.util.Exception500;
 import com.massoftware.c.persist.DataBase;
 import com.massoftware.c.persist.DataBases;
 import com.massoftware.c.persist.dao.ds.ex.GetConnectionException;
-import com.massoftware.c.persist.dao.ds.ex.InsertException;
 
 public class Populate extends UtilPopulate {
 
@@ -46,6 +49,8 @@ public class Populate extends UtilPopulate {
 	private static List<CentroCostoContable> itemsCentroCostoContable;
 	private static List<PuntoEquilibrio> itemsPuntoEquilibrio;
 	private static List<CuentaContable> itemsCuentaContable;
+	private static List<MinutaContable> itemsMinutaContable;
+	private static List<AsientoContableModulo> itemsAsientoContableModulo;
 
 	public static void main(String[] args) throws GetConnectionException, Exception {
 
@@ -140,6 +145,8 @@ public class Populate extends UtilPopulate {
 			itemsCentroCostoContable = new ArrayList<CentroCostoContable>();
 			itemsPuntoEquilibrio = new ArrayList<PuntoEquilibrio>();
 			itemsCuentaContable = new ArrayList<CuentaContable>();
+			itemsMinutaContable = new ArrayList<MinutaContable>();
+			itemsAsientoContableModulo = new ArrayList<AsientoContableModulo>();
 
 			// --------------------------------------------------------------------
 
@@ -152,6 +159,8 @@ public class Populate extends UtilPopulate {
 			System.out.println("CentroCostoContable = " + dataBase.count(new CentroCostoContableFilterQ1()));
 			System.out.println("PuntoEquilibrio = " + dataBase.count(new PuntoEquilibrioFilterQ1()));
 			System.out.println("CuentaContable = " + dataBase.count(new CuentaContableFilterQ1()));
+			System.out.println("MinutaContable = " + dataBase.count(new MinutaContableFilterQ1()));
+			System.out.println("AsientoContableModulo = " + dataBase.count(new AsientoContableModuloFilterQ1()));
 
 			// --------------------------------------------------------------------
 
@@ -162,6 +171,8 @@ public class Populate extends UtilPopulate {
 			populateCostoVenta(dataBase);
 			populateEjercicioContable(dataBase);
 			populateCuentaContable(dataBase);
+			populateMinutaContable(dataBase);
+			populateAsientoContableModulo(dataBase);
 
 			// --------------------------------------------------------------------
 
@@ -176,6 +187,8 @@ public class Populate extends UtilPopulate {
 			System.out.println("CentroCostoContable = " + dataBase.count(new CentroCostoContableFilterQ1()));
 			System.out.println("PuntoEquilibrio = " + dataBase.count(new PuntoEquilibrioFilterQ1()));
 			System.out.println("CuentaContable = " + dataBase.count(new CuentaContableFilterQ1()));
+			System.out.println("MinutaContable = " + dataBase.count(new MinutaContableFilterQ1()));
+			System.out.println("AsientoContableModulo = " + dataBase.count(new AsientoContableModuloFilterQ1()));
 
 			// --------------------------------------------------------------------
 
@@ -245,12 +258,25 @@ public class Populate extends UtilPopulate {
 
 	private static void populateTipoPuntoEquilibrio(DataBase dataBase) throws Exception {
 
-		for (int i = 1; i <= 30; i++) {
+		for (int i = 1; i <= 6; i++) {
 
 			TipoPuntoEquilibrio tipoPuntoEquilibrio = new TipoPuntoEquilibrio();
 
 			tipoPuntoEquilibrio.setNumero(i);
-			tipoPuntoEquilibrio.setNombre("TipoPuntoEquilibrio" + i);
+
+			if (i == 1) {
+				tipoPuntoEquilibrio.setNombre("Individual");
+			} else if (i == 2) {
+				tipoPuntoEquilibrio.setNombre("Costo de ventas");
+			} else if (i == 3) {
+				tipoPuntoEquilibrio.setNombre("Utilidad bruta");
+			} else if (i == 4) {
+				tipoPuntoEquilibrio.setNombre("Resultados por sección");
+			} else if (i == 5) {
+				tipoPuntoEquilibrio.setNombre("Resultados operativos");
+			} else if (i == 6) {
+				tipoPuntoEquilibrio.setNombre("Resultados del período");
+			}
 
 			dataBase.insertObject(tipoPuntoEquilibrio);
 
@@ -284,14 +310,80 @@ public class Populate extends UtilPopulate {
 		}
 	}
 
+	private static void populateMinutaContable(DataBase dataBase) throws Exception {
+
+		for (int i = 0; i < 9; i++) {
+
+			MinutaContable minutaContable = new MinutaContable();
+
+			minutaContable.setNumero(i);
+			if (i == 0) {
+				minutaContable.setNombre("Sin definir");
+			} else if (i == 1) {
+				minutaContable.setNombre("Venta");
+			} else if (i == 2) {
+				minutaContable.setNombre("Stock");
+			} else if (i == 3) {
+				minutaContable.setNombre("Fondos");
+			} else if (i == 4) {
+				minutaContable.setNombre("Compras");
+			} else if (i == 5) {
+				minutaContable.setNombre("Contabilidad");
+			} else if (i == 6) {
+				minutaContable.setNombre("Sueldos");
+			} else if (i == 7) {
+				minutaContable.setNumero(98);
+				minutaContable.setNombre("Ajustes");
+			} else if (i == 8) {
+				minutaContable.setNumero(99);
+				minutaContable.setNombre("Otros");
+			}
+
+			dataBase.insertObject(minutaContable);
+
+			itemsMinutaContable.add(minutaContable);
+
+		}
+	}
+
+	private static void populateAsientoContableModulo(DataBase dataBase) throws Exception {
+
+		for (int i = 0; i < 4; i++) {
+
+			if (i == 2) {
+				continue;
+			}
+
+			AsientoContableModulo asientoContableModulo = new AsientoContableModulo();
+
+			asientoContableModulo.setNumero(i);
+			if (i == 0) {
+				asientoContableModulo.setNombre("Conta");
+			} else if (i == 1) {
+				asientoContableModulo.setNombre("Vta");
+			} else if (i == 2) {
+//				asientoContableModulo.setNombre("Stock");
+			} else if (i == 3) {
+				asientoContableModulo.setNombre("Fdo.");
+			} else if (i == 3) {
+				asientoContableModulo.setNombre("Cpra.");
+			}
+
+			dataBase.insertObject(asientoContableModulo);
+
+			itemsAsientoContableModulo.add(asientoContableModulo);
+
+		}
+	}
+
 	private static void populateCuentaContableEstado(DataBase dataBase) throws Exception {
 
-		for (int i = 1; i <= 2; i++) {
+		for (int i = 0; i < 2; i++) {
 			CuentaContableEstado cuentaContableEstado = new CuentaContableEstado();
 
 			cuentaContableEstado.setNumero(i);
 
-			if (i == 1) {
+			if (i == 0) {
 				cuentaContableEstado.setNombre("Cuenta fuera de uso");
 			} else {
 				cuentaContableEstado.setNombre("Cuenta en uso");
@@ -372,7 +464,7 @@ public class Populate extends UtilPopulate {
 
 	private static void populateCuentaContable(DataBase dataBase) throws Exception {
 
-		String filePath = "D:\\dev\\source\\ms14\\files\\db\\pp\\migracion\\cuentas_contables - copia.csv";
+		String filePath = "D:\\dev\\entradas\\cuentas_contables - copia.csv";
 
 		// -------------------------------------------------------------------
 
@@ -437,7 +529,7 @@ public class Populate extends UtilPopulate {
 			// ------------------------------------
 
 			for (CuentaContableEstado cuentaContableEstado : itemsCuentaContableEstado) {
-				if (cuentaContableEstado.getNumero().equals(Integer.valueOf(fields[7].trim()) + 1)) {
+				if (cuentaContableEstado.getNumero().equals(Integer.valueOf(fields[7].trim()))) {
 					cuentaContable.setCuentaContableEstado(cuentaContableEstado); // 7
 					break;
 				}

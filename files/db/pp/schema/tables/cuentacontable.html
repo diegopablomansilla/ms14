@@ -101,7 +101,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 </tr>
 </thead>
 <tbody valign='top'>
-<tr class='odd'>
+<tr class='even'>
  <td class='primaryKey' title='Primary Key'>id</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>36</td>
@@ -110,7 +110,13 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='detail' align='right'>uuid_generate_v4()</td>
  <td class='detail'>
   <table border='0' width='100%' cellspacing='0' cellpadding='0'>
-   <tr class='relative odd' valign='top'>
+   <tr class='relative even' valign='top'>
+    <td class='relatedTable detail' title="asientocontableitem.cuentacontable refs cuentacontable.id via asientocontableitem_cuentacontable_fkey"><a href='asientocontableitem.html'>asientocontableitem</a><span class='relatedKey'>.cuentacontable</span>
+    </td>
+    <td class='constraint detail'>asientocontableitem_cuentacontable_fkey<span title='Restrict delete:
+ Parent cannot be deleted if children exist'>&nbsp;R</span></td>
+   </tr>
+   <tr class='relative even' valign='top'>
     <td class='relatedTable detail' title="asientomodeloitem.cuentacontable refs cuentacontable.id via asientomodeloitem_cuentacontable_fkey"><a href='asientomodeloitem.html'>asientomodeloitem</a><span class='relatedKey'>.cuentacontable</span>
     </td>
     <td class='constraint detail'>asientomodeloitem_cuentacontable_fkey<span title='Restrict delete:
@@ -121,7 +127,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>codigo</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>11</td>
@@ -132,7 +138,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>nombre</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>50</td>
@@ -143,7 +149,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='indexedColumn' title='Indexed'>ejerciciocontable</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>36</td>
@@ -153,7 +159,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='detail'></td>
  <td class='detail'>
   <table border='0' width='100%' cellspacing='0' cellpadding='0'>
-   <tr class='relative even' valign='top'>
+   <tr class='relative odd' valign='top'>
     <td class='relatedTable detail' title="cuentacontable.ejerciciocontable refs ejerciciocontable.id via cuentacontable_ejerciciocontable_fkey"><a href='ejerciciocontable.html'>ejerciciocontable</a><span class='relatedKey'>.id</span>
     </td>
     <td class='constraint detail'>cuentacontable_ejerciciocontable_fkey<span title='Restrict delete:
@@ -163,7 +169,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='indexedColumn' title='Indexed'>integra</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>11</td>
@@ -174,7 +180,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='indexedColumn' title='Indexed'>cuentajerarquia</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>11</td>
@@ -185,7 +191,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>imputable</td>
  <td class='detail'>bool</td>
  <td class='detail' align='right'>1</td>
@@ -196,7 +202,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>ajustaporinflacion</td>
  <td class='detail'>bool</td>
  <td class='detail' align='right'>1</td>
@@ -207,7 +213,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>cuentacontableestado</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>36</td>
@@ -217,7 +223,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='detail'></td>
  <td class='detail'>
   <table border='0' width='100%' cellspacing='0' cellpadding='0'>
-   <tr class='relative odd' valign='top'>
+   <tr class='relative even' valign='top'>
     <td class='relatedTable detail' title="cuentacontable.cuentacontableestado refs cuentacontableestado.id via cuentacontable_cuentacontableestado_fkey"><a href='cuentacontableestado.html'>cuentacontableestado</a><span class='relatedKey'>.id</span>
     </td>
     <td class='constraint detail'>cuentacontable_cuentacontableestado_fkey<span title='Restrict delete:
@@ -227,7 +233,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>cuentaconapropiacion</td>
  <td class='detail'>bool</td>
  <td class='detail' align='right'>1</td>
@@ -238,7 +244,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>centrocostocontable</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>36</td>
@@ -248,7 +254,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='detail'></td>
  <td class='detail'>
   <table border='0' width='100%' cellspacing='0' cellpadding='0'>
-   <tr class='relative odd' valign='top'>
+   <tr class='relative even' valign='top'>
     <td class='relatedTable detail' title="cuentacontable.centrocostocontable refs centrocostocontable.id via cuentacontable_centrocostocontable_fkey"><a href='centrocostocontable.html'>centrocostocontable</a><span class='relatedKey'>.id</span>
     </td>
     <td class='constraint detail'>cuentacontable_centrocostocontable_fkey<span title='Restrict delete:
@@ -258,7 +264,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>cuentaagrupadora</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>50</td>
@@ -269,7 +275,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>porcentaje</td>
  <td class='detail'>float8</td>
  <td class='detail' align='right'>17,17</td>
@@ -280,7 +286,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>puntoequilibrio</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>36</td>
@@ -290,7 +296,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='detail'></td>
  <td class='detail'>
   <table border='0' width='100%' cellspacing='0' cellpadding='0'>
-   <tr class='relative even' valign='top'>
+   <tr class='relative odd' valign='top'>
     <td class='relatedTable detail' title="cuentacontable.puntoequilibrio refs puntoequilibrio.id via cuentacontable_puntoequilibrio_fkey"><a href='puntoequilibrio.html'>puntoequilibrio</a><span class='relatedKey'>.id</span>
     </td>
     <td class='constraint detail'>cuentacontable_puntoequilibrio_fkey<span title='Restrict delete:
@@ -300,7 +306,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>costoventa</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>36</td>
@@ -310,7 +316,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='detail'></td>
  <td class='detail'>
   <table border='0' width='100%' cellspacing='0' cellpadding='0'>
-   <tr class='relative odd' valign='top'>
+   <tr class='relative even' valign='top'>
     <td class='relatedTable detail' title="cuentacontable.costoventa refs costoventa.id via cuentacontable_costoventa_fkey"><a href='costoventa.html'>costoventa</a><span class='relatedKey'>.id</span>
     </td>
     <td class='constraint detail'>cuentacontable_costoventa_fkey<span title='Restrict delete:
@@ -320,7 +326,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>seguridadpuerta</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>36</td>
@@ -330,7 +336,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='detail'></td>
  <td class='detail'>
   <table border='0' width='100%' cellspacing='0' cellpadding='0'>
-   <tr class='relative even' valign='top'>
+   <tr class='relative odd' valign='top'>
     <td class='relatedTable detail' title="cuentacontable.seguridadpuerta refs seguridadpuerta.id via cuentacontable_seguridadpuerta_fkey"><a href='seguridadpuerta.html'>seguridadpuerta</a><span class='relatedKey'>.id</span>
     </td>
     <td class='constraint detail'>cuentacontable_seguridadpuerta_fkey<span title='Restrict delete:
@@ -341,7 +347,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='comment detail'></td>
 </tr>
 </table>
-<p title='16 columns'>Table contained 11.360 rows at jue oct 10 21:19 ART 2019<p/>
+<p title='16 columns'>Table contained 11.360 rows at vie oct 11 17:09 ART 2019<p/>
 </td></tr></table>
 <div class='indent'>
 <b>Indexes:</b>
@@ -385,28 +391,31 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 <br><form action='get'><b>Close relationships</b><span class='degrees' id='degrees' title='Detail diminishes with increased separation from cuentacontable'>
 &nbsp;within <label for='oneDegree'><input type='radio' name='degrees' id='oneDegree' checked>one</label>  <label for='twoDegrees'><input type='radio' name='degrees' id='twoDegrees'>two degrees</label> of separation</span><b>:</b></form>
 <map id="oneDegreeRelationshipsDiagram" name="oneDegreeRelationshipsDiagram">
-<area shape="rect" href="asientomodeloitem.html" title="asientomodeloitem" alt="" coords="732,8,886,154" >
-<area shape="rect" href="cuentacontable.html" title="cuentacontable" alt="" coords="413,73,688,497" >
-<area shape="rect" href="centrocostocontable.html" title="centrocostocontable" alt="" coords="200,241,362,412" >
-<area shape="rect" href="ejerciciocontable.html" title="ejerciciocontable" alt="" coords="8,332,149,548" >
-<area shape="rect" href="costoventa.html" title="costoventa" alt="" coords="220,617,342,742" >
-<area shape="rect" href="cuentacontableestado.html" title="cuentacontableestado" alt="" coords="193,98,369,224" >
-<area shape="rect" href="puntoequilibrio.html" title="puntoequilibrio" alt="" coords="200,429,362,600" >
-<area shape="rect" href="seguridadpuerta.html" title="seguridadpuerta" alt="" coords="206,760,356,930" >
+<area shape="rect" href="asientocontableitem.html" title="asientocontableitem" alt="" coords="732,7,894,245" >
+<area shape="rect" href="cuentacontable.html" title="cuentacontable" alt="" coords="413,222,688,646" >
+<area shape="rect" href="centrocostocontable.html" title="centrocostocontable" alt="" coords="200,390,362,561" >
+<area shape="rect" href="ejerciciocontable.html" title="ejerciciocontable" alt="" coords="8,481,149,697" >
+<area shape="rect" href="costoventa.html" title="costoventa" alt="" coords="220,766,342,891" >
+<area shape="rect" href="cuentacontableestado.html" title="cuentacontableestado" alt="" coords="193,247,369,373" >
+<area shape="rect" href="puntoequilibrio.html" title="puntoequilibrio" alt="" coords="200,578,362,749" >
+<area shape="rect" href="seguridadpuerta.html" title="seguridadpuerta" alt="" coords="206,909,356,1079" >
+<area shape="rect" href="asientomodeloitem.html" title="asientomodeloitem" alt="" coords="736,262,890,409" >
 </map>
   <a name='diagram'><img id='oneDegreeImg' src='../diagrams/cuentacontable.1degree.png' usemap='#oneDegreeRelationshipsDiagram' class='diagram' border='0' alt='' align='left'></a>
 <map id="twoDegreesRelationshipsDiagram" name="twoDegreesRelationshipsDiagram">
-<area shape="rect" href="asientomodelo.html" title="asientomodelo" alt="" coords="494,13,627,93" >
-<area shape="rect" href="ejerciciocontable.html" title="ejerciciocontable" alt="" coords="13,170,154,386" >
-<area shape="rect" href="asientomodeloitem.html" title="asientomodeloitem" alt="" coords="742,8,897,154" >
-<area shape="rect" href="cuentacontable.html" title="cuentacontable" alt="" coords="423,110,698,534" >
-<area shape="rect" href="centrocostocontable.html" title="centrocostocontable" alt="" coords="210,269,373,440" >
-<area shape="rect" href="costoventa.html" title="costoventa" alt="" coords="230,645,353,770" >
-<area shape="rect" href="cuentacontableestado.html" title="cuentacontableestado" alt="" coords="203,126,379,252" >
-<area shape="rect" href="puntoequilibrio.html" title="puntoequilibrio" alt="" coords="210,457,373,628" >
-<area shape="rect" href="seguridadpuerta.html" title="seguridadpuerta" alt="" coords="217,788,366,958" >
-<area shape="rect" href="tipopuntoequilibrio.html" title="tipopuntoequilibrio" alt="" coords="7,525,159,605" >
-<area shape="rect" href="seguridadmodulo.html" title="seguridadmodulo" alt="" coords="11,878,155,958" >
+<area shape="rect" href="asientocontable.html" title="asientocontable" alt="" coords="493,101,629,181" >
+<area shape="rect" href="ejerciciocontable.html" title="ejerciciocontable" alt="" coords="13,226,154,442" >
+<area shape="rect" href="asientocontableitem.html" title="asientocontableitem" alt="" coords="742,7,905,245" >
+<area shape="rect" href="cuentacontable.html" title="cuentacontable" alt="" coords="423,322,698,746" >
+<area shape="rect" href="centrocostocontable.html" title="centrocostocontable" alt="" coords="210,446,373,617" >
+<area shape="rect" href="costoventa.html" title="costoventa" alt="" coords="230,822,353,947" >
+<area shape="rect" href="cuentacontableestado.html" title="cuentacontableestado" alt="" coords="203,303,379,429" >
+<area shape="rect" href="puntoequilibrio.html" title="puntoequilibrio" alt="" coords="210,634,373,805" >
+<area shape="rect" href="seguridadpuerta.html" title="seguridadpuerta" alt="" coords="217,965,366,1135" >
+<area shape="rect" href="asientomodelo.html" title="asientomodelo" alt="" coords="494,207,627,287" >
+<area shape="rect" href="asientomodeloitem.html" title="asientomodeloitem" alt="" coords="746,262,901,409" >
+<area shape="rect" href="tipopuntoequilibrio.html" title="tipopuntoequilibrio" alt="" coords="7,702,159,782" >
+<area shape="rect" href="seguridadmodulo.html" title="seguridadmodulo" alt="" coords="11,1055,155,1135" >
 </map>
 
   <a name='diagram'><img id='twoDegreesImg' src='../diagrams/cuentacontable.2degrees.png' usemap='#twoDegreesRelationshipsDiagram' class='diagram' border='0' alt='' align='left'></a>
