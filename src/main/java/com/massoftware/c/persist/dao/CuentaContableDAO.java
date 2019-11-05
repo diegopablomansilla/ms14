@@ -3,6 +3,7 @@ package com.massoftware.c.persist.dao;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import com.massoftware.a.model.*;
 import com.massoftware.b.service.CuentaContableFilterQ1;
@@ -26,14 +27,18 @@ public class CuentaContableDAO extends AbstractDAO {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
-	public Long count(ConnectionWrapper connection, CuentaContableFilterQ1 filter)
+	public Integer count(ConnectionWrapper connection, CuentaContableFilterQ1 filter)
 			throws SelectException, SQLException {
+			
+		Objects.requireNonNull(connection, "connection is null!!");
+		Objects.requireNonNull(filter, "filter is null!!");	
 
 		Statement statement = new Statement();
 
 		String sql = this.sourceSQL.get("CuentaContable_q1");
 
-		List<String> sqlWhereArgs = new ArrayList<String>();		
+		List<String> sqlWhereArgs = new ArrayList<String>();
+		addArgEQ(statement, sqlWhereArgs, "id", filter.getId());		
 		
 		addArgLIKE(statement, sqlWhereArgs, "codigo", filter.getCodigo());
 		addArgLIKE(statement, sqlWhereArgs, "nombre", filter.getNombre());
@@ -52,7 +57,7 @@ public class CuentaContableDAO extends AbstractDAO {
 		addArgEQ(statement, sqlWhereArgs, "costoVenta", (filter.getCostoVenta() != null) ? filter.getCostoVenta().getId() : null);
 		addArgEQ(statement, sqlWhereArgs, "seguridadPuerta", (filter.getSeguridadPuerta() != null) ? filter.getSeguridadPuerta().getId() : null);
 
-		sql = "SELECT\tCOUNT(*)\nFROM" + sql.split("FROM")[1];
+		sql = "SELECT\tCOUNT(*)::INTEGER\nFROM" + sql.split("FROM")[1];
 		
 		sql = sql.replace("${WHERE}", buildWhereSQL(sqlWhereArgs)).trim();
 
@@ -64,17 +69,21 @@ public class CuentaContableDAO extends AbstractDAO {
 
 		Result r = connection.query(statement);		
 		
-		return (Long) r.getTable()[0][0];
+		return (Integer) r.getTable()[0][0];
 	}
 	
 	public List<CuentaContable> find(ConnectionWrapper connection, CuentaContableFilterQ1 filter)
 			throws SelectException, SQLException {
+			
+		Objects.requireNonNull(connection, "connection is null!!");
+		Objects.requireNonNull(filter, "filter is null!!");		
 
 		Statement statement = new Statement();
 
 		String sql = this.sourceSQL.get("CuentaContable_q1");
 
 		List<String> sqlWhereArgs = new ArrayList<String>();
+		addArgEQ(statement, sqlWhereArgs, "id", filter.getId());	
 		
 		addArgLIKE(statement, sqlWhereArgs, "codigo", filter.getCodigo());
 		addArgLIKE(statement, sqlWhereArgs, "nombre", filter.getNombre());
@@ -109,6 +118,7 @@ public class CuentaContableDAO extends AbstractDAO {
 	}
 
 	private List<CuentaContable> buildObjsQ1(Result r) {
+		
 		List<CuentaContable> items = new ArrayList<CuentaContable>();
 
 		if (r.getRowCount() == 0) {
@@ -173,6 +183,8 @@ public class CuentaContableDAO extends AbstractDAO {
 				objRow.setSeguridadPuerta(objRowSeguridadPuerta);
 			}
 			
+			
+			items.add(objRow);
 		}
 
 		return items;

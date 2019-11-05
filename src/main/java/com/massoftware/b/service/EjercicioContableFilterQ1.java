@@ -31,7 +31,7 @@ public class EjercicioContableFilterQ1 extends GenericFilter {
 	// GET Cerrado
 	private Boolean cerrado;		
 	
-	// GET Cerrado módulos
+	// GET Módulos cerrados
 	private Boolean cerradoModulos;		
 	
 	// GET Comentario
@@ -110,12 +110,12 @@ public class EjercicioContableFilterQ1 extends GenericFilter {
 		this.cerrado = cerrado;
 	}
 	
-	// GET Cerrado módulos
+	// GET Módulos cerrados
 	public Boolean getCerradoModulos() {
 		return this.cerradoModulos;
 	}
 		
-	// SET  Cerrado módulos
+	// SET  Módulos cerrados
 	public void setCerradoModulos(Boolean cerradoModulos ){		
 		this.cerradoModulos = cerradoModulos;
 	}
@@ -318,6 +318,8 @@ public class EjercicioContableFilterQ1 extends GenericFilter {
 
 		EjercicioContableFilterQ1 other = new EjercicioContableFilterQ1();
 
+		other.setId(this.getId());
+		other.setFts(this.getFts());
 		other.setOffset(this.getOffset());
 		other.setLimit(this.getLimit());
 		other.setOrderBy(this.getOrderBy());

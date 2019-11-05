@@ -3,6 +3,7 @@ package com.massoftware.c.persist.dao;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import com.massoftware.a.model.*;
 import com.massoftware.b.service.CentroCostoContableFilterQ1;
@@ -26,14 +27,18 @@ public class CentroCostoContableDAO extends AbstractDAO {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
-	public Long count(ConnectionWrapper connection, CentroCostoContableFilterQ1 filter)
+	public Integer count(ConnectionWrapper connection, CentroCostoContableFilterQ1 filter)
 			throws SelectException, SQLException {
+			
+		Objects.requireNonNull(connection, "connection is null!!");
+		Objects.requireNonNull(filter, "filter is null!!");	
 
 		Statement statement = new Statement();
 
 		String sql = this.sourceSQL.get("CentroCostoContable_q1");
 
-		List<String> sqlWhereArgs = new ArrayList<String>();		
+		List<String> sqlWhereArgs = new ArrayList<String>();
+		addArgEQ(statement, sqlWhereArgs, "id", filter.getId());		
 		
 		addArgGE(statement, sqlWhereArgs, "numero", filter.getNumeroFrom());
 		addArgLE(statement, sqlWhereArgs, "numero", filter.getNumeroTo());
@@ -41,7 +46,7 @@ public class CentroCostoContableDAO extends AbstractDAO {
 		addArgLIKE(statement, sqlWhereArgs, "abreviatura", filter.getAbreviatura());
 		addArgEQ(statement, sqlWhereArgs, "ejercicioContable", (filter.getEjercicioContable() != null) ? filter.getEjercicioContable().getId() : null);
 
-		sql = "SELECT\tCOUNT(*)\nFROM" + sql.split("FROM")[1];
+		sql = "SELECT\tCOUNT(*)::INTEGER\nFROM" + sql.split("FROM")[1];
 		
 		sql = sql.replace("${WHERE}", buildWhereSQL(sqlWhereArgs)).trim();
 
@@ -53,17 +58,21 @@ public class CentroCostoContableDAO extends AbstractDAO {
 
 		Result r = connection.query(statement);		
 		
-		return (Long) r.getTable()[0][0];
+		return (Integer) r.getTable()[0][0];
 	}
 	
 	public List<CentroCostoContable> find(ConnectionWrapper connection, CentroCostoContableFilterQ1 filter)
 			throws SelectException, SQLException {
+			
+		Objects.requireNonNull(connection, "connection is null!!");
+		Objects.requireNonNull(filter, "filter is null!!");		
 
 		Statement statement = new Statement();
 
 		String sql = this.sourceSQL.get("CentroCostoContable_q1");
 
 		List<String> sqlWhereArgs = new ArrayList<String>();
+		addArgEQ(statement, sqlWhereArgs, "id", filter.getId());	
 		
 		addArgGE(statement, sqlWhereArgs, "numero", filter.getNumeroFrom());
 		addArgLE(statement, sqlWhereArgs, "numero", filter.getNumeroTo());
@@ -87,6 +96,7 @@ public class CentroCostoContableDAO extends AbstractDAO {
 	}
 
 	private List<CentroCostoContable> buildObjsQ1(Result r) {
+		
 		List<CentroCostoContable> items = new ArrayList<CentroCostoContable>();
 
 		if (r.getRowCount() == 0) {
@@ -110,6 +120,8 @@ public class CentroCostoContableDAO extends AbstractDAO {
 				objRow.setEjercicioContable(objRowEjercicioContable);
 			}
 			
+			
+			items.add(objRow);
 		}
 
 		return items;

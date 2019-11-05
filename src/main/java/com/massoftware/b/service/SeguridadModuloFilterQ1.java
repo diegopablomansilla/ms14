@@ -131,6 +131,8 @@ public class SeguridadModuloFilterQ1 extends GenericFilter {
 
 		SeguridadModuloFilterQ1 other = new SeguridadModuloFilterQ1();
 
+		other.setId(this.getId());
+		other.setFts(this.getFts());
 		other.setOffset(this.getOffset());
 		other.setLimit(this.getLimit());
 		other.setOrderBy(this.getOrderBy());

@@ -1,4 +1,4 @@
-SELECT	AsientoModelo.id AS id_0
+SELECT	AsientoModelo_0.id AS id_0
 		
 	, AsientoModelo_0.numero AS numero_1
 	, AsientoModelo_0.nombre AS nombre_2

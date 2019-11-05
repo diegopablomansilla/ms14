@@ -61,7 +61,7 @@ class StmBuilderDelete extends AbstractStmBuilder {
 	}
 
 	@SuppressWarnings("rawtypes")
-	public Statement build(Class mappingClass, String schema) throws Exception {
+	public Statement build(Class mappingClass, String schema)  {
 
 		if (mappingClass == null) {
 			throw new IllegalArgumentException("DELETE: Se esperaba una objeto Class (para el mapeo) no nulo.");

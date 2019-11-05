@@ -195,6 +195,8 @@ public class PuntoEquilibrioFilterQ1 extends GenericFilter {
 
 		PuntoEquilibrioFilterQ1 other = new PuntoEquilibrioFilterQ1();
 
+		other.setId(this.getId());
+		other.setFts(this.getFts());
 		other.setOffset(this.getOffset());
 		other.setLimit(this.getLimit());
 		other.setOrderBy(this.getOrderBy());

@@ -1,4 +1,4 @@
-SELECT	SeguridadPuerta.id AS id_0
+SELECT	SeguridadPuerta_0.id AS id_0
 		
 	, SeguridadPuerta_0.numero AS numero_1
 	, SeguridadPuerta_0.nombre AS nombre_2

@@ -22,6 +22,8 @@ public interface ConnectionWrapper {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+//	public boolean isBeginTransaction() throws SQLException;
+	
 	public void beginTransaction() throws BeginException;
 
 	public void commitTransaction() throws CommitException/* , CloseException */;

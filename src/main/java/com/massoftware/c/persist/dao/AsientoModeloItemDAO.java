@@ -3,6 +3,7 @@ package com.massoftware.c.persist.dao;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import com.massoftware.a.model.*;
 import com.massoftware.b.service.AsientoModeloItemFilterQ1;
@@ -26,21 +27,25 @@ public class AsientoModeloItemDAO extends AbstractDAO {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
-	public Long count(ConnectionWrapper connection, AsientoModeloItemFilterQ1 filter)
+	public Integer count(ConnectionWrapper connection, AsientoModeloItemFilterQ1 filter)
 			throws SelectException, SQLException {
+			
+		Objects.requireNonNull(connection, "connection is null!!");
+		Objects.requireNonNull(filter, "filter is null!!");	
 
 		Statement statement = new Statement();
 
 		String sql = this.sourceSQL.get("AsientoModeloItem_q1");
 
-		List<String> sqlWhereArgs = new ArrayList<String>();		
+		List<String> sqlWhereArgs = new ArrayList<String>();
+		addArgEQ(statement, sqlWhereArgs, "id", filter.getId());		
 		
 		addArgGE(statement, sqlWhereArgs, "numero", filter.getNumeroFrom());
 		addArgLE(statement, sqlWhereArgs, "numero", filter.getNumeroTo());
 		addArgEQ(statement, sqlWhereArgs, "asientoModelo", (filter.getAsientoModelo() != null) ? filter.getAsientoModelo().getId() : null);
 		addArgEQ(statement, sqlWhereArgs, "cuentaContable", (filter.getCuentaContable() != null) ? filter.getCuentaContable().getId() : null);
 
-		sql = "SELECT\tCOUNT(*)\nFROM" + sql.split("FROM")[1];
+		sql = "SELECT\tCOUNT(*)::INTEGER\nFROM" + sql.split("FROM")[1];
 		
 		sql = sql.replace("${WHERE}", buildWhereSQL(sqlWhereArgs)).trim();
 
@@ -52,17 +57,21 @@ public class AsientoModeloItemDAO extends AbstractDAO {
 
 		Result r = connection.query(statement);		
 		
-		return (Long) r.getTable()[0][0];
+		return (Integer) r.getTable()[0][0];
 	}
 	
 	public List<AsientoModeloItem> find(ConnectionWrapper connection, AsientoModeloItemFilterQ1 filter)
 			throws SelectException, SQLException {
+			
+		Objects.requireNonNull(connection, "connection is null!!");
+		Objects.requireNonNull(filter, "filter is null!!");		
 
 		Statement statement = new Statement();
 
 		String sql = this.sourceSQL.get("AsientoModeloItem_q1");
 
 		List<String> sqlWhereArgs = new ArrayList<String>();
+		addArgEQ(statement, sqlWhereArgs, "id", filter.getId());	
 		
 		addArgGE(statement, sqlWhereArgs, "numero", filter.getNumeroFrom());
 		addArgLE(statement, sqlWhereArgs, "numero", filter.getNumeroTo());
@@ -85,6 +94,7 @@ public class AsientoModeloItemDAO extends AbstractDAO {
 	}
 
 	private List<AsientoModeloItem> buildObjsQ1(Result r) {
+		
 		List<AsientoModeloItem> items = new ArrayList<AsientoModeloItem>();
 
 		if (r.getRowCount() == 0) {
@@ -113,6 +123,8 @@ public class AsientoModeloItemDAO extends AbstractDAO {
 				objRow.setCuentaContable(objRowCuentaContable);
 			}
 			
+			
+			items.add(objRow);
 		}
 
 		return items;

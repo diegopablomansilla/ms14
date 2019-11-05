@@ -131,6 +131,8 @@ public class MinutaContableFilterQ1 extends GenericFilter {
 
 		MinutaContableFilterQ1 other = new MinutaContableFilterQ1();
 
+		other.setId(this.getId());
+		other.setFts(this.getFts());
 		other.setOffset(this.getOffset());
 		other.setLimit(this.getLimit());
 		other.setOrderBy(this.getOrderBy());

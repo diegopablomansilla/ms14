@@ -131,6 +131,8 @@ public class AsientoContableModuloFilterQ1 extends GenericFilter {
 
 		AsientoContableModuloFilterQ1 other = new AsientoContableModuloFilterQ1();
 
+		other.setId(this.getId());
+		other.setFts(this.getFts());
 		other.setOffset(this.getOffset());
 		other.setLimit(this.getLimit());
 		other.setOrderBy(this.getOrderBy());

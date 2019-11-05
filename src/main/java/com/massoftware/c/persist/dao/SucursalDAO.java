@@ -3,6 +3,7 @@ package com.massoftware.c.persist.dao;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import com.massoftware.a.model.*;
 import com.massoftware.b.service.SucursalFilterQ1;
@@ -26,14 +27,18 @@ public class SucursalDAO extends AbstractDAO {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
-	public Long count(ConnectionWrapper connection, SucursalFilterQ1 filter)
+	public Integer count(ConnectionWrapper connection, SucursalFilterQ1 filter)
 			throws SelectException, SQLException {
+			
+		Objects.requireNonNull(connection, "connection is null!!");
+		Objects.requireNonNull(filter, "filter is null!!");	
 
 		Statement statement = new Statement();
 
 		String sql = this.sourceSQL.get("Sucursal_q1");
 
-		List<String> sqlWhereArgs = new ArrayList<String>();		
+		List<String> sqlWhereArgs = new ArrayList<String>();
+		addArgEQ(statement, sqlWhereArgs, "id", filter.getId());		
 		
 		addArgGE(statement, sqlWhereArgs, "numero", filter.getNumeroFrom());
 		addArgLE(statement, sqlWhereArgs, "numero", filter.getNumeroTo());
@@ -61,7 +66,7 @@ public class SucursalDAO extends AbstractDAO {
 		addArgGE(statement, sqlWhereArgs, "numeroCobranzaHasta", filter.getNumeroCobranzaHastaFrom());
 		addArgLE(statement, sqlWhereArgs, "numeroCobranzaHasta", filter.getNumeroCobranzaHastaTo());
 
-		sql = "SELECT\tCOUNT(*)\nFROM" + sql.split("FROM")[1];
+		sql = "SELECT\tCOUNT(*)::INTEGER\nFROM" + sql.split("FROM")[1];
 		
 		sql = sql.replace("${WHERE}", buildWhereSQL(sqlWhereArgs)).trim();
 
@@ -73,17 +78,21 @@ public class SucursalDAO extends AbstractDAO {
 
 		Result r = connection.query(statement);		
 		
-		return (Long) r.getTable()[0][0];
+		return (Integer) r.getTable()[0][0];
 	}
 	
 	public List<Sucursal> find(ConnectionWrapper connection, SucursalFilterQ1 filter)
 			throws SelectException, SQLException {
+			
+		Objects.requireNonNull(connection, "connection is null!!");
+		Objects.requireNonNull(filter, "filter is null!!");		
 
 		Statement statement = new Statement();
 
 		String sql = this.sourceSQL.get("Sucursal_q1");
 
 		List<String> sqlWhereArgs = new ArrayList<String>();
+		addArgEQ(statement, sqlWhereArgs, "id", filter.getId());	
 		
 		addArgGE(statement, sqlWhereArgs, "numero", filter.getNumeroFrom());
 		addArgLE(statement, sqlWhereArgs, "numero", filter.getNumeroTo());
@@ -127,6 +136,7 @@ public class SucursalDAO extends AbstractDAO {
 	}
 
 	private List<Sucursal> buildObjsQ1(Result r) {
+		
 		List<Sucursal> items = new ArrayList<Sucursal>();
 
 		if (r.getRowCount() == 0) {
@@ -164,6 +174,8 @@ public class SucursalDAO extends AbstractDAO {
 			objRow.setClientesOcacionalesHasta((Integer) row[++c]);
 			objRow.setNumeroCobranzaDesde((Integer) row[++c]);
 			objRow.setNumeroCobranzaHasta((Integer) row[++c]);
+			
+			items.add(objRow);
 		}
 
 		return items;

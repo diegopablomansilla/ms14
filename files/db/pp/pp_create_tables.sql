@@ -430,7 +430,7 @@ CREATE TABLE massoftware.EjercicioContable
 	-- Cerrado
 	cerrado BOOLEAN NOT NULL, 
 	
-	-- Cerrado módulos
+	-- Módulos cerrados
 	cerradoModulos BOOLEAN NOT NULL, 
 	
 	-- Comentario
@@ -1385,3 +1385,85 @@ CREATE TRIGGER tgFormatAsientoContableItem BEFORE INSERT OR UPDATE
 -- SELECT * FROM massoftware.AsientoContableItem;
 
 -- SELECT * FROM massoftware.AsientoContableItem WHERE id = 'xxx';
+
+-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-- //                                                                                                                        //
+-- //          TABLA: Empresa                                                                                                //
+-- //                                                                                                                        //
+-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+-- Table: massoftware.Empresa
+
+-- ---------------------------------------------------------------------------------------------------------------------------
+
+
+DROP TABLE IF EXISTS massoftware.Empresa CASCADE;
+
+CREATE TABLE massoftware.Empresa
+(
+	id VARCHAR(36) PRIMARY KEY DEFAULT uuid_generate_v4(),
+	
+	-- Ejercicio
+	ejercicioContable VARCHAR(36)  NOT NULL  REFERENCES massoftware.EjercicioContable (id), 
+	
+	-- Fecha cierre ventas
+	fechaCierreVentas DATE, 
+	
+	-- Fecha cierre stock
+	fechaCierreStock DATE, 
+	
+	-- Fecha cierre fondo
+	fechaCierreFondo DATE, 
+	
+	-- Fecha cierre compras
+	fechaCierreCompras DATE, 
+	
+	-- Fecha cierre contabilidad
+	fechaCierreContabilidad DATE, 
+	
+	-- Fecha cierre garantia y devoluciones
+	fechaCierreGarantiaDevoluciones DATE, 
+	
+	-- Fecha cierre tambos
+	fechaCierreTambos DATE, 
+	
+	-- Fecha cierre RRHH
+	fechaCierreRRHH DATE
+);
+
+-- ---------------------------------------------------------------------------------------------------------------------------
+
+
+-- ---------------------------------------------------------------------------------------------------------------------------
+
+DROP FUNCTION IF EXISTS massoftware.ftgFormatEmpresa() CASCADE;
+
+CREATE OR REPLACE FUNCTION massoftware.ftgFormatEmpresa() RETURNS TRIGGER AS $formatEmpresa$
+DECLARE
+BEGIN
+	 NEW.id := massoftware.white_is_null(NEW.id);
+	 NEW.ejercicioContable := massoftware.white_is_null(NEW.ejercicioContable);
+
+	RETURN NEW;
+END;
+$formatEmpresa$ LANGUAGE plpgsql;
+
+-- ---------------------------------------------------------------------------------------------------------------------------
+
+DROP TRIGGER IF EXISTS tgFormatEmpresa ON massoftware.Empresa CASCADE;
+
+CREATE TRIGGER tgFormatEmpresa BEFORE INSERT OR UPDATE
+	ON massoftware.Empresa FOR EACH ROW
+	EXECUTE PROCEDURE massoftware.ftgFormatEmpresa();
+
+-- ---------------------------------------------------------------------------------------------------------------------------
+
+
+-- SELECT COUNT(*) FROM massoftware.Empresa;
+
+-- SELECT * FROM massoftware.Empresa LIMIT 100 OFFSET 0;
+
+-- SELECT * FROM massoftware.Empresa;
+
+-- SELECT * FROM massoftware.Empresa WHERE id = 'xxx';

@@ -131,6 +131,8 @@ public class TipoPuntoEquilibrioFilterQ1 extends GenericFilter {
 
 		TipoPuntoEquilibrioFilterQ1 other = new TipoPuntoEquilibrioFilterQ1();
 
+		other.setId(this.getId());
+		other.setFts(this.getFts());
 		other.setOffset(this.getOffset());
 		other.setLimit(this.getLimit());
 		other.setOrderBy(this.getOrderBy());

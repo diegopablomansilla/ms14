@@ -15,6 +15,7 @@ import com.massoftware.a.model.CostoVenta;
 import com.massoftware.a.model.CuentaContable;
 import com.massoftware.a.model.CuentaContableEstado;
 import com.massoftware.a.model.EjercicioContable;
+import com.massoftware.a.model.Empresa;
 import com.massoftware.a.model.MinutaContable;
 import com.massoftware.a.model.PuntoEquilibrio;
 import com.massoftware.a.model.SeguridadModulo;
@@ -26,6 +27,7 @@ import com.massoftware.b.service.CostoVentaFilterQ1;
 import com.massoftware.b.service.CuentaContableEstadoFilterQ1;
 import com.massoftware.b.service.CuentaContableFilterQ1;
 import com.massoftware.b.service.EjercicioContableFilterQ1;
+import com.massoftware.b.service.EmpresaFilterQ1;
 import com.massoftware.b.service.MinutaContableFilterQ1;
 import com.massoftware.b.service.PuntoEquilibrioFilterQ1;
 import com.massoftware.b.service.SeguridadModuloFilterQ1;
@@ -46,6 +48,7 @@ public class Populate extends UtilPopulate {
 	private static List<TipoPuntoEquilibrio> itemsTipoPuntoEquilibrio;
 	private static List<CostoVenta> itemsCostoVenta;
 	private static List<CuentaContableEstado> itemsCuentaContableEstado;
+	private static Empresa empresa;
 	private static List<CentroCostoContable> itemsCentroCostoContable;
 	private static List<PuntoEquilibrio> itemsPuntoEquilibrio;
 	private static List<CuentaContable> itemsCuentaContable;
@@ -156,6 +159,7 @@ public class Populate extends UtilPopulate {
 			System.out.println("CostoVenta = " + dataBase.count(new CostoVentaFilterQ1()));
 			System.out.println("CuentaContableEstado = " + dataBase.count(new CuentaContableEstadoFilterQ1()));
 			System.out.println("EjercicioContable = " + dataBase.count(new EjercicioContableFilterQ1()));
+			System.out.println("Empresa = " + dataBase.count(new EmpresaFilterQ1()));
 			System.out.println("CentroCostoContable = " + dataBase.count(new CentroCostoContableFilterQ1()));
 			System.out.println("PuntoEquilibrio = " + dataBase.count(new PuntoEquilibrioFilterQ1()));
 			System.out.println("CuentaContable = " + dataBase.count(new CuentaContableFilterQ1()));
@@ -184,6 +188,7 @@ public class Populate extends UtilPopulate {
 			System.out.println("CuentaContableEstado = " + dataBase.count(new CuentaContableEstadoFilterQ1()));
 			System.out.println("CostoVenta = " + dataBase.count(new CostoVentaFilterQ1()));
 			System.out.println("EjercicioContable = " + dataBase.count(new EjercicioContableFilterQ1()));
+			System.out.println("Empresa = " + dataBase.count(new EmpresaFilterQ1()));
 			System.out.println("CentroCostoContable = " + dataBase.count(new CentroCostoContableFilterQ1()));
 			System.out.println("PuntoEquilibrio = " + dataBase.count(new PuntoEquilibrioFilterQ1()));
 			System.out.println("CuentaContable = " + dataBase.count(new CuentaContableFilterQ1()));
@@ -413,10 +418,27 @@ public class Populate extends UtilPopulate {
 
 			dataBase.insertObject(ejercicioContable);
 
+			if (i == 2002) {
+				populateEmpresa(dataBase, ejercicioContable);
+			}
 			populateCentroCostoContable(dataBase, ejercicioContable);
 			populatePuntoEquilibrio(dataBase, ejercicioContable);
 
 			itemsEjercicioContable.add(ejercicioContable);
+
+		}
+
+	}
+
+	private static void populateEmpresa(DataBase dataBase, EjercicioContable ejercicioContable) throws Exception {
+
+		for (int i = 1; i <= 1; i++) {
+
+			empresa = new Empresa();
+
+			empresa.setEjercicioContable(ejercicioContable);
+
+			dataBase.insertObject(empresa);
 
 		}
 

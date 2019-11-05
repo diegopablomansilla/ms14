@@ -1,4 +1,4 @@
-SELECT	TipoPuntoEquilibrio.id AS id_0
+SELECT	TipoPuntoEquilibrio_0.id AS id_0
 		
 	, TipoPuntoEquilibrio_0.numero AS numero_1
 	, TipoPuntoEquilibrio_0.nombre AS nombre_2

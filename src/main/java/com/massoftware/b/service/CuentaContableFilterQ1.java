@@ -188,12 +188,12 @@ public class CuentaContableFilterQ1 extends GenericFilter {
 	
 	// GET Porcentaje to
 	public Double getPorcentajeTo() {
-		return this.porcentajeFrom;
+		return this.porcentajeTo;
 	}
 		
 	// SET  Porcentaje to
-	public void setPorcentajeTo(Double porcentajeFrom ){
-		this.porcentajeFrom = porcentajeFrom;
+	public void setPorcentajeTo(Double porcentajeTo ){
+		this.porcentajeTo = porcentajeTo;
 	}	
 	
 	// GET Punto de equilibrio
@@ -540,6 +540,8 @@ public class CuentaContableFilterQ1 extends GenericFilter {
 
 		CuentaContableFilterQ1 other = new CuentaContableFilterQ1();
 
+		other.setId(this.getId());
+		other.setFts(this.getFts());
 		other.setOffset(this.getOffset());
 		other.setLimit(this.getLimit());
 		other.setOrderBy(this.getOrderBy());

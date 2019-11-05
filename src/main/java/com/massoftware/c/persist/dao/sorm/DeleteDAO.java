@@ -1,8 +1,13 @@
 package com.massoftware.c.persist.dao.sorm;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import com.massoftware.c.persist.dao.ds.ConnectionWrapper;
+import com.massoftware.c.persist.dao.ds.ex.DDLException;
+import com.massoftware.c.persist.dao.ds.ex.DeleteException;
+import com.massoftware.c.persist.dao.ds.ex.InsertException;
+import com.massoftware.c.persist.dao.ds.ex.UpdateException;
 import com.massoftware.c.persist.dao.ds.info.Result;
 import com.massoftware.c.persist.dao.ds.info.Statement;
 
@@ -21,7 +26,8 @@ public class DeleteDAO {
 	// ---------------------------------------------------------------------------------------------------------------------------
 
 	@SuppressWarnings("rawtypes")
-	public boolean deleteAllObjects(ConnectionWrapper connection, Class mappingClass) throws Exception {
+	public boolean deleteAllObjects(ConnectionWrapper connection, Class mappingClass)
+			throws InsertException, UpdateException, DeleteException, DDLException, SQLException {
 		Statement statement = builderStm.build(mappingClass,
 				connection.getConnectionInfo().getDataSourceInfo().getDataSourceProperties().getSchema());
 		connection.delete(statement.getSql());
@@ -29,18 +35,21 @@ public class DeleteDAO {
 		return true;
 	}
 
-	public boolean deleteObject(ConnectionWrapper connection, Identifiable obj) throws Exception {
+	public boolean deleteObject(ConnectionWrapper connection, Identifiable obj)
+			throws InsertException, UpdateException, DeleteException, DDLException, SQLException, Exception {
 		return delete(connection, builderStm.build(obj,
 				connection.getConnectionInfo().getDataSourceInfo().getDataSourceProperties().getSchema()));
 	}
 
 	@SuppressWarnings("rawtypes")
-	public boolean deleteObjectById(ConnectionWrapper connection, String id, Class mappingClass) throws Exception {
+	public boolean deleteObjectById(ConnectionWrapper connection, String id, Class mappingClass)
+			throws InsertException, UpdateException, DeleteException, DDLException, SQLException, Exception {
 		return delete(connection, builderStm.build(id, mappingClass,
 				connection.getConnectionInfo().getDataSourceInfo().getDataSourceProperties().getSchema()));
 	}
 
-	public boolean[] deleteObjects(ConnectionWrapper connection, List<Identifiable> objs) throws Exception {
+	public boolean[] deleteObjects(ConnectionWrapper connection, List<Identifiable> objs)
+			throws InsertException, UpdateException, DeleteException, DDLException, SQLException, Exception {
 
 		if (objs == null) {
 			throw new IllegalArgumentException("DELETE: Se esperaba una lista de objetos no nulo.");
@@ -67,7 +76,7 @@ public class DeleteDAO {
 
 	@SuppressWarnings("rawtypes")
 	public boolean[] deleteObjectsById(ConnectionWrapper connection, List<String> ids, Class mappingClass)
-			throws Exception {
+			throws InsertException, UpdateException, DeleteException, DDLException, SQLException, Exception {
 
 		if (ids == null) {
 			throw new IllegalArgumentException("DELETE: Se esperaba una lista de id's no nulo.");
@@ -94,7 +103,8 @@ public class DeleteDAO {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
-	private boolean delete(ConnectionWrapper connection, Statement statement) throws Exception {
+	private boolean delete(ConnectionWrapper connection, Statement statement)
+			throws InsertException, UpdateException, DeleteException, DDLException, SQLException {
 
 		Result result = connection.delete(statement.getSql(), statement.getArgs());
 

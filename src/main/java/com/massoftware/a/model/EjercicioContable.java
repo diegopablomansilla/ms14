@@ -23,7 +23,7 @@ public class EjercicioContable extends EntityId {
 	// GET Cerrado
 	private Boolean cerrado;		
 	
-	// GET Cerrado módulos
+	// GET Módulos cerrados
 	private Boolean cerradoModulos;		
 	
 	// GET Comentario
@@ -82,12 +82,12 @@ public class EjercicioContable extends EntityId {
 		this.cerrado = (cerrado == null) ? false : cerrado;
 	}
 	
-	// GET Cerrado módulos
+	// GET Módulos cerrados
 	public Boolean getCerradoModulos() {
 		return this.cerradoModulos;
 	}
 		
-	// SET  Cerrado módulos
+	// SET  Módulos cerrados
 	public void setCerradoModulos(Boolean cerradoModulos ){		
 		this.cerradoModulos = (cerradoModulos == null) ? false : cerradoModulos;
 	}

@@ -131,6 +131,8 @@ public class TipoSucursalFilterQ1 extends GenericFilter {
 
 		TipoSucursalFilterQ1 other = new TipoSucursalFilterQ1();
 
+		other.setId(this.getId());
+		other.setFts(this.getFts());
 		other.setOffset(this.getOffset());
 		other.setLimit(this.getLimit());
 		other.setOrderBy(this.getOrderBy());

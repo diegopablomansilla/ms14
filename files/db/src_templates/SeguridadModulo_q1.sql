@@ -1,4 +1,4 @@
-SELECT	SeguridadModulo.id AS id_0
+SELECT	SeguridadModulo_0.id AS id_0
 		
 	, SeguridadModulo_0.numero AS numero_1
 	, SeguridadModulo_0.nombre AS nombre_2

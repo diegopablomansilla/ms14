@@ -1,4 +1,4 @@
-SELECT	EjercicioContable.id AS id_0
+SELECT	EjercicioContable_0.id AS id_0
 		
 	, EjercicioContable_0.numero AS numero_1
 	, EjercicioContable_0.apertura AS apertura_2

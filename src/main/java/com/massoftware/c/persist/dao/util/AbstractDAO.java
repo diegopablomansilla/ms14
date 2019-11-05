@@ -67,18 +67,27 @@ public abstract class AbstractDAO {
 			sqlWhereArgs.add(buildLE(attName));
 		}
 	}
-	
+
 	protected void addArgEQ(Statement statement, List<String> sqlWhereArgs, String attName, Object value) {
 		if (value != null) {
 			statement.addArg(value);
 			sqlWhereArgs.add(buildEQ(attName));
 		}
 	}
-	
+
 	protected void addArgLIKE(Statement statement, List<String> sqlWhereArgs, String attName, String value) {
 		if (value != null) {
-			statement.addArg(value.toLowerCase());
-			sqlWhereArgs.add(buildLIKE(attName));
+
+			String[] words = value.trim().toLowerCase().split(" ");
+
+			for (String word : words) {
+				word = word.trim();
+				if (word.length() > 0) {
+					statement.addArg("%" + word + "%");
+					sqlWhereArgs.add(buildLIKE(attName));
+				}
+			}
+
 		}
 	}
 

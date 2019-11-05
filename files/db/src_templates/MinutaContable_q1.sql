@@ -1,4 +1,4 @@
-SELECT	MinutaContable.id AS id_0
+SELECT	MinutaContable_0.id AS id_0
 		
 	, MinutaContable_0.numero AS numero_1
 	, MinutaContable_0.nombre AS nombre_2

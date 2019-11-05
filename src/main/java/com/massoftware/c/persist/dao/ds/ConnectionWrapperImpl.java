@@ -18,6 +18,7 @@ import com.massoftware.c.persist.dao.ds.ex.CloseException;
 import com.massoftware.c.persist.dao.ds.ex.CommitException;
 import com.massoftware.c.persist.dao.ds.ex.DDLException;
 import com.massoftware.c.persist.dao.ds.ex.DeleteException;
+import com.massoftware.c.persist.dao.ds.ex.DeleteForeignKeyViolationException;
 import com.massoftware.c.persist.dao.ds.ex.InsertException;
 import com.massoftware.c.persist.dao.ds.ex.RollBackException;
 import com.massoftware.c.persist.dao.ds.ex.SelectException;
@@ -67,6 +68,12 @@ class ConnectionWrapperImpl implements ConnectionWrapper {
 	public ConnectionInfo getConnectionInfo() {
 		return connectionInfo;
 	}
+
+	// ---------------------------------------------------------------------------------------------------------------------------
+
+//	public boolean isBeginTransaction() throws SQLException {
+//		return connection.getAutoCommit() == false;
+//	}
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -279,6 +286,10 @@ class ConnectionWrapperImpl implements ConnectionWrapper {
 			} else if (op == 2) {
 				throw new UpdateException(e, statement, connectionInfo);
 			} else if (op == 3) {
+				if (this.getConnectionInfo().getDataSourceInfo().getDataSourceMetaData().isPostgreSql()
+						&& e.getSQLState().equalsIgnoreCase("23503")) {
+					throw new DeleteForeignKeyViolationException(e, statement, connectionInfo);
+				}
 				throw new DeleteException(e, statement, connectionInfo);
 			} else if (op == 0) {
 				throw new DDLException(e, statement, connectionInfo);

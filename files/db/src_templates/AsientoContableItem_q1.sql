@@ -1,4 +1,4 @@
-SELECT	AsientoContableItem.id AS id_0
+SELECT	AsientoContableItem_0.id AS id_0
 		
 	, AsientoContableItem_0.numero AS numero_1
 	, AsientoContableItem_0.fecha AS fecha_2

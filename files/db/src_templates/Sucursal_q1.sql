@@ -1,4 +1,4 @@
-SELECT	Sucursal.id AS id_0
+SELECT	Sucursal_0.id AS id_0
 		
 	, Sucursal_0.numero AS numero_1
 	, Sucursal_0.nombre AS nombre_2

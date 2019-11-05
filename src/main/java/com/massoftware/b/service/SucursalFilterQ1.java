@@ -814,6 +814,8 @@ public class SucursalFilterQ1 extends GenericFilter {
 
 		SucursalFilterQ1 other = new SucursalFilterQ1();
 
+		other.setId(this.getId());
+		other.setFts(this.getFts());
 		other.setOffset(this.getOffset());
 		other.setLimit(this.getLimit());
 		other.setOrderBy(this.getOrderBy());

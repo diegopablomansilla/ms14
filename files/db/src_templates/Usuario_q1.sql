@@ -1,4 +1,4 @@
-SELECT	Usuario.id AS id_0
+SELECT	Usuario_0.id AS id_0
 		
 	, Usuario_0.numero AS numero_1
 	, Usuario_0.nombre AS nombre_2

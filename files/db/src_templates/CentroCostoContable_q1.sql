@@ -1,4 +1,4 @@
-SELECT	CentroCostoContable.id AS id_0
+SELECT	CentroCostoContable_0.id AS id_0
 		
 	, CentroCostoContable_0.numero AS numero_1
 	, CentroCostoContable_0.nombre AS nombre_2

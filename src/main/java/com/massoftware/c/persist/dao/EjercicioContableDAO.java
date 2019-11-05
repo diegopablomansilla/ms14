@@ -3,6 +3,7 @@ package com.massoftware.c.persist.dao;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import java.time.LocalDate;
 import com.massoftware.a.model.*;
@@ -27,14 +28,18 @@ public class EjercicioContableDAO extends AbstractDAO {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
-	public Long count(ConnectionWrapper connection, EjercicioContableFilterQ1 filter)
+	public Integer count(ConnectionWrapper connection, EjercicioContableFilterQ1 filter)
 			throws SelectException, SQLException {
+			
+		Objects.requireNonNull(connection, "connection is null!!");
+		Objects.requireNonNull(filter, "filter is null!!");	
 
 		Statement statement = new Statement();
 
 		String sql = this.sourceSQL.get("EjercicioContable_q1");
 
-		List<String> sqlWhereArgs = new ArrayList<String>();		
+		List<String> sqlWhereArgs = new ArrayList<String>();
+		addArgEQ(statement, sqlWhereArgs, "id", filter.getId());		
 		
 		addArgGE(statement, sqlWhereArgs, "numero", filter.getNumeroFrom());
 		addArgLE(statement, sqlWhereArgs, "numero", filter.getNumeroTo());
@@ -46,7 +51,7 @@ public class EjercicioContableDAO extends AbstractDAO {
 		addArgEQ(statement, sqlWhereArgs, "cerradoModulos", filter.getCerradoModulos());
 		addArgLIKE(statement, sqlWhereArgs, "comentario", filter.getComentario());
 
-		sql = "SELECT\tCOUNT(*)\nFROM" + sql.split("FROM")[1];
+		sql = "SELECT\tCOUNT(*)::INTEGER\nFROM" + sql.split("FROM")[1];
 		
 		sql = sql.replace("${WHERE}", buildWhereSQL(sqlWhereArgs)).trim();
 
@@ -58,17 +63,21 @@ public class EjercicioContableDAO extends AbstractDAO {
 
 		Result r = connection.query(statement);		
 		
-		return (Long) r.getTable()[0][0];
+		return (Integer) r.getTable()[0][0];
 	}
 	
 	public List<EjercicioContable> find(ConnectionWrapper connection, EjercicioContableFilterQ1 filter)
 			throws SelectException, SQLException {
+			
+		Objects.requireNonNull(connection, "connection is null!!");
+		Objects.requireNonNull(filter, "filter is null!!");		
 
 		Statement statement = new Statement();
 
 		String sql = this.sourceSQL.get("EjercicioContable_q1");
 
 		List<String> sqlWhereArgs = new ArrayList<String>();
+		addArgEQ(statement, sqlWhereArgs, "id", filter.getId());	
 		
 		addArgGE(statement, sqlWhereArgs, "numero", filter.getNumeroFrom());
 		addArgLE(statement, sqlWhereArgs, "numero", filter.getNumeroTo());
@@ -96,6 +105,7 @@ public class EjercicioContableDAO extends AbstractDAO {
 	}
 
 	private List<EjercicioContable> buildObjsQ1(Result r) {
+		
 		List<EjercicioContable> items = new ArrayList<EjercicioContable>();
 
 		if (r.getRowCount() == 0) {
@@ -115,6 +125,8 @@ public class EjercicioContableDAO extends AbstractDAO {
 			objRow.setCerrado((Boolean) row[++c]);
 			objRow.setCerradoModulos((Boolean) row[++c]);
 			objRow.setComentario((String) row[++c]);
+			
+			items.add(objRow);
 		}
 
 		return items;

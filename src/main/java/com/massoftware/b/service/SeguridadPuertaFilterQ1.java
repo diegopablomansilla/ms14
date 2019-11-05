@@ -194,6 +194,8 @@ public class SeguridadPuertaFilterQ1 extends GenericFilter {
 
 		SeguridadPuertaFilterQ1 other = new SeguridadPuertaFilterQ1();
 
+		other.setId(this.getId());
+		other.setFts(this.getFts());
 		other.setOffset(this.getOffset());
 		other.setLimit(this.getLimit());
 		other.setOrderBy(this.getOrderBy());

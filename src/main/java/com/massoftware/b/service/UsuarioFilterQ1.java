@@ -131,6 +131,8 @@ public class UsuarioFilterQ1 extends GenericFilter {
 
 		UsuarioFilterQ1 other = new UsuarioFilterQ1();
 
+		other.setId(this.getId());
+		other.setFts(this.getFts());
 		other.setOffset(this.getOffset());
 		other.setLimit(this.getLimit());
 		other.setOrderBy(this.getOrderBy());

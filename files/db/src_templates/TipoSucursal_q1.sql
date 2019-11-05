@@ -1,4 +1,4 @@
-SELECT	TipoSucursal.id AS id_0
+SELECT	TipoSucursal_0.id AS id_0
 		
 	, TipoSucursal_0.numero AS numero_1
 	, TipoSucursal_0.nombre AS nombre_2

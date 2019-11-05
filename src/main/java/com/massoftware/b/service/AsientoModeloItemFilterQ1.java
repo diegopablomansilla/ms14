@@ -164,6 +164,8 @@ public class AsientoModeloItemFilterQ1 extends GenericFilter {
 
 		AsientoModeloItemFilterQ1 other = new AsientoModeloItemFilterQ1();
 
+		other.setId(this.getId());
+		other.setFts(this.getFts());
 		other.setOffset(this.getOffset());
 		other.setLimit(this.getLimit());
 		other.setOrderBy(this.getOrderBy());

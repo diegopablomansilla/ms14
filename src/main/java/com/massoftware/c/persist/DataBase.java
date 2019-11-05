@@ -31,6 +31,7 @@ public class DataBase extends AbstractDataBase {
 	private AsientoContableModuloDAO asientoContableModuloDAO;
 	private AsientoContableDAO asientoContableDAO;
 	private AsientoContableItemDAO asientoContableItemDAO;
+	private EmpresaDAO empresaDAO;
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -54,7 +55,8 @@ public class DataBase extends AbstractDataBase {
 		minutaContableDAO = new MinutaContableDAO(this.sourceSQL);	
 		asientoContableModuloDAO = new AsientoContableModuloDAO(this.sourceSQL);	
 		asientoContableDAO = new AsientoContableDAO(this.sourceSQL);	
-		asientoContableItemDAO = new AsientoContableItemDAO(this.sourceSQL);			
+		asientoContableItemDAO = new AsientoContableItemDAO(this.sourceSQL);	
+		empresaDAO = new EmpresaDAO(this.sourceSQL);			
 	}	
 	
 	// ---------------------------------------------------------------------------------------------------------------------------
@@ -63,7 +65,7 @@ public class DataBase extends AbstractDataBase {
 		return usuarioDAO.find(connection, filter);
 	}
 
-	public Long count(UsuarioFilterQ1 filter) throws Exception {
+	public Integer count(UsuarioFilterQ1 filter) throws Exception {
 		return usuarioDAO.count(connection, filter);
 	}	
 	// ---------------------------------------------------------------------------------------------------------------------------
@@ -72,7 +74,7 @@ public class DataBase extends AbstractDataBase {
 		return seguridadModuloDAO.find(connection, filter);
 	}
 
-	public Long count(SeguridadModuloFilterQ1 filter) throws Exception {
+	public Integer count(SeguridadModuloFilterQ1 filter) throws Exception {
 		return seguridadModuloDAO.count(connection, filter);
 	}	
 	// ---------------------------------------------------------------------------------------------------------------------------
@@ -81,7 +83,7 @@ public class DataBase extends AbstractDataBase {
 		return seguridadPuertaDAO.find(connection, filter);
 	}
 
-	public Long count(SeguridadPuertaFilterQ1 filter) throws Exception {
+	public Integer count(SeguridadPuertaFilterQ1 filter) throws Exception {
 		return seguridadPuertaDAO.count(connection, filter);
 	}	
 	// ---------------------------------------------------------------------------------------------------------------------------
@@ -90,7 +92,7 @@ public class DataBase extends AbstractDataBase {
 		return tipoSucursalDAO.find(connection, filter);
 	}
 
-	public Long count(TipoSucursalFilterQ1 filter) throws Exception {
+	public Integer count(TipoSucursalFilterQ1 filter) throws Exception {
 		return tipoSucursalDAO.count(connection, filter);
 	}	
 	// ---------------------------------------------------------------------------------------------------------------------------
@@ -99,7 +101,7 @@ public class DataBase extends AbstractDataBase {
 		return sucursalDAO.find(connection, filter);
 	}
 
-	public Long count(SucursalFilterQ1 filter) throws Exception {
+	public Integer count(SucursalFilterQ1 filter) throws Exception {
 		return sucursalDAO.count(connection, filter);
 	}	
 	// ---------------------------------------------------------------------------------------------------------------------------
@@ -108,7 +110,7 @@ public class DataBase extends AbstractDataBase {
 		return ejercicioContableDAO.find(connection, filter);
 	}
 
-	public Long count(EjercicioContableFilterQ1 filter) throws Exception {
+	public Integer count(EjercicioContableFilterQ1 filter) throws Exception {
 		return ejercicioContableDAO.count(connection, filter);
 	}	
 	// ---------------------------------------------------------------------------------------------------------------------------
@@ -117,7 +119,7 @@ public class DataBase extends AbstractDataBase {
 		return centroCostoContableDAO.find(connection, filter);
 	}
 
-	public Long count(CentroCostoContableFilterQ1 filter) throws Exception {
+	public Integer count(CentroCostoContableFilterQ1 filter) throws Exception {
 		return centroCostoContableDAO.count(connection, filter);
 	}	
 	// ---------------------------------------------------------------------------------------------------------------------------
@@ -126,7 +128,7 @@ public class DataBase extends AbstractDataBase {
 		return tipoPuntoEquilibrioDAO.find(connection, filter);
 	}
 
-	public Long count(TipoPuntoEquilibrioFilterQ1 filter) throws Exception {
+	public Integer count(TipoPuntoEquilibrioFilterQ1 filter) throws Exception {
 		return tipoPuntoEquilibrioDAO.count(connection, filter);
 	}	
 	// ---------------------------------------------------------------------------------------------------------------------------
@@ -135,7 +137,7 @@ public class DataBase extends AbstractDataBase {
 		return puntoEquilibrioDAO.find(connection, filter);
 	}
 
-	public Long count(PuntoEquilibrioFilterQ1 filter) throws Exception {
+	public Integer count(PuntoEquilibrioFilterQ1 filter) throws Exception {
 		return puntoEquilibrioDAO.count(connection, filter);
 	}	
 	// ---------------------------------------------------------------------------------------------------------------------------
@@ -144,7 +146,7 @@ public class DataBase extends AbstractDataBase {
 		return costoVentaDAO.find(connection, filter);
 	}
 
-	public Long count(CostoVentaFilterQ1 filter) throws Exception {
+	public Integer count(CostoVentaFilterQ1 filter) throws Exception {
 		return costoVentaDAO.count(connection, filter);
 	}	
 	// ---------------------------------------------------------------------------------------------------------------------------
@@ -153,7 +155,7 @@ public class DataBase extends AbstractDataBase {
 		return cuentaContableEstadoDAO.find(connection, filter);
 	}
 
-	public Long count(CuentaContableEstadoFilterQ1 filter) throws Exception {
+	public Integer count(CuentaContableEstadoFilterQ1 filter) throws Exception {
 		return cuentaContableEstadoDAO.count(connection, filter);
 	}	
 	// ---------------------------------------------------------------------------------------------------------------------------
@@ -162,7 +164,7 @@ public class DataBase extends AbstractDataBase {
 		return cuentaContableDAO.find(connection, filter);
 	}
 
-	public Long count(CuentaContableFilterQ1 filter) throws Exception {
+	public Integer count(CuentaContableFilterQ1 filter) throws Exception {
 		return cuentaContableDAO.count(connection, filter);
 	}	
 	// ---------------------------------------------------------------------------------------------------------------------------
@@ -171,7 +173,7 @@ public class DataBase extends AbstractDataBase {
 		return asientoModeloDAO.find(connection, filter);
 	}
 
-	public Long count(AsientoModeloFilterQ1 filter) throws Exception {
+	public Integer count(AsientoModeloFilterQ1 filter) throws Exception {
 		return asientoModeloDAO.count(connection, filter);
 	}	
 	// ---------------------------------------------------------------------------------------------------------------------------
@@ -180,7 +182,7 @@ public class DataBase extends AbstractDataBase {
 		return asientoModeloItemDAO.find(connection, filter);
 	}
 
-	public Long count(AsientoModeloItemFilterQ1 filter) throws Exception {
+	public Integer count(AsientoModeloItemFilterQ1 filter) throws Exception {
 		return asientoModeloItemDAO.count(connection, filter);
 	}	
 	// ---------------------------------------------------------------------------------------------------------------------------
@@ -189,7 +191,7 @@ public class DataBase extends AbstractDataBase {
 		return minutaContableDAO.find(connection, filter);
 	}
 
-	public Long count(MinutaContableFilterQ1 filter) throws Exception {
+	public Integer count(MinutaContableFilterQ1 filter) throws Exception {
 		return minutaContableDAO.count(connection, filter);
 	}	
 	// ---------------------------------------------------------------------------------------------------------------------------
@@ -198,7 +200,7 @@ public class DataBase extends AbstractDataBase {
 		return asientoContableModuloDAO.find(connection, filter);
 	}
 
-	public Long count(AsientoContableModuloFilterQ1 filter) throws Exception {
+	public Integer count(AsientoContableModuloFilterQ1 filter) throws Exception {
 		return asientoContableModuloDAO.count(connection, filter);
 	}	
 	// ---------------------------------------------------------------------------------------------------------------------------
@@ -207,7 +209,7 @@ public class DataBase extends AbstractDataBase {
 		return asientoContableDAO.find(connection, filter);
 	}
 
-	public Long count(AsientoContableFilterQ1 filter) throws Exception {
+	public Integer count(AsientoContableFilterQ1 filter) throws Exception {
 		return asientoContableDAO.count(connection, filter);
 	}	
 	// ---------------------------------------------------------------------------------------------------------------------------
@@ -216,8 +218,17 @@ public class DataBase extends AbstractDataBase {
 		return asientoContableItemDAO.find(connection, filter);
 	}
 
-	public Long count(AsientoContableItemFilterQ1 filter) throws Exception {
+	public Integer count(AsientoContableItemFilterQ1 filter) throws Exception {
 		return asientoContableItemDAO.count(connection, filter);
+	}	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
+	public List<Empresa> find(EmpresaFilterQ1 filter) throws Exception {
+		return empresaDAO.find(connection, filter);
+	}
+
+	public Integer count(EmpresaFilterQ1 filter) throws Exception {
+		return empresaDAO.count(connection, filter);
 	}	
 	
 } // END CLASS -----------------------------------------------------------------

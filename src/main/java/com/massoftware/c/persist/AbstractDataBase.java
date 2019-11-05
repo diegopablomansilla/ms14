@@ -1,5 +1,6 @@
 package com.massoftware.c.persist;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +9,11 @@ import com.massoftware.c.persist.dao.ds.ConnectionWrapper;
 import com.massoftware.c.persist.dao.ds.ex.BeginException;
 import com.massoftware.c.persist.dao.ds.ex.CloseException;
 import com.massoftware.c.persist.dao.ds.ex.CommitException;
+import com.massoftware.c.persist.dao.ds.ex.DDLException;
+import com.massoftware.c.persist.dao.ds.ex.DeleteException;
+import com.massoftware.c.persist.dao.ds.ex.InsertException;
 import com.massoftware.c.persist.dao.ds.ex.RollBackException;
+import com.massoftware.c.persist.dao.ds.ex.UpdateException;
 import com.massoftware.c.persist.dao.ds.info.ConnectionInfo;
 import com.massoftware.c.persist.dao.sorm.DeleteDAO;
 import com.massoftware.c.persist.dao.sorm.Identifiable;
@@ -145,7 +150,8 @@ public abstract class AbstractDataBase {
 	}
 
 	@SuppressWarnings("rawtypes")
-	public boolean deleteObjectById(String id, Class mappingClass) throws Exception {
+	public boolean deleteObjectById(String id, Class mappingClass)
+			throws InsertException, UpdateException, DeleteException, DDLException, SQLException, Exception {
 		return deleteDAO.deleteObjectById(connection, id, mappingClass);
 	}
 

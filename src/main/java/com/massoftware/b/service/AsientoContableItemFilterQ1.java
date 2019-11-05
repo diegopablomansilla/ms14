@@ -383,6 +383,8 @@ public class AsientoContableItemFilterQ1 extends GenericFilter {
 
 		AsientoContableItemFilterQ1 other = new AsientoContableItemFilterQ1();
 
+		other.setId(this.getId());
+		other.setFts(this.getFts());
 		other.setOffset(this.getOffset());
 		other.setLimit(this.getLimit());
 		other.setOrderBy(this.getOrderBy());

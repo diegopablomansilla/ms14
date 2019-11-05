@@ -1,4 +1,4 @@
-SELECT	CuentaContable.id AS id_0
+SELECT	CuentaContable_0.id AS id_0
 		
 	, CuentaContable_0.codigo AS codigo_1
 	, CuentaContable_0.nombre AS nombre_2

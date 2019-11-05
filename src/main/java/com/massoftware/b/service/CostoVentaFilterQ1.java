@@ -131,6 +131,8 @@ public class CostoVentaFilterQ1 extends GenericFilter {
 
 		CostoVentaFilterQ1 other = new CostoVentaFilterQ1();
 
+		other.setId(this.getId());
+		other.setFts(this.getFts());
 		other.setOffset(this.getOffset());
 		other.setLimit(this.getLimit());
 		other.setOrderBy(this.getOrderBy());
