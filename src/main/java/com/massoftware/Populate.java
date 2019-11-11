@@ -8,12 +8,12 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import com.massoftware.a.model.AsientoContableModulo;
 import com.massoftware.a.model.CentroCostoContable;
 import com.massoftware.a.model.CostoVenta;
 import com.massoftware.a.model.CuentaContable;
-import com.massoftware.a.model.CuentaContableEstado;
 import com.massoftware.a.model.EjercicioContable;
 import com.massoftware.a.model.Empresa;
 import com.massoftware.a.model.MinutaContable;
@@ -24,7 +24,6 @@ import com.massoftware.a.model.TipoPuntoEquilibrio;
 import com.massoftware.b.service.AsientoContableModuloFilterQ1;
 import com.massoftware.b.service.CentroCostoContableFilterQ1;
 import com.massoftware.b.service.CostoVentaFilterQ1;
-import com.massoftware.b.service.CuentaContableEstadoFilterQ1;
 import com.massoftware.b.service.CuentaContableFilterQ1;
 import com.massoftware.b.service.EjercicioContableFilterQ1;
 import com.massoftware.b.service.EmpresaFilterQ1;
@@ -47,7 +46,7 @@ public class Populate extends UtilPopulate {
 
 	private static List<TipoPuntoEquilibrio> itemsTipoPuntoEquilibrio;
 	private static List<CostoVenta> itemsCostoVenta;
-	private static List<CuentaContableEstado> itemsCuentaContableEstado;
+//	private static List<CuentaContableEstado> itemsCuentaContableEstado;
 	private static Empresa empresa;
 	private static List<CentroCostoContable> itemsCentroCostoContable;
 	private static List<PuntoEquilibrio> itemsPuntoEquilibrio;
@@ -67,43 +66,30 @@ public class Populate extends UtilPopulate {
 
 			// --------------------------------------------------------------------
 
-			populate(dataBaseKey);
+			itemsSeguridadModulo = new ArrayList<SeguridadModulo>();
+			itemsSeguridadPuerta = new ArrayList<SeguridadPuerta>();
+			itemsTipoPuntoEquilibrio = new ArrayList<TipoPuntoEquilibrio>();
+			itemsCostoVenta = new ArrayList<CostoVenta>();
+//				itemsCuentaContableEstado = new ArrayList<CuentaContableEstado>();
+			itemsEjercicioContable = new ArrayList<EjercicioContable>();
+			itemsCentroCostoContable = new ArrayList<CentroCostoContable>();
+			itemsPuntoEquilibrio = new ArrayList<PuntoEquilibrio>();
+			itemsCuentaContable = new ArrayList<CuentaContable>();
+			itemsMinutaContable = new ArrayList<MinutaContable>();
+			itemsAsientoContableModulo = new ArrayList<AsientoContableModulo>();
 
 			// --------------------------------------------------------------------
 
-//			EjercicioContableFilterQ1 ejercicioContableFilterQ1 = new EjercicioContableFilterQ1();
-//			f.setNumeroFrom(2);
-//			f.setNumeroTo(9);
-//			f.setOffset(1);
-//			f.setLimit(10);
-
-//			EjercicioContableService ejercicioContableService = new EjercicioContableService(dataBaseKey);
-//
-//			List<EjercicioContable> ejercicioContableList = ejercicioContableService.find(ejercicioContableFilterQ1);
-//
-//			System.out.println(ejercicioContableList);
-//
-//			long ejercicioContableCount = ejercicioContableService.count(ejercicioContableFilterQ1);
-//
-//			System.out.println(ejercicioContableCount);
+			step(dataBaseKey, 0);
+			step(dataBaseKey, 1);
+			step(dataBaseKey, 2);
+			step(dataBaseKey, 3);
+			step(dataBaseKey, 4);
+			step(dataBaseKey, 1000);
 
 			// --------------------------------------------------------------------
 
-//			PuntoEquilibrioFilterQ1 puntoEquilibrioFilterQ1 = new PuntoEquilibrioFilterQ1();
-////			f.setNumeroFrom(2);
-////			f.setNumeroTo(9);
-////			f.setOffset(1);
-////			f.setLimit(10);
-//
-//			PuntoEquilibrioService puntoEquilibrioService = new PuntoEquilibrioService(dataBaseKey);
-//
-//			List<PuntoEquilibrio> puntoEquilibrioList = puntoEquilibrioService.find(puntoEquilibrioFilterQ1);
-//
-//			System.out.println(puntoEquilibrioList);
-//
-//			long puntoEquilibrioServiceCount = puntoEquilibrioService.count(puntoEquilibrioFilterQ1);
-//
-//			System.out.println(puntoEquilibrioServiceCount);
+			// --------------------------------------------------------------------
 
 		} catch (Exception500 e) {
 
@@ -120,7 +106,8 @@ public class Populate extends UtilPopulate {
 
 	}
 
-	private static void populate(String dataBaseKey) throws Exception {
+	private static void step(String dataBaseKey, int step) throws Exception {
+
 		DataBase dataBase = null;
 
 		try {
@@ -133,67 +120,60 @@ public class Populate extends UtilPopulate {
 
 			// --------------------------------------------------------------------
 
-			dataBase.pp();
+			if (step == 0) {
 
-			schema();
+				dataBase.pp();
 
-			// --------------------------------------------------------------------
+				schema();
 
-			itemsSeguridadModulo = new ArrayList<SeguridadModulo>();
-			itemsSeguridadPuerta = new ArrayList<SeguridadPuerta>();
-			itemsTipoPuntoEquilibrio = new ArrayList<TipoPuntoEquilibrio>();
-			itemsCostoVenta = new ArrayList<CostoVenta>();
-			itemsCuentaContableEstado = new ArrayList<CuentaContableEstado>();
-			itemsEjercicioContable = new ArrayList<EjercicioContable>();
-			itemsCentroCostoContable = new ArrayList<CentroCostoContable>();
-			itemsPuntoEquilibrio = new ArrayList<PuntoEquilibrio>();
-			itemsCuentaContable = new ArrayList<CuentaContable>();
-			itemsMinutaContable = new ArrayList<MinutaContable>();
-			itemsAsientoContableModulo = new ArrayList<AsientoContableModulo>();
+			} else if (step == 1) {
 
-			// --------------------------------------------------------------------
+				System.out.println("SeguridadModulo = " + dataBase.count(new SeguridadModuloFilterQ1()));
+				System.out.println("SeguridadPuerta = " + dataBase.count(new SeguridadPuertaFilterQ1()));
+				System.out.println("TipoPuntoEquilibrio = " + dataBase.count(new TipoPuntoEquilibrioFilterQ1()));
+				System.out.println("CostoVenta = " + dataBase.count(new CostoVentaFilterQ1()));
+//					System.out.println("CuentaContableEstado = " + dataBase.count(new CuentaContableEstadoFilterQ1()));
+				System.out.println("EjercicioContable = " + dataBase.count(new EjercicioContableFilterQ1()));
+				System.out.println("Empresa = " + dataBase.count(new EmpresaFilterQ1()));
+				System.out.println("CentroCostoContable = " + dataBase.count(new CentroCostoContableFilterQ1()));
+				System.out.println("PuntoEquilibrio = " + dataBase.count(new PuntoEquilibrioFilterQ1()));
+				System.out.println("CuentaContable = " + dataBase.count(new CuentaContableFilterQ1()));
+				System.out.println("MinutaContable = " + dataBase.count(new MinutaContableFilterQ1()));
+				System.out.println("AsientoContableModulo = " + dataBase.count(new AsientoContableModuloFilterQ1()));
 
-			System.out.println("SeguridadModulo = " + dataBase.count(new SeguridadModuloFilterQ1()));
-			System.out.println("SeguridadPuerta = " + dataBase.count(new SeguridadPuertaFilterQ1()));
-			System.out.println("TipoPuntoEquilibrio = " + dataBase.count(new TipoPuntoEquilibrioFilterQ1()));
-			System.out.println("CostoVenta = " + dataBase.count(new CostoVentaFilterQ1()));
-			System.out.println("CuentaContableEstado = " + dataBase.count(new CuentaContableEstadoFilterQ1()));
-			System.out.println("EjercicioContable = " + dataBase.count(new EjercicioContableFilterQ1()));
-			System.out.println("Empresa = " + dataBase.count(new EmpresaFilterQ1()));
-			System.out.println("CentroCostoContable = " + dataBase.count(new CentroCostoContableFilterQ1()));
-			System.out.println("PuntoEquilibrio = " + dataBase.count(new PuntoEquilibrioFilterQ1()));
-			System.out.println("CuentaContable = " + dataBase.count(new CuentaContableFilterQ1()));
-			System.out.println("MinutaContable = " + dataBase.count(new MinutaContableFilterQ1()));
-			System.out.println("AsientoContableModulo = " + dataBase.count(new AsientoContableModuloFilterQ1()));
+			} else if (step == 2) {
 
-			// --------------------------------------------------------------------
+				populateSeguridadModulo(dataBase);
+				populateTipoPuntoEquilibrio(dataBase);
+//				populateCuentaContableEstado(dataBase);
+				populateCostoVenta(dataBase);
 
-			populateSeguridadModulo(dataBase);
+			} else if (step == 3) {
 
-			populateTipoPuntoEquilibrio(dataBase);
-			populateCuentaContableEstado(dataBase);
-			populateCostoVenta(dataBase);
-			populateEjercicioContable(dataBase);
-			populateCuentaContable(dataBase);
-			populateMinutaContable(dataBase);
-			populateAsientoContableModulo(dataBase);
+				populateEjercicioContable(dataBase);
 
-			// --------------------------------------------------------------------
+			} else if (step == 4) {
 
-			System.out.println("// --------------------------------------------------------------------");
+				populateMinutaContable(dataBase);
+				populateAsientoContableModulo(dataBase);
 
-			System.out.println("SeguridadModulo = " + dataBase.count(new SeguridadModuloFilterQ1()));
-			System.out.println("SeguridadPuerta = " + dataBase.count(new SeguridadPuertaFilterQ1()));
-			System.out.println("TipoPuntoEquilibrio = " + dataBase.count(new TipoPuntoEquilibrioFilterQ1()));
-			System.out.println("CuentaContableEstado = " + dataBase.count(new CuentaContableEstadoFilterQ1()));
-			System.out.println("CostoVenta = " + dataBase.count(new CostoVentaFilterQ1()));
-			System.out.println("EjercicioContable = " + dataBase.count(new EjercicioContableFilterQ1()));
-			System.out.println("Empresa = " + dataBase.count(new EmpresaFilterQ1()));
-			System.out.println("CentroCostoContable = " + dataBase.count(new CentroCostoContableFilterQ1()));
-			System.out.println("PuntoEquilibrio = " + dataBase.count(new PuntoEquilibrioFilterQ1()));
-			System.out.println("CuentaContable = " + dataBase.count(new CuentaContableFilterQ1()));
-			System.out.println("MinutaContable = " + dataBase.count(new MinutaContableFilterQ1()));
-			System.out.println("AsientoContableModulo = " + dataBase.count(new AsientoContableModuloFilterQ1()));
+			} else {
+
+				System.out.println("// --------------------------------------------------------------------");
+
+				System.out.println("SeguridadModulo = " + dataBase.count(new SeguridadModuloFilterQ1()));
+				System.out.println("SeguridadPuerta = " + dataBase.count(new SeguridadPuertaFilterQ1()));
+				System.out.println("TipoPuntoEquilibrio = " + dataBase.count(new TipoPuntoEquilibrioFilterQ1()));
+//					System.out.println("CuentaContableEstado = " + dataBase.count(new CuentaContableEstadoFilterQ1()));
+				System.out.println("CostoVenta = " + dataBase.count(new CostoVentaFilterQ1()));
+				System.out.println("EjercicioContable = " + dataBase.count(new EjercicioContableFilterQ1()));
+				System.out.println("Empresa = " + dataBase.count(new EmpresaFilterQ1()));
+				System.out.println("CentroCostoContable = " + dataBase.count(new CentroCostoContableFilterQ1()));
+				System.out.println("PuntoEquilibrio = " + dataBase.count(new PuntoEquilibrioFilterQ1()));
+				System.out.println("CuentaContable = " + dataBase.count(new CuentaContableFilterQ1()));
+				System.out.println("MinutaContable = " + dataBase.count(new MinutaContableFilterQ1()));
+				System.out.println("AsientoContableModulo = " + dataBase.count(new AsientoContableModuloFilterQ1()));
+			}
 
 			// --------------------------------------------------------------------
 
@@ -212,6 +192,7 @@ public class Populate extends UtilPopulate {
 			System.err.println(e);
 
 			e.printStackTrace();
+
 		} finally {
 			try {
 				dataBase.rollBackTransaction();
@@ -381,25 +362,26 @@ public class Populate extends UtilPopulate {
 		}
 	}
 
-	private static void populateCuentaContableEstado(DataBase dataBase) throws Exception {
-
-		for (int i = 0; i < 2; i++) {
-			CuentaContableEstado cuentaContableEstado = new CuentaContableEstado();
-
-			cuentaContableEstado.setNumero(i);
-
-			if (i == 0) {
-				cuentaContableEstado.setNombre("Cuenta fuera de uso");
-			} else {
-				cuentaContableEstado.setNombre("Cuenta en uso");
-			}
-
-			dataBase.insertObject(cuentaContableEstado);
-
-			itemsCuentaContableEstado.add(cuentaContableEstado);
-		}
-
-	}
+//	private static void populateCuentaContableEstado(DataBase dataBase) throws Exception {
+//
+//		for (int i = 0; i < 2; i++) {
+//			
+//			CuentaContableEstado cuentaContableEstado = new CuentaContableEstado();
+//
+//			cuentaContableEstado.setNumero(i);
+//
+//			if (i == 0) {
+//				cuentaContableEstado.setNombre("Cuenta fuera de uso");
+//			} else {
+//				cuentaContableEstado.setNombre("Cuenta en uso");
+//			}
+//
+//			dataBase.insertObject(cuentaContableEstado);
+//
+//			itemsCuentaContableEstado.add(cuentaContableEstado);
+//		}
+//
+//	}
 
 	private static void populateEjercicioContable(DataBase dataBase) throws Exception {
 
@@ -412,7 +394,7 @@ public class Populate extends UtilPopulate {
 			ejercicioContable.setNumero(i);
 			ejercicioContable.setApertura(LocalDate.parse("01/01/" + i, formatter));
 			ejercicioContable.setCierre(LocalDate.parse("31/12/" + i, formatter));
-			ejercicioContable.setCerrado(true);
+			ejercicioContable.setCerrado(i < 2019);
 			ejercicioContable.setCerradoModulos(true);
 			ejercicioContable.setComentario(i + "");
 
@@ -423,6 +405,7 @@ public class Populate extends UtilPopulate {
 			}
 			populateCentroCostoContable(dataBase, ejercicioContable);
 			populatePuntoEquilibrio(dataBase, ejercicioContable);
+			populateCuentaContable(dataBase, ejercicioContable);
 
 			itemsEjercicioContable.add(ejercicioContable);
 
@@ -484,218 +467,145 @@ public class Populate extends UtilPopulate {
 
 	}
 
-	private static void populateCuentaContable(DataBase dataBase) throws Exception {
+	private static void populateCuentaContable(DataBase dataBase, EjercicioContable ejercicioContable)
+			throws Exception {
 
-		String filePath = "D:\\dev\\entradas\\cuentas_contables - copia.csv";
+//		cuentaContable.setCuentaJerarquia(i + ".00.00.00.00.00");
 
-		// -------------------------------------------------------------------
+		int limitMin = 10;
+		int limitTop = 90;
+		int limit = limitTop;
 
-		String line;
-		String source = "";
+		int contadorCuentas = 0;
 
-//		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-//		URL url = classLoader.getResource(filePath);
-		URL url = new URL("file:\\" + filePath);
-		String path = url.toString().substring(6, url.toString().length());
+		for (int a = 1; a <= 6; a++) {
+			contadorCuentas++;
+			String cuentaJerarquia = a + "0000000000";
+			CuentaContable cuentaContableA = buildCuentaContable(ejercicioContable, contadorCuentas, null,
+					cuentaJerarquia);
+			dataBase.insertObject(cuentaContableA);
+			itemsCuentaContable.add(cuentaContableA);
 
-		FileReader f = new FileReader(path);
-		BufferedReader b = new BufferedReader(f);
+			limit = getIntegerRandom(limitMin, limitTop);
+			
+			for (int b = 10; b <= limit; b = b + 10) {
 
-		int c = 0;
+				contadorCuentas++;
+				cuentaJerarquia = cuentaContableA.getCuentaJerarquia().substring(0, 1) + b + "00000000";
+				CuentaContable cuentaContableB = buildCuentaContable(ejercicioContable, contadorCuentas,
+						cuentaContableA, cuentaJerarquia);
+				dataBase.insertObject(cuentaContableB);
+				itemsCuentaContable.add(cuentaContableB);
+				
+				limit = getIntegerRandom(limitMin, limitTop);
 
-		while ((line = b.readLine()) != null) {
-			String[] fields = line.trim().split(";");
+				for (int c = 10; c <= limit; c = c + 10) {
 
-			for (int i = 0; i < fields.length; i++) {
-				if (fields[i] != null) {
-					fields[i] = fields[i].trim();
-				}
+					contadorCuentas++;
+					cuentaJerarquia = cuentaContableB.getCuentaJerarquia().substring(0, 3) + c + "000000";
+					CuentaContable cuentaContableC = buildCuentaContable(ejercicioContable, contadorCuentas,
+							cuentaContableB, cuentaJerarquia);
+					dataBase.insertObject(cuentaContableC);
+					itemsCuentaContable.add(cuentaContableC);
+					
+					limit = getIntegerRandom(limitMin, limitTop);
 
-				if (fields[i].trim().length() == 0) {
-					fields[i] = null;
-				}
+					for (int d = 10; d <= limit; d = d + 10) {
 
-				if (fields[i] != null && fields[i].equalsIgnoreCase("null")) {
-					fields[i] = null;
+						contadorCuentas++;
+						cuentaJerarquia = cuentaContableC.getCuentaJerarquia().substring(0, 5) + d + "0000";
+						CuentaContable cuentaContableD = buildCuentaContable(ejercicioContable, contadorCuentas,
+								cuentaContableC, cuentaJerarquia);
+						dataBase.insertObject(cuentaContableD);
+						itemsCuentaContable.add(cuentaContableD);
+						
+						limit = getIntegerRandom(limitMin, limitTop);
+
+						for (int e = 10; e <= limit; e = e + 10) {
+
+							contadorCuentas++;
+							cuentaJerarquia = cuentaContableD.getCuentaJerarquia().substring(0, 7) + e + "00";
+							CuentaContable cuentaContableE = buildCuentaContable(ejercicioContable, contadorCuentas,
+									cuentaContableD, cuentaJerarquia);
+							dataBase.insertObject(cuentaContableE);
+							itemsCuentaContable.add(cuentaContableE);
+
+							for (int f = 1; f <= 9; f++) {
+
+								contadorCuentas++;
+								cuentaJerarquia = cuentaContableE.getCuentaJerarquia().substring(0, 9) + "0" + f + "";
+								CuentaContable cuentaContableF = buildCuentaContable(ejercicioContable, contadorCuentas,
+										cuentaContableE, cuentaJerarquia);
+								dataBase.insertObject(cuentaContableF);
+								itemsCuentaContable.add(cuentaContableF);
+							}
+
+							for (int f = 10; f <= 99; f++) {
+
+								contadorCuentas++;
+								cuentaJerarquia = cuentaContableE.getCuentaJerarquia().substring(0, 9) + f + "";
+								CuentaContable cuentaContableF = buildCuentaContable(ejercicioContable, contadorCuentas,
+										cuentaContableE, cuentaJerarquia);
+								dataBase.insertObject(cuentaContableF);
+								itemsCuentaContable.add(cuentaContableF);
+							}
+
+						}
+
+					}
+
 				}
 
 			}
-
-//			System.out.println(fields.length + " ---- " + Arrays.toString(fields));
-
-			CuentaContable cuentaContable = new CuentaContable();
-
-			cuentaContable.setCodigo(fields[0]); // 0
-
-			// ------------------------------------
-
-			cuentaContable.setNombre(fields[1] + "_" + c); // 1
-
-			// ------------------------------------
-
-			for (EjercicioContable ejercicioContable : itemsEjercicioContable) {
-				if (ejercicioContable.getNumero().equals(Integer.valueOf(fields[2].trim()))) {
-					cuentaContable.setEjercicioContable(ejercicioContable); // 2
-					break;
-				}
-			}
-
-			cuentaContable.setIntegra(fields[3]); // 3
-			// ------------------------------------
-			cuentaContable.setCuentaJerarquia(fields[4]); // 4
-			// ------------------------------------
-			cuentaContable.setImputable(fields[5].trim().equalsIgnoreCase("S")); // 5
-			// ------------------------------------
-			cuentaContable.setAjustaPorInflacion(fields[6].trim().equalsIgnoreCase("S")); // 6
-
-			// ------------------------------------
-
-			for (CuentaContableEstado cuentaContableEstado : itemsCuentaContableEstado) {
-				if (cuentaContableEstado.getNumero().equals(Integer.valueOf(fields[7].trim()))) {
-					cuentaContable.setCuentaContableEstado(cuentaContableEstado); // 7
-					break;
-				}
-			}
-
-			// ------------------------------------
-
-			cuentaContable.setCuentaConApropiacion(fields[8].trim().equalsIgnoreCase("S")); // 8
-
-			// ------------------------------------
-
-			List<CentroCostoContable> itemsCentroCostoContableTemp = new ArrayList<CentroCostoContable>();
-
-			for (CentroCostoContable centroCostoContable : itemsCentroCostoContable) {
-
-				if (centroCostoContable.getEjercicioContable().getNumero()
-						.equals(cuentaContable.getEjercicioContable().getNumero())) {
-
-					itemsCentroCostoContableTemp.add(centroCostoContable);
-
-				}
-			}
-
-			cuentaContable.setCentroCostoContable(
-					itemsCentroCostoContableTemp.get(getIntegerRandom(0, itemsCentroCostoContableTemp.size() - 1))); // 9
-
-			// ------------------------------------
-
-			cuentaContable.setCuentaAgrupadora(fields[10]); // 10
-
-			// ------------------------------------
-
-			cuentaContable.setPorcentaje(fields[11] == null ? null : Double.valueOf(fields[11].trim())); // 11
-
-			// ------------------------------------
-
-			List<PuntoEquilibrio> itemsPuntoEquilibrioTemp = new ArrayList<PuntoEquilibrio>();
-
-			for (PuntoEquilibrio puntoEquilibrio : itemsPuntoEquilibrio) {
-
-				if (puntoEquilibrio.getEjercicioContable().getNumero()
-						.equals(cuentaContable.getEjercicioContable().getNumero())) {
-
-					itemsPuntoEquilibrioTemp.add(puntoEquilibrio); // 12
-
-				}
-			}
-
-			// ------------------------------------
-
-			cuentaContable.setPuntoEquilibrio(
-					itemsPuntoEquilibrioTemp.get(getIntegerRandom(0, itemsPuntoEquilibrioTemp.size() - 1))); // 13
-
-			// ------------------------------------
-
-			for (CostoVenta costoVenta : itemsCostoVenta) {
-				if (costoVenta.getNumero().equals(Integer.valueOf(fields[13].trim()))) {
-					cuentaContable.setCostoVenta(costoVenta); // 14
-					break;
-				}
-			}
-//			cuentaContable.setCostoVenta(itemsCostoVenta.get(getIntegerRandom(0, itemsCostoVenta.size() - 1)));			
-
-			// ------------------------------------
-
-			cuentaContable
-					.setSeguridadPuerta(itemsSeguridadPuerta.get(getIntegerRandom(0, itemsSeguridadPuerta.size() - 1)));
-
-			// ------------------------------------
-
-//			String[] fields2 = new String[15];
-//
-//			fields2[0] = cuentaContable.getCodigo();
-//			fields2[1] = cuentaContable.getNombre();
-//			fields2[2] = cuentaContable.getEjercicioContable().getNumero() + "";
-//			fields2[3] = cuentaContable.getIntegra();
-//			fields2[4] = cuentaContable.getCuentaJerarquia();
-//			fields2[5] = cuentaContable.getImputable() ? "S" : "N";
-//			fields2[6] = cuentaContable.getAjustaPorInflacion() ? "S" : "N";
-//			if (cuentaContable.getCuentaContableEstado() != null) {
-//				fields2[7] = cuentaContable.getCuentaContableEstado().getNumero() + "";
-//			}
-//			fields2[8] = cuentaContable.getCuentaConApropiacion() ? "1" : "0";
-////			fields2[9] = cuentaContable.getCentroCostoContable().getNumero() + "";
-//			fields2[10] = cuentaContable.getCuentaAgrupadora();
-//			fields2[11] = cuentaContable.getPorcentaje() + "";
-////			fields2[12] = cuentaContable.getPuntoEquilibrio().getNumero() + "";
-//			fields2[13] = cuentaContable.getCostoVenta().getNumero() + "";
-////			fields2[14] = cuentaContable.getSeguridadPuerta().getNumero() + "";
-
-//			System.out.println(fields.length + " ---- " + Arrays.toString(fields2));
-//
-//			System.out.println();
-
-			if (cuentaContable.getIntegra() != null && cuentaContable.getCuentaContableEstado() != null) {
-
-				dataBase.insertObject(cuentaContable);
-
-				itemsCuentaContable.add(cuentaContable);
-
-			}
-
-			c++;
 
 		}
-		b.close();
 
-		// -------------------------------------------------------------------
+	}
 
-//
-//		for (int i = 1; i <= 250; i++) {
-//
-//			CuentaContable cuentaContable = new CuentaContable();
-//
-//			cuentaContable.setCodigo("CuentaContable" + i);
-//			cuentaContable.setNombre("CuentaContable" + i);
-//			cuentaContable.setEjercicioContable(ejercicioContable);
-//			
-//			cuentaContable.setIntegra("");
-//			cuentaContable.setCuentaJerarquia("");
-//			
-//			cuentaContable.setImputable(new Random().nextBoolean());
-//			cuentaContable.setAjustaPorInflacion(new Random().nextBoolean());
-//			cuentaContable.setCuentaContableEstado(
-//					itemsCuentaContableEstado.get(getIntegerRandom(0, itemsCuentaContableEstado.size() - 1)));
-//			cuentaContable.setCuentaConApropiacion(new Random().nextBoolean());
-//			cuentaContable.setCentroCostoContable(
-//					itemsCentroCostoContable.get(getIntegerRandom(0, itemsCentroCostoContable.size() - 1)));
-//			cuentaContable.setCuentaAgrupadora("CuentaContable" + i);
-//			cuentaContable.setPorcentaje(getDoubleRandom(1d, 100d, false));
-//			cuentaContable
-//					.setPuntoEquilibrio(itemsPuntoEquilibrio.get(getIntegerRandom(0, itemsPuntoEquilibrio.size() - 1)));
-//			cuentaContable.setCostoVenta(itemsCostoVenta.get(getIntegerRandom(0, itemsCostoVenta.size() - 1)));
-//
-//			SeguridadModulo saeguridadModulo = itemsSeguridadModulo
-//					.get(getIntegerRandom(0, itemsSeguridadModulo.size() - 1));
-//			List<SeguridadPuerta> itemsSeguridadPuerta = saeguridadModulo.getSeguridadPuertaItems();
-//
-//			cuentaContable
-//					.setSeguridadPuerta(itemsSeguridadPuerta.get(getIntegerRandom(0, itemsSeguridadPuerta.size() - 1)));
-//
-//			dataBase.insertObject(cuentaContable);
-//
-//		}
+	private static CuentaContable buildCuentaContable(EjercicioContable ejercicioContable, int c,
+			CuentaContable integra, String cuentaJerarquia) {
+
+		CuentaContable cuentaContable = new CuentaContable();
+
+		cuentaContable.setCodigo("CC" + c);
+		cuentaContable.setNombre("CuentaContable" + c);
+		cuentaContable.setEjercicioContable(ejercicioContable);
+		cuentaContable.setIntegra(integra);
+		cuentaContable.setCuentaJerarquia(cuentaJerarquia);
+		cuentaContable.setImputable(new Random().nextBoolean());
+		cuentaContable.setAjustaPorInflacion(new Random().nextBoolean());
+		cuentaContable.setCuentaContableEstado(new Random().nextBoolean());
+		cuentaContable.setCuentaConApropiacion(new Random().nextBoolean());
+
+		List<CentroCostoContable> itemsCentroCostoContableTemp = new ArrayList<CentroCostoContable>();
+		for (CentroCostoContable centroCostoContable : itemsCentroCostoContable) {
+			if (centroCostoContable.getEjercicioContable().getNumero()
+					.equals(cuentaContable.getEjercicioContable().getNumero())) {
+				itemsCentroCostoContableTemp.add(centroCostoContable);
+			}
+		}
+		cuentaContable.setCentroCostoContable(new Random().nextBoolean() ? null
+				: itemsCentroCostoContableTemp.get(getIntegerRandom(0, itemsCentroCostoContableTemp.size() - 1)));
+
+		cuentaContable.setCuentaAgrupadora(new Random().nextBoolean() ? null : "CuentaContable" + c);
+		cuentaContable.setPorcentaje(getDoubleRandom(0.0, 100.0, false));
+
+		List<PuntoEquilibrio> itemsPuntoEquilibrioTemp = new ArrayList<PuntoEquilibrio>();
+		for (PuntoEquilibrio puntoEquilibrio : itemsPuntoEquilibrio) {
+			if (puntoEquilibrio.getEjercicioContable().getNumero()
+					.equals(cuentaContable.getEjercicioContable().getNumero())) {
+				itemsPuntoEquilibrioTemp.add(puntoEquilibrio);
+			}
+		}
+		cuentaContable.setPuntoEquilibrio(new Random().nextBoolean() ? null
+				: itemsPuntoEquilibrioTemp.get(getIntegerRandom(0, itemsPuntoEquilibrioTemp.size() - 1)));
+
+		cuentaContable.setCostoVenta(new Random().nextBoolean() ? null
+				: itemsCostoVenta.get(getIntegerRandom(0, itemsCostoVenta.size() - 1)));
+		cuentaContable.setSeguridadPuerta(new Random().nextBoolean() ? null
+				: itemsSeguridadPuerta.get(getIntegerRandom(0, itemsSeguridadPuerta.size() - 1)));
+
+		return cuentaContable;
 	}
 
 	// ---------------------------------------------------------------------------------------------------------------------------

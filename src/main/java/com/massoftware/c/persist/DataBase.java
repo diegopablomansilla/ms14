@@ -23,7 +23,6 @@ public class DataBase extends AbstractDataBase {
 	private TipoPuntoEquilibrioDAO tipoPuntoEquilibrioDAO;
 	private PuntoEquilibrioDAO puntoEquilibrioDAO;
 	private CostoVentaDAO costoVentaDAO;
-	private CuentaContableEstadoDAO cuentaContableEstadoDAO;
 	private CuentaContableDAO cuentaContableDAO;
 	private AsientoModeloDAO asientoModeloDAO;
 	private AsientoModeloItemDAO asientoModeloItemDAO;
@@ -48,7 +47,6 @@ public class DataBase extends AbstractDataBase {
 		tipoPuntoEquilibrioDAO = new TipoPuntoEquilibrioDAO(this.sourceSQL);	
 		puntoEquilibrioDAO = new PuntoEquilibrioDAO(this.sourceSQL);	
 		costoVentaDAO = new CostoVentaDAO(this.sourceSQL);	
-		cuentaContableEstadoDAO = new CuentaContableEstadoDAO(this.sourceSQL);	
 		cuentaContableDAO = new CuentaContableDAO(this.sourceSQL);	
 		asientoModeloDAO = new AsientoModeloDAO(this.sourceSQL);	
 		asientoModeloItemDAO = new AsientoModeloItemDAO(this.sourceSQL);	
@@ -151,16 +149,11 @@ public class DataBase extends AbstractDataBase {
 	}	
 	// ---------------------------------------------------------------------------------------------------------------------------
 
-	public List<CuentaContableEstado> find(CuentaContableEstadoFilterQ1 filter) throws Exception {
-		return cuentaContableEstadoDAO.find(connection, filter);
-	}
-
-	public Integer count(CuentaContableEstadoFilterQ1 filter) throws Exception {
-		return cuentaContableEstadoDAO.count(connection, filter);
-	}	
-	// ---------------------------------------------------------------------------------------------------------------------------
-
 	public List<CuentaContable> find(CuentaContableFilterQ1 filter) throws Exception {
+		return cuentaContableDAO.find(connection, filter);
+	}
+	
+	public List<CuentaContable> find(CuentaContableFilterQ2 filter) throws Exception {
 		return cuentaContableDAO.find(connection, filter);
 	}
 

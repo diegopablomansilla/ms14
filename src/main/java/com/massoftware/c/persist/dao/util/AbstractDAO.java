@@ -90,6 +90,17 @@ public abstract class AbstractDAO {
 
 		}
 	}
+	
+	protected void addArgStartEQ(Statement statement, List<String> sqlWhereArgs, String attName, String value) {
+		if (value != null) {			
+			statement.addArg(value + "%");
+			sqlWhereArgs.add(buildStartEQ(attName));
+		}
+	}
+	
+	protected String buildStartEQ(String attName) {
+		return attName + " LIKE ?";
+	}
 
 	protected String buildWhereSQL(List<String> sqlWhereArgs) {
 		if (sqlWhereArgs.size() == 0) {

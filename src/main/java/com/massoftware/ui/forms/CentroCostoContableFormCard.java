@@ -93,6 +93,8 @@ public class CentroCostoContableFormCard extends Div {
 	
 	private void createHeader() {
 		this.title = new H3("Centro de costo");
+		this.title.setWidthFull();
+		
 		buttonOpen = new Button();
 		buttonOpen.setIcon(new Icon(VaadinIcon.EXTERNAL_LINK));
 		buttonOpen.addThemeVariants(ButtonVariant.LUMO_SMALL);
@@ -105,10 +107,10 @@ public class CentroCostoContableFormCard extends Div {
 		header.setMargin(false);
 //		header.setSpacing(false);
 
-		Div d = new Div();
-		d.setWidthFull();
+//		Div d = new Div();
+//		d.setWidthFull();
 
-		header.add(this.title, d, buttonOpen);
+		header.add(this.title, buttonOpen);
 //		header.setFlexGrow(1, this.title);
 //		header.setAlignItems(FlexComponent.Alignment.CENTER);
 		header.setAlignItems(Alignment.END);

@@ -1,4 +1,4 @@
-package com.massoftware.ui.grids;
+package com.massoftware.ui.cbx;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,28 +7,29 @@ import com.massoftware.a.model.CentroCostoContable;
 import com.massoftware.b.service.CentroCostoContableFilterQ1;
 import com.massoftware.b.service.CentroCostoContableService;
 import com.massoftware.b.service.util.Exception500;
-import com.massoftware.ui.grids.util.GridCustom;
+import com.massoftware.ui.GlobalProperties;
+import com.massoftware.ui.cbx.util.ComboBoxCustom;
+import com.massoftware.ui.selectlist.CentroCostoContableSelectList;
+import com.massoftware.ui.util.FormDialog;
 import com.massoftware.ui.util.NotificationError;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.Notification.Position;
 import com.vaadin.flow.component.notification.NotificationVariant;
 
-
-public class CentroCostoContableGrid extends GridCustom<CentroCostoContable> {
+public class CentroCostoContableCBX extends ComboBoxCustom<CentroCostoContable> {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
-	private CentroCostoContableFilterQ1 filter;
+	public CentroCostoContableFilterQ1 filter;
 	private CentroCostoContableService service;
 
 	private Integer lastCount;
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
-	public CentroCostoContableGrid(CentroCostoContableService service, CentroCostoContableFilterQ1 filter) {
-		super(CentroCostoContable.class, false);
-		this.filter = filter;
-		this.service = service;
+	public CentroCostoContableCBX() {
+		this.filter = new CentroCostoContableFilterQ1();
+		this.service = new CentroCostoContableService(GlobalProperties.getDataBaseKey());
 	}
 
 	// ---------------------------------------------------------------------------------------------------------------------------
@@ -39,28 +40,24 @@ public class CentroCostoContableGrid extends GridCustom<CentroCostoContable> {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
-	protected void addColumns() {
-
-		// --------------------------------------------------------------------------------------------------
-
-		addColumn(CentroCostoContable::getId, "id").setKey("id").setSortProperty("1").setHeader("ID").setVisible(false);
-
-//		addColumn(CentroCostoContable::toString, "toString").setKey("toString").setSortProperty("2")
-//				.setHeader("Centro de costo").setVisible(false);
-
-		// --------------------------------------------------------------------------------------------------
-		
-		addColumn(CentroCostoContable::getNumero, "numero").setKey("numero").setResizable(true).setSortProperty("2").setHeader("Nº cc");		
-		addColumn(CentroCostoContable::getAbreviatura, "abreviatura").setKey("abreviatura").setResizable(true).setSortProperty("4").setHeader("Abreviatura");
-		addColumn(CentroCostoContable::getNombre, "nombre").setKey("nombre").setResizable(true).setSortProperty("3").setHeader("Nombre");
-	}
-
-
-	// ---------------------------------------------------------------------------------------------------------------------------
-
-	protected Integer countFromService() {
+	protected Integer countFromService(String filterText) {
 
 		try {
+
+			if (filterText != null) {
+				filterText = filterText.trim();
+			}
+
+			try {
+				filter.setNombre(null);
+				filter.setNumeroFrom(Integer.valueOf(filterText));
+				filter.setNumeroTo(filter.getNumeroFrom());
+			} catch (Exception x) {
+				filter.setNombre(filterText);
+				filter.setNumeroFrom(null);
+				filter.setNumeroTo(filter.getNumeroFrom());
+			}
+
 			lastCount = service.count(filter);
 			return lastCount;
 		} catch (Exception500 e) {
@@ -70,7 +67,8 @@ public class CentroCostoContableGrid extends GridCustom<CentroCostoContable> {
 		return 0;
 	}
 
-	protected List<CentroCostoContable> findFromService(int offset, int limit, Integer orderBy, Boolean orderByDesc) {
+	protected List<CentroCostoContable> findFromService(int offset, int limit, Integer orderBy, Boolean orderByDesc,
+			String filterText) {
 
 		try {
 
@@ -83,6 +81,20 @@ public class CentroCostoContableGrid extends GridCustom<CentroCostoContable> {
 			filter.setLimit(limit);
 			filter.setOrderBy(orderBy);
 			filter.setOrderByDesc(orderByDesc);
+
+			if (filterText != null) {
+				filterText = filterText.trim();
+			}
+
+			try {
+				filter.setNombre(null);
+				filter.setNumeroFrom(Integer.valueOf(filterText));
+				filter.setNumeroTo(filter.getNumeroFrom());
+			} catch (Exception x) {
+				filter.setNombre(filterText);
+				filter.setNumeroFrom(null);
+				filter.setNumeroTo(filter.getNumeroFrom());
+			}
 
 			List<CentroCostoContable> items = service.find(filter);
 
@@ -97,14 +109,14 @@ public class CentroCostoContableGrid extends GridCustom<CentroCostoContable> {
 
 		return new ArrayList<CentroCostoContable>();
 	}
-	
+
 	protected boolean removeItemFromService(CentroCostoContable item) {
 
 		try {
 			service.deleteById(item.getId());
 
-			Notification notification = new Notification("Centro de costo " + item + " borrado con éxito.", 1000,
-				Position.BOTTOM_END);
+			Notification notification = new Notification("Punto equilibrio " + item + " borrado con éxito.", 1000,
+					Position.BOTTOM_END);
 			notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
 			notification.open();
 
@@ -115,6 +127,32 @@ public class CentroCostoContableGrid extends GridCustom<CentroCostoContable> {
 		}
 
 		return false;
+	}
+
+	// --------------------------------------------------------------------------------------------------
+
+	protected void openFormDialog() {
+
+		CentroCostoContableSelectList listView = new CentroCostoContableSelectList();
+
+//			form.search(item.getId());
+		FormDialog formDialog = new FormDialog();
+		formDialog.setTitle("Seleccionar " + this.getLabel());
+		formDialog.setContent(listView);
+		formDialog.confirm.setText("Seleccionar");
+		formDialog.addConfirmationListener(buttonClickEvent -> {
+
+			CentroCostoContable item = listView.grid.asSingleSelect().getValue();
+			if (item != null) {
+				this.setValue(item);
+				formDialog.close();
+			}
+		});
+		formDialog.setSizeFull();
+//			Page page = this.getUI().get().getPage();
+
+		formDialog.open();
+
 	}
 
 	// --------------------------------------------------------------------------------------------------

@@ -70,6 +70,8 @@ public abstract class ComboBoxCustom<T> extends ComboBox<T> {
 					
 					if(items.size() == 1) {
 						this.setValue(items.get(0));
+					} else if(items.size() == 0) {
+//						openFormDialog(filterText);
 					}
 					
 					return items.stream();
@@ -85,6 +87,25 @@ public abstract class ComboBoxCustom<T> extends ComboBox<T> {
 
 					if (c == 0) {
 						notificationCantItems(c);
+						if (filterText != null && filterText.trim().length() > 0) {
+//							System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+//							System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+//							System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+//							System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+//							
+//							System.out.println(filterText);
+//							
+//							System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+//							System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+//							System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+//							System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+							
+							
+							openFormDialog();	
+							
+							this.setValue(null);
+						}
+						
 					}
 
 					return c;
@@ -161,6 +182,12 @@ public abstract class ComboBoxCustom<T> extends ComboBox<T> {
 //	protected void open(String id) {
 //		Notification.show("Open: " + id);
 //	}
+	
+	// ---------------------------------------------------------------------------------------------------------------------------
+	
+	protected void openFormDialog() {
+		
+	}
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 

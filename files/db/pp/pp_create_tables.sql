@@ -765,73 +765,6 @@ CREATE TRIGGER tgFormatCostoVenta BEFORE INSERT OR UPDATE
 
 -- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 -- //                                                                                                                        //
--- //          TABLA: CuentaContableEstado                                                                                   //
--- //                                                                                                                        //
--- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
--- Table: massoftware.CuentaContableEstado
-
--- ---------------------------------------------------------------------------------------------------------------------------
-
-
-DROP TABLE IF EXISTS massoftware.CuentaContableEstado CASCADE;
-
-CREATE TABLE massoftware.CuentaContableEstado
-(
-	id VARCHAR(36) PRIMARY KEY DEFAULT uuid_generate_v4(),
-	
-	-- Nº tipo
-	numero INTEGER NOT NULL  CONSTRAINT CuentaContableEstado_numero_chk CHECK ( numero >= 0  ), 
-	
-	-- Nombre
-	nombre VARCHAR(50) NOT NULL
-);
-
--- ---------------------------------------------------------------------------------------------------------------------------
-
-
-CREATE UNIQUE INDEX u_CuentaContableEstado_0 ON massoftware.CuentaContableEstado (numero);
-
-CREATE UNIQUE INDEX u_CuentaContableEstado_1 ON massoftware.CuentaContableEstado (TRANSLATE(LOWER(TRIM(nombre))
-	, '/\"'';,_-.âãäåāăąàáÁÂÃÄÅĀĂĄÀèééêëēĕėęěĒĔĖĘĚÉÈËÊìíîïìĩīĭÌÍÎÏÌĨĪĬóôõöōŏőòÒÓÔÕÖŌŎŐùúûüũūŭůÙÚÛÜŨŪŬŮçÇñÑ'
-	, '         aaaaaaaaaAAAAAAAAAeeeeeeeeeeEEEEEEEEEiiiiiiiiIIIIIIIIooooooooOOOOOOOOuuuuuuuuUUUUUUUUcCnN' ));
-
--- ---------------------------------------------------------------------------------------------------------------------------
-
-DROP FUNCTION IF EXISTS massoftware.ftgFormatCuentaContableEstado() CASCADE;
-
-CREATE OR REPLACE FUNCTION massoftware.ftgFormatCuentaContableEstado() RETURNS TRIGGER AS $formatCuentaContableEstado$
-DECLARE
-BEGIN
-	 NEW.id := massoftware.white_is_null(NEW.id);
-	 NEW.nombre := massoftware.white_is_null(NEW.nombre);
-
-	RETURN NEW;
-END;
-$formatCuentaContableEstado$ LANGUAGE plpgsql;
-
--- ---------------------------------------------------------------------------------------------------------------------------
-
-DROP TRIGGER IF EXISTS tgFormatCuentaContableEstado ON massoftware.CuentaContableEstado CASCADE;
-
-CREATE TRIGGER tgFormatCuentaContableEstado BEFORE INSERT OR UPDATE
-	ON massoftware.CuentaContableEstado FOR EACH ROW
-	EXECUTE PROCEDURE massoftware.ftgFormatCuentaContableEstado();
-
--- ---------------------------------------------------------------------------------------------------------------------------
-
-
--- SELECT COUNT(*) FROM massoftware.CuentaContableEstado;
-
--- SELECT * FROM massoftware.CuentaContableEstado LIMIT 100 OFFSET 0;
-
--- SELECT * FROM massoftware.CuentaContableEstado;
-
--- SELECT * FROM massoftware.CuentaContableEstado WHERE id = 'xxx';
-
--- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
--- //                                                                                                                        //
 -- //          TABLA: CuentaContable                                                                                         //
 -- //                                                                                                                        //
 -- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -858,7 +791,7 @@ CREATE TABLE massoftware.CuentaContable
 	ejercicioContable VARCHAR(36)  NOT NULL  REFERENCES massoftware.EjercicioContable (id), 
 	
 	-- Integra
-	integra VARCHAR(11) NOT NULL  CONSTRAINT CuentaContable_integra_chk CHECK ( char_length(integra::VARCHAR) >= 11  ), 
+	integra VARCHAR(36)  REFERENCES massoftware.CuentaContable (id), 
 	
 	-- Cuenta de jerarquia
 	cuentaJerarquia VARCHAR(11) NOT NULL  CONSTRAINT CuentaContable_cuentaJerarquia_chk CHECK ( char_length(cuentaJerarquia::VARCHAR) >= 11  ), 
@@ -870,7 +803,7 @@ CREATE TABLE massoftware.CuentaContable
 	ajustaPorInflacion BOOLEAN NOT NULL, 
 	
 	-- Estado
-	cuentaContableEstado VARCHAR(36)  NOT NULL  REFERENCES massoftware.CuentaContableEstado (id), 
+	cuentaContableEstado BOOLEAN NOT NULL, 
 	
 	-- Cuenta con apropiación
 	cuentaConApropiacion BOOLEAN NOT NULL, 
@@ -920,7 +853,6 @@ BEGIN
 	 NEW.ejercicioContable := massoftware.white_is_null(NEW.ejercicioContable);
 	 NEW.integra := massoftware.white_is_null(NEW.integra);
 	 NEW.cuentaJerarquia := massoftware.white_is_null(NEW.cuentaJerarquia);
-	 NEW.cuentaContableEstado := massoftware.white_is_null(NEW.cuentaContableEstado);
 	 NEW.centroCostoContable := massoftware.white_is_null(NEW.centroCostoContable);
 	 NEW.cuentaAgrupadora := massoftware.white_is_null(NEW.cuentaAgrupadora);
 	 NEW.puntoEquilibrio := massoftware.white_is_null(NEW.puntoEquilibrio);

@@ -6,11 +6,9 @@ import java.util.Optional;
 
 import com.massoftware.c.persist.DataBases;
 import com.massoftware.ui.views.CentroCostoContableViewList;
+import com.massoftware.ui.views.CuentaContableViewList;
 import com.massoftware.ui.views.EjercicioContableViewList;
 import com.massoftware.ui.views.PuntoEquilibrioViewList;
-import com.massoftware.ui.views.views.form.FormView;
-import com.massoftware.ui.views.views.list.ListView;
-import com.massoftware.ui.views.views.masterdetail.MasterDetailView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasComponents;
 import com.vaadin.flow.component.applayout.AppLayout;
@@ -64,12 +62,13 @@ public class MainView extends AppLayout {
 
 		final List<Tab> tabs = new ArrayList<>();
 
-		tabs.add(createTab("List", ListView.class));
-		tabs.add(createTab("MasterDetail", MasterDetailView.class));
-		tabs.add(createTab("Form", FormView.class));		
+//		tabs.add(createTab("List", ListView.class));
+//		tabs.add(createTab("MasterDetail", MasterDetailView.class));
+//		tabs.add(createTab("Form", FormView.class));		
 		tabs.add(createTab("Ejercicios", EjercicioContableViewList.class));
 		tabs.add(createTab("CC", CentroCostoContableViewList.class));
-		tabs.add(createTab("Punto equilibrio", PuntoEquilibrioViewList.class));
+		tabs.add(createTab("Puntos de equilibrio", PuntoEquilibrioViewList.class));
+		tabs.add(createTab("Cuentas contable", CuentaContableViewList.class));
 
 		return tabs.toArray(new Tab[tabs.size()]);
 	}

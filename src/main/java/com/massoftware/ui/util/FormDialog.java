@@ -16,7 +16,7 @@ public class FormDialog extends Dialog {
 	// ---------------------------------------------------------------------------------------------------------------------------
 
 	private H3 title;
-	private Button confirm;
+	public Button confirm;
 	private Button abort;
 	private Button close;
 	private VerticalLayout content;

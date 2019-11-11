@@ -28,12 +28,19 @@ public class ConnectionInfo {
 	}
 
 	public boolean addStatement(Statement e) {
-		e.setNumber(statements.size()  + 1 + "");
+
+		if (dataSourceInfo.getDataSourceProperties().getStackStatementSize() > -1
+				&& statements.size() >= dataSourceInfo.getDataSourceProperties().getStackStatementSize()) {
+			statements = new ArrayList<Statement>();
+		}
+
+		e.setNumber(statements.size() + 1 + "");
 		return statements.add(e);
+
 	}
-	
+
 	// ---------------------------------------------------------------------------------------------------------------------------
-	
+
 	public String toString() {
 		String s = "";
 

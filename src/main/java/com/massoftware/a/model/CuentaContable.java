@@ -3,7 +3,7 @@ package com.massoftware.a.model;
 import com.massoftware.a.model.util.EntityId;
 
 import com.massoftware.a.model.EjercicioContable;
-import com.massoftware.a.model.CuentaContableEstado;
+import com.massoftware.a.model.CuentaContable;
 import com.massoftware.a.model.CentroCostoContable;
 import com.massoftware.a.model.PuntoEquilibrio;
 import com.massoftware.a.model.CostoVenta;
@@ -26,7 +26,7 @@ public class CuentaContable extends EntityId {
 	private EjercicioContable ejercicioContable;		
 	
 	// GET Integra
-	private String integra;		
+	private CuentaContable integra;		
 	
 	// GET Cuenta de jerarquia
 	private String cuentaJerarquia;		
@@ -38,7 +38,7 @@ public class CuentaContable extends EntityId {
 	private Boolean ajustaPorInflacion;		
 	
 	// GET Estado
-	private CuentaContableEstado cuentaContableEstado;		
+	private Boolean cuentaContableEstado;		
 	
 	// GET Cuenta con apropiación
 	private Boolean cuentaConApropiacion;		
@@ -105,13 +105,13 @@ public class CuentaContable extends EntityId {
 	}	
 	
 	// GET Integra
-	public String getIntegra() {
+	public CuentaContable getIntegra() {
 		return this.integra;
 	}
 		
 	// SET  Integra
-	public void setIntegra(String integra ){		
-		this.integra = (integra == null || integra.trim().length() == 0) ? null : integra.trim();
+	public void setIntegra(CuentaContable integra ){
+		this.integra = integra;
 	}	
 	
 	// GET Cuenta de jerarquia
@@ -145,14 +145,14 @@ public class CuentaContable extends EntityId {
 	}
 	
 	// GET Estado
-	public CuentaContableEstado getCuentaContableEstado() {
+	public Boolean getCuentaContableEstado() {
 		return this.cuentaContableEstado;
 	}
 		
 	// SET  Estado
-	public void setCuentaContableEstado(CuentaContableEstado cuentaContableEstado ){
-		this.cuentaContableEstado = cuentaContableEstado;
-	}	
+	public void setCuentaContableEstado(Boolean cuentaContableEstado ){		
+		this.cuentaContableEstado = (cuentaContableEstado == null) ? false : cuentaContableEstado;
+	}
 	
 	// GET Cuenta con apropiación
 	public Boolean getCuentaConApropiacion() {
@@ -249,13 +249,13 @@ public class CuentaContable extends EntityId {
 		if(this.getEjercicioContable() != null) {
 			other.setEjercicioContable(this.getEjercicioContable().clone());
 		}				
-		other.setIntegra(this.getIntegra());			
+		if(this.getIntegra() != null) {
+			other.setIntegra(this.getIntegra().clone());
+		}				
 		other.setCuentaJerarquia(this.getCuentaJerarquia());			
 		other.setImputable(this.getImputable());			
 		other.setAjustaPorInflacion(this.getAjustaPorInflacion());			
-		if(this.getCuentaContableEstado() != null) {
-			other.setCuentaContableEstado(this.getCuentaContableEstado().clone());
-		}				
+		other.setCuentaContableEstado(this.getCuentaContableEstado());			
 		other.setCuentaConApropiacion(this.getCuentaConApropiacion());			
 		if(this.getCentroCostoContable() != null) {
 			other.setCentroCostoContable(this.getCentroCostoContable().clone());

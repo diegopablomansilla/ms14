@@ -1,4 +1,4 @@
-package com.massoftware.ui.grids;
+package com.massoftware.ui.cbx;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,27 +7,27 @@ import com.massoftware.a.model.PuntoEquilibrio;
 import com.massoftware.b.service.PuntoEquilibrioFilterQ1;
 import com.massoftware.b.service.PuntoEquilibrioService;
 import com.massoftware.b.service.util.Exception500;
-import com.massoftware.ui.grids.util.GridCustom;
+import com.massoftware.ui.GlobalProperties;
+import com.massoftware.ui.cbx.util.ComboBoxCustom;
 import com.massoftware.ui.util.NotificationError;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.Notification.Position;
 import com.vaadin.flow.component.notification.NotificationVariant;
 
-public class PuntoEquilibrioGrid extends GridCustom<PuntoEquilibrio> {
+public class PuntoEquilibrioCBX extends ComboBoxCustom<PuntoEquilibrio> {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
-	private PuntoEquilibrioFilterQ1 filter;
+	public PuntoEquilibrioFilterQ1 filter;
 	private PuntoEquilibrioService service;
 
 	private Integer lastCount;
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
-	public PuntoEquilibrioGrid(PuntoEquilibrioService service, PuntoEquilibrioFilterQ1 filter) {
-		super(PuntoEquilibrio.class, false);
-		this.filter = filter;
-		this.service = service;
+	public PuntoEquilibrioCBX() {
+		this.filter = new PuntoEquilibrioFilterQ1();
+		this.service = new PuntoEquilibrioService(GlobalProperties.getDataBaseKey());
 	}
 
 	// ---------------------------------------------------------------------------------------------------------------------------
@@ -38,31 +38,24 @@ public class PuntoEquilibrioGrid extends GridCustom<PuntoEquilibrio> {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
-	protected void addColumns() {
-
-		// --------------------------------------------------------------------------------------------------
-
-		addColumn(PuntoEquilibrio::getId, "id").setKey("id").setSortProperty("1").setHeader("ID").setVisible(false);
-
-//		addColumn(PuntoEquilibrio::toString, "toString").setKey("toString").setSortProperty("2")
-//				.setHeader("Punto equilibrio").setVisible(false);
-
-		// --------------------------------------------------------------------------------------------------
-
-		addColumn(PuntoEquilibrio::getNumero, "numero").setKey("numero").setResizable(true).setSortProperty("2")
-				.setHeader("Nº cc");
-		addColumn(PuntoEquilibrio::getNombre, "nombre").setKey("nombre").setResizable(true).setSortProperty("3")
-				.setHeader("Nombre");
-		addColumn(PuntoEquilibrio::getTipoPuntoEquilibrio, "tipoPuntoEquilibrio").setKey("tipoPuntoEquilibrio")
-				.setResizable(true).setSortProperty("5").setHeader("Tipo");
-
-	}
-
-	// ---------------------------------------------------------------------------------------------------------------------------
-
-	protected Integer countFromService() {
+	protected Integer countFromService(String filterText) {
 
 		try {
+
+			if (filterText != null) {
+				filterText = filterText.trim();
+			}
+
+			try {
+				filter.setNombre(null);
+				filter.setNumeroFrom(Integer.valueOf(filterText));
+				filter.setNumeroTo(filter.getNumeroFrom());
+			} catch (Exception x) {
+				filter.setNombre(filterText);
+				filter.setNumeroFrom(null);
+				filter.setNumeroTo(filter.getNumeroFrom());
+			}
+
 			lastCount = service.count(filter);
 			return lastCount;
 		} catch (Exception500 e) {
@@ -72,7 +65,8 @@ public class PuntoEquilibrioGrid extends GridCustom<PuntoEquilibrio> {
 		return 0;
 	}
 
-	protected List<PuntoEquilibrio> findFromService(int offset, int limit, Integer orderBy, Boolean orderByDesc) {
+	protected List<PuntoEquilibrio> findFromService(int offset, int limit, Integer orderBy, Boolean orderByDesc,
+			String filterText) {
 
 		try {
 
@@ -85,6 +79,20 @@ public class PuntoEquilibrioGrid extends GridCustom<PuntoEquilibrio> {
 			filter.setLimit(limit);
 			filter.setOrderBy(orderBy);
 			filter.setOrderByDesc(orderByDesc);
+
+			if (filterText != null) {
+				filterText = filterText.trim();
+			}
+
+			try {
+				filter.setNombre(null);
+				filter.setNumeroFrom(Integer.valueOf(filterText));
+				filter.setNumeroTo(filter.getNumeroFrom());
+			} catch (Exception x) {
+				filter.setNombre(filterText);
+				filter.setNumeroFrom(null);
+				filter.setNumeroTo(filter.getNumeroFrom());
+			}
 
 			List<PuntoEquilibrio> items = service.find(filter);
 

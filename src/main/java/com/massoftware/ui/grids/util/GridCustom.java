@@ -7,6 +7,7 @@ import com.massoftware.a.model.util.EntityId;
 import com.massoftware.ui.util.ConfirmationDialog;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.grid.ColumnTextAlign;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.grid.ItemDoubleClickEvent;
@@ -24,7 +25,7 @@ public abstract class GridCustom<T> extends Grid<T> {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
-	private boolean showToolBarColumn = true;
+	public boolean showToolBarColumn = false;
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -75,14 +76,14 @@ public abstract class GridCustom<T> extends Grid<T> {
 
 	protected abstract void addColumns();
 
-	protected void addColumnToolBar() {
-//		if (showToolBarColumn) {
-//			this.addComponentColumn(item -> createActionsColumn(this, item)).setKey("toolBar").setHeader("")
-//					.setTextAlign(ColumnTextAlign.END);
-//		}
+	public void addColumnToolBar() {
+		if (showToolBarColumn) {
+			this.addComponentColumn(item -> createActionsColumn(this, item)).setKey("toolBar").setHeader("")
+					.setTextAlign(ColumnTextAlign.END);
+		}
 	}
 
-	protected HorizontalLayout createActionsColumn(Grid<T> grid, T item) {
+	public HorizontalLayout createActionsColumn(Grid<T> grid, T item) {
 		HorizontalLayout hl = new HorizontalLayout();
 		hl.setMargin(false);
 		hl.setPadding(false);
@@ -94,7 +95,7 @@ public abstract class GridCustom<T> extends Grid<T> {
 		buttonRemove.setIcon(new Icon(VaadinIcon.TRASH));
 		buttonRemove.addThemeVariants(ButtonVariant.LUMO_ERROR);
 
-		Button buttonOpen = new Button("", clickEvent -> {
+		Button buttonOpen = new Button("", clickEvent -> {			
 			open(item);
 		});
 		buttonOpen.setIcon(new Icon(VaadinIcon.EXTERNAL_LINK));
@@ -202,7 +203,7 @@ public abstract class GridCustom<T> extends Grid<T> {
 
 	protected void doubleClickAction(ItemDoubleClickEvent<T> event) {
 		if (this.showToolBarColumn) {
-			open(event.getItem());
+//			open(event.getItem());
 		}
 	}
 

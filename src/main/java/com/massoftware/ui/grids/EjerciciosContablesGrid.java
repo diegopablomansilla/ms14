@@ -12,11 +12,11 @@ import com.massoftware.ui.grids.util.GridCustom;
 import com.massoftware.ui.util.NotificationError;
 import com.massoftware.ui.util.UIUtils;
 import com.vaadin.flow.component.Component;
-import com.vaadin.flow.component.html.H4;
+import com.vaadin.flow.component.html.H5;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
-import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.notification.Notification.Position;
+import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.data.renderer.LocalDateRenderer;
 
@@ -32,7 +32,7 @@ public class EjerciciosContablesGrid extends GridCustom<EjercicioContable> {
 	// ---------------------------------------------------------------------------------------------------------------------------
 
 	public EjerciciosContablesGrid(EjercicioContableService service, EjercicioContableFilterQ1 filter) {
-		super(EjercicioContable.class, true);
+		super(EjercicioContable.class, false);
 		this.filter = filter;
 		this.service = service;
 	}
@@ -57,7 +57,7 @@ public class EjerciciosContablesGrid extends GridCustom<EjercicioContable> {
 		// --------------------------------------------------------------------------------------------------
 
 		addColumn(new ComponentRenderer<>(ejercicioContable -> {
-			return new H4(ejercicioContable.getNumero() + "");
+			return new H5(ejercicioContable.getNumero() + "");
 		})).setKey("numero").setResizable(true).setSortProperty("2").setHeader("Nº ejercicio");
 
 //		addColumn(EjercicioContable::getNumero, "numero").setKey("numero").setResizable(true).setSortProperty("2").setHeader("Nº ejercicio");

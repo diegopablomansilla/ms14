@@ -3,15 +3,23 @@ package com.massoftware.ui.forms;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import com.massoftware.a.model.PuntoEquilibrio;
-import com.massoftware.b.service.PuntoEquilibrioService;
+import com.massoftware.a.model.CuentaContable;
+import com.massoftware.b.service.CuentaContableService;
 import com.massoftware.b.service.util.Exception500;
 import com.massoftware.c.persist.dao.ds.ex.DeleteForeignKeyViolationException;
-import com.massoftware.ui.cbx.TipoPuntoEquilibrioCBX;
+import com.massoftware.ui.cbx.CentroCostoContableCBX;
+import com.massoftware.ui.cbx.CostoVentaCBX;
+import com.massoftware.ui.cbx.PuntoEquilibrioCBX;
+import com.massoftware.ui.cbx.SeguridadPuertaCBX;
 import com.massoftware.ui.util.ConfirmationDialog;
 import com.massoftware.ui.util.NotificationError;
+import com.vaadin.flow.component.accordion.Accordion;
+import com.vaadin.flow.component.accordion.AccordionPanel;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
+//import com.massoftware.ui.cbx.EjercicioContableCBX;
+//import com.massoftware.ui.cbx.IntegraCBX;
+import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H3;
@@ -20,8 +28,8 @@ import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.Notification.Position;
 import com.vaadin.flow.component.notification.NotificationVariant;
-import com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
+import com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.TextField;
@@ -29,7 +37,7 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.BinderValidationStatus;
 import com.vaadin.flow.data.binder.BindingValidationStatus;
 
-public class PuntoEquilibrioFormCard extends Div {
+public class CuentaContableFormCard extends Div {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -38,40 +46,56 @@ public class PuntoEquilibrioFormCard extends Div {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
-	private PuntoEquilibrioService service;
+	private CuentaContableService service;
 
-	// Binder	
-	private Binder<PuntoEquilibrio> binder;
+	// Binder
+	private Binder<CuentaContable> binder;
 
 	// Control's
-	private FormLayout form;
+	private FormLayout formGeneral;
+	private FormLayout formCC;
+	private FormLayout formSeguridad;
 	private HorizontalLayout actions;
 	private HorizontalLayout actions2;
 	private Button saveButton;
 	private Button deleteButton;
-	
+
 	private boolean header;
 
-	
-	private NumberField numero;
+	private TextField codigo;
 	private TextField nombre;
-	private TipoPuntoEquilibrioCBX tipoPuntoEquilibrio;
+//	private EjercicioContableCBX ejercicioContable;
+//	private IntegraCBX integra;
+	private TextField cuentaJerarquia;
+	private Checkbox imputable;
+	private Checkbox ajustaPorInflacion;
+	private Checkbox cuentaContableEstado;
+	private Checkbox cuentaConApropiacion;
+	private CentroCostoContableCBX centroCostoContable;
+	private TextField cuentaAgrupadora;
+	private NumberField porcentaje;
+	private PuntoEquilibrioCBX puntoEquilibrio;
+	private CostoVentaCBX costoVenta;
+	private SeguridadPuertaCBX seguridadPuerta;
+
+	private Accordion accordion;
+	private AccordionPanel ccPanel;
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
-	public PuntoEquilibrioFormCard(PuntoEquilibrioService service) {
+	public CuentaContableFormCard(CuentaContableService service) {
 		this.header = true;
 		init(service);
 	}
 
-	public PuntoEquilibrioFormCard(PuntoEquilibrioService service, boolean header) {
+	public CuentaContableFormCard(CuentaContableService service, boolean header) {
 		this.header = header;
 		init(service);
 	}
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
-	private void init(PuntoEquilibrioService service) {
+	private void init(CuentaContableService service) {
 		this.service = service;
 		initBinder();
 		if (header) {
@@ -79,14 +103,14 @@ public class PuntoEquilibrioFormCard extends Div {
 		}
 		initForm();
 		this.setHeightFull();
-		
-		numero.focus();
-	}
-	
-	
 
-	private void initBinder() {		
-		binder = new Binder<>(PuntoEquilibrio.class);
+//		resetFormCC();
+
+		codigo.focus();
+	}
+
+	private void initBinder() {
+		binder = new Binder<>(CuentaContable.class);
 //		binder.addStatusChangeListener(event -> {
 //			boolean isValid = event.getBinder().isValid();
 //			boolean hasChanges = event.getBinder().hasChanges();
@@ -94,11 +118,11 @@ public class PuntoEquilibrioFormCard extends Div {
 //			resetButton.setEnabled(hasChanges);
 //		});
 	}
-	
+
 	private void createHeader() {
-		this.title = new H3("Punto equilibrio");
+		this.title = new H3("Cuenta contable");
 		this.title.setWidthFull();
-		
+
 		buttonOpen = new Button();
 		buttonOpen.setIcon(new Icon(VaadinIcon.EXTERNAL_LINK));
 		buttonOpen.addThemeVariants(ButtonVariant.LUMO_SMALL);
@@ -110,8 +134,8 @@ public class PuntoEquilibrioFormCard extends Div {
 		header.setMargin(false);
 //		header.setSpacing(false);
 
-		Div d = new Div();
-		d.setWidthFull();
+//		Div d = new Div();
+//		d.setWidthFull();
 
 		header.add(this.title, buttonOpen);
 //		header.setFlexGrow(1, this.title);
@@ -125,35 +149,87 @@ public class PuntoEquilibrioFormCard extends Div {
 		open(this.binder.getBean());
 	}
 
-	protected void open(PuntoEquilibrio item) {
+	protected void open(CuentaContable item) {
 
-	}	
+	}
 
 	private void initForm() {
 
+		accordion = new Accordion();
+		accordion.setWidthFull();
+
 		// -------------------------------------------------------------------
 		// Controls
-		// -------------------------------------------------------------------		
+		// -------------------------------------------------------------------
 
-		PuntoEquilibrioFormUtil utilForm = new PuntoEquilibrioFormUtil();
-		
-		numero = utilForm.initNumero(binder);
+		CuentaContableFormUtil utilForm = new CuentaContableFormUtil();
+
+		codigo = utilForm.initCodigo(binder);
 		nombre = utilForm.initNombre(binder);
-		tipoPuntoEquilibrio = utilForm.initTipoPuntoEquilibrio(binder);
+//		ejercicioContable = utilForm.initEjercicioContable(binder);
+//		integra = utilForm.initIntegra(binder);
+		cuentaJerarquia = utilForm.initCuentaJerarquia(binder);
+		imputable = utilForm.initImputable(binder);
+		imputable.addValueChangeListener(event -> {
+			resetFormCC();
+		});
+		ajustaPorInflacion = utilForm.initAjustaPorInflacion(binder);
+		cuentaContableEstado = utilForm.initCuentaContableEstado(binder);
+		cuentaConApropiacion = utilForm.initCuentaConApropiacion(binder);
+		centroCostoContable = utilForm.initCentroCostoContable(binder);
+		cuentaAgrupadora = utilForm.initCuentaAgrupadora(binder);
+		porcentaje = utilForm.initPorcentaje(binder);
+		puntoEquilibrio = utilForm.initPuntoEquilibrio(binder);
+		costoVenta = utilForm.initCostoVenta(binder);
+		seguridadPuerta = utilForm.initSeguridadPuerta(binder);
 
 		// -------------------------------------------------------------------
 		// Layout's
 		// -------------------------------------------------------------------
 
-		form = new FormLayout();
-		form.setWidthFull();
+		formGeneral = new FormLayout();
+		formGeneral.setWidthFull();
 
-		add(form);
+		accordion.add("General", formGeneral);
 
-		
-		form.add(numero);
-		form.add(nombre);
-		form.add(tipoPuntoEquilibrio);
+		formGeneral.add(codigo);
+		formGeneral.add(nombre);
+//		form.add(ejercicioContable);
+//		form.add(integra);
+		formGeneral.add(cuentaJerarquia);
+		formGeneral.add(imputable);
+		formGeneral.add(ajustaPorInflacion);
+		formGeneral.add(cuentaContableEstado);
+		formGeneral.add(cuentaConApropiacion);
+
+		// ----
+
+		formCC = new FormLayout();
+		formCC.setWidthFull();
+
+		ccPanel = accordion.add("Centro de costos", formCC);
+
+		formCC.add(centroCostoContable);
+		formCC.add(cuentaAgrupadora);
+		formCC.add(porcentaje);
+		formCC.add(puntoEquilibrio);
+		formCC.add(costoVenta);
+		formCC.add(seguridadPuerta);
+
+		// ----
+
+		formSeguridad = new FormLayout();
+		formSeguridad.setWidthFull();
+
+		accordion.add("Seguridad", formSeguridad);
+
+		formSeguridad.add(seguridadPuerta);
+
+		// ----
+
+		add(accordion);
+
+		// ----
 
 		if (header) {
 			createButtonLayout();
@@ -197,20 +273,26 @@ public class PuntoEquilibrioFormCard extends Div {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
-	public void load(PuntoEquilibrio item) {
-		
+	public void load(CuentaContable item) {
+
 		binder.setBean(item);
+
+		centroCostoContable.filter.setEjercicioContable(binder.getBean().getEjercicioContable());
+		puntoEquilibrio.filter.setEjercicioContable(binder.getBean().getEjercicioContable());
+
+//		ccPanel.setEnabled(imputable.getValue());
 
 		binder.validate();
 
 		if (binder.isValid() == false) {
-			BinderValidationStatus<PuntoEquilibrio> validate = binder.validate();
+			BinderValidationStatus<CuentaContable> validate = binder.validate();
 			String errorText = validate.getFieldValidationStatuses().stream().filter(BindingValidationStatus::isError)
 					.map(BindingValidationStatus::getMessage).map(Optional::get).distinct()
 					.collect(Collectors.joining(", "));
 
-			Notification notification = new Notification("El ítem tiene uno o mas valores del ítem son incorrectos. " + errorText,
-					3000, Position.BOTTOM_END);
+			Notification notification = new Notification(
+					"El ítem tiene uno o mas valores del ítem son incorrectos. " + errorText, 3000,
+					Position.BOTTOM_END);
 			notification.addThemeVariants(NotificationVariant.LUMO_CONTRAST);
 			notification.open();
 		}
@@ -219,13 +301,13 @@ public class PuntoEquilibrioFormCard extends Div {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
-	public void searchx(String id) {
+	public void search(String id) {
 		try {
-			PuntoEquilibrio item = service.findById(id);
+			CuentaContable item = service.findById(id);
 			if (item != null) {
 
-				Notification notification = new Notification("Punto equilibrio " + item + " cargado con éxito.",
-						1000, Position.BOTTOM_END);
+				Notification notification = new Notification("Cuenta contable " + item + " cargado con éxito.", 1000,
+						Position.BOTTOM_END);
 				notification.addThemeVariants(NotificationVariant.LUMO_CONTRAST);
 				notification.open();
 
@@ -240,23 +322,23 @@ public class PuntoEquilibrioFormCard extends Div {
 
 		if (binder.validate().isOk()) {
 			try {
-				PuntoEquilibrio item = service.save(binder.getBean());
-				
-				Notification notification = new Notification("Punto equilibrio " + item + " guardado con éxito.", 1000,
-					Position.BOTTOM_END);
+				CuentaContable item = service.save(binder.getBean());
+
+				Notification notification = new Notification("Cuenta contable " + item + " guardado con éxito.", 1000,
+						Position.BOTTOM_END);
 				notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
 				notification.open();
-				
+
 				return true;
-								
+
 			} catch (Exception500 e) {
-				new NotificationError(e, "No se pudo guardar el ítem !!");				
-			}							
+				new NotificationError(e, "No se pudo guardar el ítem !!");
+			}
 		}
-		
+
 		return false;
 	}
-	
+
 	public void delete() {
 
 		if (binder.validate().isOk()) {
@@ -273,13 +355,13 @@ public class PuntoEquilibrioFormCard extends Div {
 		}
 
 	}
-	
-	protected boolean delete(PuntoEquilibrio item) {
+
+	protected boolean delete(CuentaContable item) {
 
 		try {
 			service.deleteById(item.getId());
 
-			Notification notification = new Notification("Punto equilibrio " + item.getNumero() + " borrado con éxito.", 1000,
+			Notification notification = new Notification("Cuenta contable " + item + " borrado con éxito.", 1000,
 					Position.BOTTOM_END);
 			notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
 			notification.open();
@@ -291,8 +373,7 @@ public class PuntoEquilibrioFormCard extends Div {
 			if (e.getException() instanceof DeleteForeignKeyViolationException) {
 
 				Notification notification = new Notification(
-						"Punto equilibrio " + item.getNumero()
-								+ " NO se puede borrar. El ítem tiene otros objetos relacionados.",
+						"Cuenta contable " + item + " NO se puede borrar. El ítem tiene otros objetos relacionados.",
 						2000, Position.BOTTOM_END);
 				notification.addThemeVariants(NotificationVariant.LUMO_ERROR);
 				notification.open();
@@ -303,6 +384,27 @@ public class PuntoEquilibrioFormCard extends Div {
 		}
 
 		return false;
+
+	}
+
+	// ---------------------------------------------------------------------------------------------------------------------------
+
+	public void resetFormCC() {
+		ccPanel.setEnabled(imputable.getValue());
+
+		if (imputable.getValue() == false) {
+			centroCostoContable.setValue(null);
+			puntoEquilibrio.setValue(null);
+			porcentaje.setValue(null);
+			cuentaAgrupadora.setValue("");
+			costoVenta.setValue(null);
+
+//			binder.getBean().setCentroCostoContable(null);
+//			binder.getBean().setPuntoEquilibrio(null);
+//			binder.getBean().setPorcentaje(null);
+//			binder.getBean().setCuentaAgrupadora(null);
+//			binder.getBean().setCostoVenta(null);
+		}
 
 	}
 

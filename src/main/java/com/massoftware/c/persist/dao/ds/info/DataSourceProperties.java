@@ -15,6 +15,7 @@ public class DataSourceProperties implements Cloneable {
 	private boolean verbose = false;
 	private String schema = "unknown";
 	private boolean convertToJavaTimeValues = false;
+	private int stackStatementSize = 50;
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -106,6 +107,14 @@ public class DataSourceProperties implements Cloneable {
 		this.convertToJavaTimeValues = convertToJavaTimeValues;
 	}
 
+	public int getStackStatementSize() {
+		return stackStatementSize;
+	}
+
+	public void setStackStatementSize(int stackStatementSize) {
+		this.stackStatementSize = stackStatementSize;
+	}
+
 	// ---------------------------------------------------------------------------------------------------------------------------
 
 	public String toString() {
@@ -122,6 +131,7 @@ public class DataSourceProperties implements Cloneable {
 		s += "\n\tverbose:" + this.isVerbose() + "";
 		s += "\n\tSchema:" + this.getSchema() + "";
 		s += "\n\tConvert to Java time values:" + this.isConvertToJavaTimeValues() + "";
+		s += "\n\tStack statement size:" + this.getStackStatementSize() + "";
 
 		s += "\n";
 
@@ -143,6 +153,7 @@ public class DataSourceProperties implements Cloneable {
 		other.setVerbose(this.isVerbose());
 		other.setSchema(this.getSchema());
 		other.setConvertToJavaTimeValues(this.isConvertToJavaTimeValues());
+		other.setStackStatementSize(this.getStackStatementSize());
 
 		// -------------------------------------------------------------------
 

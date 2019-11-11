@@ -1,0 +1,19 @@
+#CuentaContable-mdv {
+    display: block;
+    height: 100%;
+}
+
+#editor-layout {
+    padding:var(--lumo-space-l);
+    width: 400px;
+}
+
+#button-layout {
+    display:flex;
+    flex-wrap:wrap-reverse;
+    justify-content:flex-end;
+}
+
+#CuentaContable-mdv #wrapper {
+    flex-grow:1;
+}
