@@ -10,9 +10,9 @@ import com.massoftware.a.model.CuentaContable;
 import com.massoftware.b.service.CuentaContableFilterQ1;
 import com.massoftware.b.service.CuentaContableService;
 import com.massoftware.b.service.util.Exception500;
-import com.massoftware.ui.grids.util.GridCustom;
-import com.massoftware.ui.util.NotificationError;
-import com.massoftware.ui.util.UIUtils;
+import com.massoftware.ui.GridCustom;
+import com.massoftware.ui.NotificationError;
+import com.massoftware.ui.UIUtils;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.html.H5;
 import com.vaadin.flow.component.html.Label;
@@ -136,53 +136,53 @@ public class CuentaContableGrid extends GridCustom<CuentaContable> {
 
 	private Component createRendererCuentaJerarquia(CuentaContable item) {
 
-		String formatted = "";
-
-		if (item.getCuentaJerarquia() != null && item.getCuentaJerarquia().length() == 11) {
-
-			for (int i = 0; i < 11; i++) {
-
-				if (i == 1 || i == 3 || i == 5 || i == 7 || i == 9) {
-					formatted += ".";
-				}
-				formatted += item.getCuentaJerarquia().charAt(i);
-
-//				if (i == 0) {
-//					formatted += item.getCuentaJerarquia().charAt(i);
-//				} else if (i == 1) {
+//		String formatted = "";
+//
+//		if (item.getCuentaJerarquia() != null && item.getCuentaJerarquia().length() == 11) {
+//
+//			for (int i = 0; i < 11; i++) {
+//
+//				if (i == 1 || i == 3 || i == 5 || i == 7 || i == 9) {
 //					formatted += ".";
-//					formatted += item.getCuentaJerarquia().charAt(i);
-//				} else if (i == 2) {
-//					formatted += item.getCuentaJerarquia().charAt(i);
-//				} else if (i == 3) {
-//					formatted += ".";
-//					formatted += item.getCuentaJerarquia().charAt(i);
-//				} else if (i == 4) {
-//					formatted += item.getCuentaJerarquia().charAt(i);
-//				} else if (i == 5) {
-//					formatted += ".";
-//					formatted += item.getCuentaJerarquia().charAt(i);
-//				} else if (i == 6) {
-//					formatted += item.getCuentaJerarquia().charAt(i);
-//				} else if (i == 7) {
-//					formatted += ".";
-//					formatted += item.getCuentaJerarquia().charAt(i);
-//				} else if (i == 8) {
-//					formatted += item.getCuentaJerarquia().charAt(i);
-//				} else if (i == 9) {
-//					formatted += ".";
-//					formatted += item.getCuentaJerarquia().charAt(i);
-//				} else if (i == 10) {
-//					formatted += item.getCuentaJerarquia().charAt(i);
 //				}
-			}
+//				formatted += item.getCuentaJerarquia().charAt(i);
+//
+////				if (i == 0) {
+////					formatted += item.getCuentaJerarquia().charAt(i);
+////				} else if (i == 1) {
+////					formatted += ".";
+////					formatted += item.getCuentaJerarquia().charAt(i);
+////				} else if (i == 2) {
+////					formatted += item.getCuentaJerarquia().charAt(i);
+////				} else if (i == 3) {
+////					formatted += ".";
+////					formatted += item.getCuentaJerarquia().charAt(i);
+////				} else if (i == 4) {
+////					formatted += item.getCuentaJerarquia().charAt(i);
+////				} else if (i == 5) {
+////					formatted += ".";
+////					formatted += item.getCuentaJerarquia().charAt(i);
+////				} else if (i == 6) {
+////					formatted += item.getCuentaJerarquia().charAt(i);
+////				} else if (i == 7) {
+////					formatted += ".";
+////					formatted += item.getCuentaJerarquia().charAt(i);
+////				} else if (i == 8) {
+////					formatted += item.getCuentaJerarquia().charAt(i);
+////				} else if (i == 9) {
+////					formatted += ".";
+////					formatted += item.getCuentaJerarquia().charAt(i);
+////				} else if (i == 10) {
+////					formatted += item.getCuentaJerarquia().charAt(i);
+////				}
+//			}
+//
+//		} else if (item.getCuentaJerarquia() != null && item.getCuentaJerarquia().length() != 11) {
+//
+//			return new H5(item.getCuentaJerarquia());
+//		}
 
-		} else if (item.getCuentaJerarquia() != null && item.getCuentaJerarquia().length() != 11) {
-
-			return new Label(item.getCuentaJerarquia());
-		}
-
-		return new H5(formatted);
+		return new H5(UIUtils.formtatCC(item.getCuentaJerarquia()));
 	}
 
 	// ---------------------------------------------------------------------------------------------------------------------------

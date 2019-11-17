@@ -165,7 +165,7 @@ public class CuentaContableDAO extends AbstractDAO {
 			}
 
 			CuentaContable objRowIntegra = new CuentaContable();
-			objRowIntegra.setId((String) row[++c]);
+			objRowIntegra.setId((String) row[++c]);			
 
 			if (objRowIntegra.getId() != null) {
 				objRow.setIntegra(objRowIntegra);
@@ -275,7 +275,7 @@ public class CuentaContableDAO extends AbstractDAO {
 			objRow.setNombre((String) row[++c]);
 			
 			EjercicioContable objRowEjercicioContable = new EjercicioContable();
-			objRowEjercicioContable.setId((String) row[++c]);
+			objRowEjercicioContable.setId((String) row[++c]);			
 
 			if (objRowEjercicioContable.getId() != null) {
 				objRow.setEjercicioContable(objRowEjercicioContable);
@@ -283,6 +283,7 @@ public class CuentaContableDAO extends AbstractDAO {
 
 			CuentaContable objRowIntegra = new CuentaContable();
 			objRowIntegra.setId((String) row[++c]);
+			objRowIntegra.setCuentaJerarquia((String) row[++c]);			
 
 			if (objRowIntegra.getId() != null) {
 				objRow.setIntegra(objRowIntegra);

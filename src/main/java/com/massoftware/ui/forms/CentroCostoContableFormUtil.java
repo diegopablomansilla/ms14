@@ -1,10 +1,10 @@
 package com.massoftware.ui.forms;
 
 import com.massoftware.a.model.CentroCostoContable;
+import com.massoftware.ui.DoubleToIntegerConverter;
 import com.vaadin.flow.data.binder.Binder;
 
 import com.vaadin.flow.component.textfield.NumberField;
-import com.massoftware.ui.util.DoubleToIntegerConverter;
 import com.vaadin.flow.component.textfield.TextField;
 
 public class CentroCostoContableFormUtil {

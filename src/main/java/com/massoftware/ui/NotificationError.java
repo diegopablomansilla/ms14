@@ -1,4 +1,4 @@
-package com.massoftware.ui.util;
+package com.massoftware.ui;
 
 import com.massoftware.b.service.util.Exception500;
 import com.vaadin.flow.component.button.Button;

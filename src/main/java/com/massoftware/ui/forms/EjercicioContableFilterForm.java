@@ -1,8 +1,8 @@
 package com.massoftware.ui.forms;
 
 import com.massoftware.b.service.EjercicioContableFilterQ1;
-import com.massoftware.ui.util.DoubleToIntegerConverter;
-import com.massoftware.ui.util.UIUtils;
+import com.massoftware.ui.DoubleToIntegerConverter;
+import com.massoftware.ui.UIUtils;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.KeyModifier;
 import com.vaadin.flow.component.button.Button;

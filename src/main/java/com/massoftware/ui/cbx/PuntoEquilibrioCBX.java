@@ -7,9 +7,11 @@ import com.massoftware.a.model.PuntoEquilibrio;
 import com.massoftware.b.service.PuntoEquilibrioFilterQ1;
 import com.massoftware.b.service.PuntoEquilibrioService;
 import com.massoftware.b.service.util.Exception500;
+import com.massoftware.ui.ComboBoxCustom;
+import com.massoftware.ui.FormDialog;
 import com.massoftware.ui.GlobalProperties;
-import com.massoftware.ui.cbx.util.ComboBoxCustom;
-import com.massoftware.ui.util.NotificationError;
+import com.massoftware.ui.NotificationError;
+import com.massoftware.ui.selectlist.PuntoEquilibrioSelectList;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.Notification.Position;
 import com.vaadin.flow.component.notification.NotificationVariant;
@@ -125,6 +127,32 @@ public class PuntoEquilibrioCBX extends ComboBoxCustom<PuntoEquilibrio> {
 		}
 
 		return false;
+	}
+	
+	// --------------------------------------------------------------------------------------------------	
+	
+	public void openFormDialog() {
+
+		PuntoEquilibrioSelectList listView = new PuntoEquilibrioSelectList();
+
+//			form.search(item.getId());
+		FormDialog formDialog = new FormDialog();
+		formDialog.setTitle("Seleccionar " + this.getLabel());
+		formDialog.setContent(listView);
+		formDialog.confirm.setText("Seleccionar");
+		formDialog.addConfirmationListener(buttonClickEvent -> {
+
+			PuntoEquilibrio item = listView.grid.asSingleSelect().getValue();
+			if (item != null) {
+				this.setValue(item);
+				formDialog.close();
+			}
+		});
+		formDialog.setSizeFull();
+//			Page page = this.getUI().get().getPage();
+
+		formDialog.open();
+
 	}
 
 	// --------------------------------------------------------------------------------------------------

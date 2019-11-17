@@ -1,4 +1,4 @@
-package com.massoftware.ui.cbx.util;
+package com.massoftware.ui;
 
 import java.util.List;
 
@@ -36,7 +36,8 @@ public abstract class ComboBoxCustom<T> extends ComboBox<T> {
 
 	protected abstract Integer countFromService(String filterText);
 
-	protected abstract List<T> findFromService(int offset, int limit, Integer orderBy, Boolean orderByDesc, String filterText);
+	protected abstract List<T> findFromService(int offset, int limit, Integer orderBy, Boolean orderByDesc,
+			String filterText);
 
 	protected abstract boolean removeItemFromService(T item);
 
@@ -57,32 +58,32 @@ public abstract class ComboBoxCustom<T> extends ComboBox<T> {
 		DataProvider<T, String> dataProvider = DataProvider.fromFilteringCallbacks(
 
 				query -> {
-					
+
 					int offset = query.getOffset();
 					int limit = query.getLimit();
 					Integer orderBy = null;
 					Boolean orderByDesc = null;
-					
+
 					// getFilter returns Optional<String>
 					String filterText = query.getFilter().orElse(null);
-					
+
 					List<T> items = findFromService(offset, limit, orderBy, orderByDesc, filterText);
-					
-					if(items.size() == 1) {
+
+					if (items.size() == 1) {
 						this.setValue(items.get(0));
-					} else if(items.size() == 0) {
+					} else if (items.size() == 0) {
 //						openFormDialog(filterText);
 					}
-					
+
 					return items.stream();
-					
+
 //					return service.fetch(query.getOffset(), query.getLimit(), filter).stream();
 				},
 
 				query -> {
-					
+
 					String filterText = query.getFilter().orElse(null);
-					
+
 					int c = countFromService(filterText);
 
 					if (c == 0) {
@@ -99,17 +100,16 @@ public abstract class ComboBoxCustom<T> extends ComboBox<T> {
 //							System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 //							System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 //							System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-							
-							
-							openFormDialog();	
-							
-							this.setValue(null);
+
+//							openFormDialog();
+
+//							this.setValue(null);
 						}
-						
+
 					}
 
 					return c;
-					
+
 //					return service.getCount(filter);
 				}
 
@@ -126,7 +126,7 @@ public abstract class ComboBoxCustom<T> extends ComboBox<T> {
 //		} else {
 //			this.setLabel("Tipo");
 //		}
-		
+
 		Notification notification = new Notification(size + " items.", 1000);
 		notification.addThemeVariants(NotificationVariant.LUMO_CONTRAST);
 		notification.open();
@@ -182,11 +182,11 @@ public abstract class ComboBoxCustom<T> extends ComboBox<T> {
 //	protected void open(String id) {
 //		Notification.show("Open: " + id);
 //	}
-	
+
 	// ---------------------------------------------------------------------------------------------------------------------------
-	
-	protected void openFormDialog() {
-		
+
+	public void openFormDialog() {
+
 	}
 
 	// ---------------------------------------------------------------------------------------------------------------------------

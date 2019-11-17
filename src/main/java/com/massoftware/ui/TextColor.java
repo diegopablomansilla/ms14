@@ -1,4 +1,4 @@
-package com.massoftware.ui.util;
+package com.massoftware.ui;
 
 public enum TextColor {
 

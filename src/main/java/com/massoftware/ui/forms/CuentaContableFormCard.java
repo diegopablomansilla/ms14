@@ -7,12 +7,13 @@ import com.massoftware.a.model.CuentaContable;
 import com.massoftware.b.service.CuentaContableService;
 import com.massoftware.b.service.util.Exception500;
 import com.massoftware.c.persist.dao.ds.ex.DeleteForeignKeyViolationException;
-import com.massoftware.ui.cbx.CentroCostoContableCBX;
+import com.massoftware.ui.ConfirmationDialog;
+import com.massoftware.ui.NotificationError;
+import com.massoftware.ui.UIUtils;
+import com.massoftware.ui.cbx.CentroCostoContableCBXH;
 import com.massoftware.ui.cbx.CostoVentaCBX;
-import com.massoftware.ui.cbx.PuntoEquilibrioCBX;
+import com.massoftware.ui.cbx.PuntoEquilibrioCBXH;
 import com.massoftware.ui.cbx.SeguridadPuertaCBX;
-import com.massoftware.ui.util.ConfirmationDialog;
-import com.massoftware.ui.util.NotificationError;
 import com.vaadin.flow.component.accordion.Accordion;
 import com.vaadin.flow.component.accordion.AccordionPanel;
 import com.vaadin.flow.component.button.Button;
@@ -23,6 +24,7 @@ import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H3;
+import com.vaadin.flow.component.html.H5;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
@@ -62,19 +64,24 @@ public class CuentaContableFormCard extends Div {
 
 	private boolean header;
 
+	private H5 mascaraPadrePrefix;
+	private H5 mascaraPadreSufix;
+	private H5 mascaraHijoPrefix;
+	private H5 mascaraHioSufix;
+
 	private TextField codigo;
 	private TextField nombre;
 //	private EjercicioContableCBX ejercicioContable;
-//	private IntegraCBX integra;
+//	private IntegraCBX integra;	
 	private TextField cuentaJerarquia;
 	private Checkbox imputable;
 	private Checkbox ajustaPorInflacion;
 	private Checkbox cuentaContableEstado;
 	private Checkbox cuentaConApropiacion;
-	private CentroCostoContableCBX centroCostoContable;
+	private CentroCostoContableCBXH centroCostoContable;
 	private TextField cuentaAgrupadora;
 	private NumberField porcentaje;
-	private PuntoEquilibrioCBX puntoEquilibrio;
+	private PuntoEquilibrioCBXH puntoEquilibrio;
 	private CostoVentaCBX costoVenta;
 	private SeguridadPuertaCBX seguridadPuerta;
 
@@ -105,6 +112,12 @@ public class CuentaContableFormCard extends Div {
 		this.setHeightFull();
 
 //		resetFormCC();
+
+		if (cuentaContableEstado.getValue() == true) {
+			cuentaContableEstado.setLabel("1. Cuentas en uso");
+		} else {
+			cuentaContableEstado.setLabel("0. Cuentas fuera de uso");
+		}
 
 		codigo.focus();
 	}
@@ -164,11 +177,97 @@ public class CuentaContableFormCard extends Div {
 
 		CuentaContableFormUtil utilForm = new CuentaContableFormUtil();
 
+		HorizontalLayout mascaraPadre = new HorizontalLayout();
+		mascaraPadre.setPadding(false);
+		mascaraPadre.setMargin(false);
+		mascaraPadre.setSpacing(false);
+		mascaraPadrePrefix = new H5();
+		mascaraPadreSufix = new H5();
+		mascaraPadreSufix.getStyle().set("color", "#9e9e9e");
+		mascaraPadre.add(mascaraPadrePrefix, mascaraPadreSufix);
+
+		HorizontalLayout mascaraHijo = new HorizontalLayout();
+		mascaraHijo.setPadding(false);
+		mascaraHijo.setMargin(false);
+		mascaraHijo.setSpacing(false);
+		mascaraHijoPrefix = new H5();
+		mascaraHijoPrefix.getStyle().set("color", "#9e9e9e");
+		mascaraHioSufix = new H5();
+		mascaraHijo.add(mascaraHijoPrefix, mascaraHioSufix);
+
+		HorizontalLayout mascara = new HorizontalLayout();
+		mascara.setPadding(false);
+		mascara.setMargin(false);
+//		mascara.setSpacing(false);
+		mascara.add(mascaraPadre, mascaraHijo);		
+		
 		codigo = utilForm.initCodigo(binder);
 		nombre = utilForm.initNombre(binder);
 //		ejercicioContable = utilForm.initEjercicioContable(binder);
 //		integra = utilForm.initIntegra(binder);
+
 		cuentaJerarquia = utilForm.initCuentaJerarquia(binder);
+//		cuentaJerarquia.addKeyPressListener(Key.ENTER, event -> {
+//			search();
+//		});
+		
+		cuentaJerarquia.addValueChangeListener(event -> {
+			if (event.getValue() == null || event.getValue().toString().trim().length() == 0) {
+				mascaraHijoPrefix.setText("0.00.00.00.00.00");
+			} else {
+
+				String padre = "";
+				if (binder.getBean().getIntegra() != null
+						&& binder.getBean().getIntegra().getCuentaJerarquia() != null) {
+					padre = binder.getBean().getIntegra().getCuentaJerarquia();
+				}
+				String hijo = event.getValue();
+
+				// ---------------
+
+				String padrePprefixSufix = UIUtils.formtatCCIntegraPrefixSufix(padre);
+
+				if (padrePprefixSufix != null && padrePprefixSufix.trim().length() > 0) {
+					String padrePprefixSufixArray[] = padrePprefixSufix.split(";");
+					String padrePrefix = padrePprefixSufixArray[0];
+					String padreSufix = "." + padrePprefixSufixArray[1];
+
+//					
+					mascaraPadrePrefix.setText(padrePrefix);
+					mascaraPadreSufix.setText(padreSufix);
+				} else {
+					
+					mascaraPadrePrefix.setText("");
+//					mascaraPadreSufix.setText("");
+					mascaraPadreSufix.setText("0.00.00.00.00.00");
+				}
+				
+				String hijoPprefixSufix = UIUtils.formtatCCPrefixSufix(hijo);
+				
+				if (hijoPprefixSufix != null && hijoPprefixSufix.trim().length() > 0) {
+					String hijoPprefixSufixArray[] = hijoPprefixSufix.split(";");
+					String hijoPrefix = hijoPprefixSufixArray[0];
+					String hijoSufix = hijoPprefixSufixArray[1];
+					if(hijoPrefix.length() > 0) {
+						hijoPrefix = hijoPrefix + ".";
+					}
+
+					mascaraHijoPrefix.setText(hijoPrefix);
+					mascaraHioSufix.setText(hijoSufix);
+				} else {
+					mascaraHijoPrefix.setText("");
+					mascaraHioSufix.setText("");
+				}
+
+				
+				
+
+			}
+		});
+//		cuentaJerarquia.addBlurListener(event -> {
+//			search();
+//		});
+
 		imputable = utilForm.initImputable(binder);
 		imputable.addValueChangeListener(event -> {
 			resetFormCC();
@@ -176,10 +275,10 @@ public class CuentaContableFormCard extends Div {
 		ajustaPorInflacion = utilForm.initAjustaPorInflacion(binder);
 		cuentaContableEstado = utilForm.initCuentaContableEstado(binder);
 		cuentaConApropiacion = utilForm.initCuentaConApropiacion(binder);
-		centroCostoContable = utilForm.initCentroCostoContable(binder);
+		centroCostoContable = utilForm.initCentroCostoContableH(binder);
 		cuentaAgrupadora = utilForm.initCuentaAgrupadora(binder);
 		porcentaje = utilForm.initPorcentaje(binder);
-		puntoEquilibrio = utilForm.initPuntoEquilibrio(binder);
+		puntoEquilibrio = utilForm.initPuntoEquilibrioH(binder);
 		costoVenta = utilForm.initCostoVenta(binder);
 		seguridadPuerta = utilForm.initSeguridadPuerta(binder);
 
@@ -192,15 +291,15 @@ public class CuentaContableFormCard extends Div {
 
 		accordion.add("General", formGeneral);
 
-		formGeneral.add(codigo);
-		formGeneral.add(nombre);
-//		form.add(ejercicioContable);
-//		form.add(integra);
+		formGeneral.add(mascara);
 		formGeneral.add(cuentaJerarquia);
+		formGeneral.add(codigo);		
+		formGeneral.add(nombre);
+//		form.add(ejercicioContable);			
 		formGeneral.add(imputable);
 		formGeneral.add(ajustaPorInflacion);
-		formGeneral.add(cuentaContableEstado);
 		formGeneral.add(cuentaConApropiacion);
+		formGeneral.add(cuentaContableEstado);
 
 		// ----
 
@@ -277,8 +376,8 @@ public class CuentaContableFormCard extends Div {
 
 		binder.setBean(item);
 
-		centroCostoContable.filter.setEjercicioContable(binder.getBean().getEjercicioContable());
-		puntoEquilibrio.filter.setEjercicioContable(binder.getBean().getEjercicioContable());
+		centroCostoContable.cbx.filter.setEjercicioContable(binder.getBean().getEjercicioContable());
+		puntoEquilibrio.cbx.filter.setEjercicioContable(binder.getBean().getEjercicioContable());
 
 //		ccPanel.setEnabled(imputable.getValue());
 
@@ -344,8 +443,7 @@ public class CuentaContableFormCard extends Div {
 		if (binder.validate().isOk()) {
 
 			ConfirmationDialog confirmationDialog = new ConfirmationDialog();
-			confirmationDialog.setTitle("¿ Estás seguro, quieres borrar el ítem " + binder.getBean() + " ?");
-
+			confirmationDialog.setTitle("¿ Estás seguro, quieres borrar el ítem ?");
 			confirmationDialog.setQuestion(binder.getBean() != null ? binder.getBean().toString() : "");
 			confirmationDialog.addConfirmationListener(buttonClickEvent -> {
 				delete(binder.getBean());
@@ -393,8 +491,8 @@ public class CuentaContableFormCard extends Div {
 		ccPanel.setEnabled(imputable.getValue());
 
 		if (imputable.getValue() == false) {
-			centroCostoContable.setValue(null);
-			puntoEquilibrio.setValue(null);
+			centroCostoContable.cbx.setValue(null);
+			puntoEquilibrio.cbx.setValue(null);
 			porcentaje.setValue(null);
 			cuentaAgrupadora.setValue("");
 			costoVenta.setValue(null);

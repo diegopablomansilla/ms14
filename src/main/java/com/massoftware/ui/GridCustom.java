@@ -1,10 +1,9 @@
-package com.massoftware.ui.grids.util;
+package com.massoftware.ui;
 
 import java.util.List;
 import java.util.Optional;
 
 import com.massoftware.a.model.util.EntityId;
-import com.massoftware.ui.util.ConfirmationDialog;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.grid.ColumnTextAlign;

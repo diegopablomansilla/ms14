@@ -4,14 +4,14 @@ import com.massoftware.b.service.CentroCostoContableFilterQ1;
 import com.massoftware.b.service.EmpresaService;
 import com.massoftware.b.service.util.Exception500;
 import com.massoftware.c.persist.DataBases;
+import com.massoftware.ui.DoubleToIntegerConverter;
 import com.massoftware.ui.GlobalProperties;
-import com.massoftware.ui.util.DoubleToIntegerConverter;
-import com.massoftware.ui.util.NotificationError;
-import com.massoftware.ui.util.UIUtils;
+import com.massoftware.ui.NotificationError;
+import com.massoftware.ui.UIUtils;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
-import com.vaadin.flow.component.html.H3;
+import com.vaadin.flow.component.html.H4;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.Notification.Position;
@@ -41,7 +41,7 @@ public class CentroCostoContableFilterForm extends VerticalLayout {
 	private HorizontalLayout row1;
 	private HorizontalLayout row2;
 
-	private H3 ejercicioContable;
+	private H4 ejercicioContable;
 	private NumberField numeroFrom;
 	private NumberField numeroTo;
 	private TextField nombre;
@@ -95,7 +95,7 @@ public class CentroCostoContableFilterForm extends VerticalLayout {
 
 //		initFTS();
 
-		ejercicioContable = new H3();
+		ejercicioContable = new H4();
 		initNumeroFrom();
 		initNumeroTo();
 		initNombre();

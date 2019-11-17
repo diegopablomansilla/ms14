@@ -1,4 +1,4 @@
-package com.massoftware.ui.util;
+package com.massoftware.ui;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEventListener;

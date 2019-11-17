@@ -5,7 +5,9 @@ SELECT	CuentaContable_0.id AS id_0
 	
 	, CuentaContable_0.ejercicioContable AS ejercicioContable_3 -- FK
 	
-	, CuentaContable_0.integra AS integra_4 -- FK
+	-- , CuentaContable_0.integra AS integra_4 -- FK
+	, CuentaContable_1.id AS CuentaContable_1_id_0
+	, CuentaContable_1.cuentaJerarquia AS CuentaContable_1_cuentaJerarquia_5
 	
 	, CuentaContable_0.cuentaJerarquia AS cuentaJerarquia_5
 	, CuentaContable_0.imputable AS imputable_6
@@ -43,6 +45,7 @@ SELECT	CuentaContable_0.id AS id_0
 	, SeguridadPuerta_0.seguridadModulo AS SeguridadPuerta_0_seguridadModulo_4
 	
 FROM	massoftware.CuentaContable AS CuentaContable_0
+LEFT JOIN massoftware.CuentaContable AS CuentaContable_1 ON  CuentaContable_1.id = CuentaContable_0.integra
 LEFT JOIN massoftware.CentroCostoContable AS CentroCostoContable_0 ON  CentroCostoContable_0.id = CuentaContable_0.centroCostoContable
 LEFT JOIN massoftware.PuntoEquilibrio AS PuntoEquilibrio_0  ON PuntoEquilibrio_0.id = CuentaContable_0.puntoEquilibrio
 LEFT JOIN massoftware.CostoVenta AS CostoVenta_0  ON CostoVenta_0.id = CuentaContable_0.costoVenta

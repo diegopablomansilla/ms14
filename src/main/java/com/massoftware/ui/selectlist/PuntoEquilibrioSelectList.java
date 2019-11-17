@@ -1,26 +1,19 @@
-package com.massoftware.ui.views;
+package com.massoftware.ui.selectlist;
 
 import com.massoftware.a.model.PuntoEquilibrio;
 import com.massoftware.b.service.PuntoEquilibrioService;
 import com.massoftware.c.persist.DataBases;
 import com.massoftware.ui.FormDialog;
 import com.massoftware.ui.GlobalProperties;
-import com.massoftware.ui.MainView;
 import com.massoftware.ui.forms.PuntoEquilibrioFilterForm;
 import com.massoftware.ui.forms.PuntoEquilibrioFormCard;
 import com.massoftware.ui.grids.PuntoEquilibrioGrid;
-import com.vaadin.flow.component.dependency.CssImport;
-import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.splitlayout.SplitLayout;
-import com.vaadin.flow.router.PageTitle;
-import com.vaadin.flow.router.Route;
 
-@PageTitle("Punto equilibrio")
+//@PageTitle("Punto equilibrio")
 //@Route("PuntoEquilibrio")
-@Route(value = "PuntoEquilibrio", layout = MainView.class)
-@CssImport("styles/views/PuntoEquilibrio/PuntoEquilibrio-mdv.css")
-public class PuntoEquilibrioViewList extends VerticalLayout {
+//@Route(value = "PuntoEquilibrio", layout = MainView.class)
+public class PuntoEquilibrioSelectList extends VerticalLayout {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -28,24 +21,19 @@ public class PuntoEquilibrioViewList extends VerticalLayout {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
-	private VerticalLayout listView;	
+	private VerticalLayout listView;
 
 	private PuntoEquilibrioFilterForm filterForm;
-	private PuntoEquilibrioGrid grid;
-	private PuntoEquilibrioFormCard formCard;	
-
-	private Div editorDivCard;
-	private SplitLayout splitLayout;	
+	public PuntoEquilibrioGrid grid;
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
-	public PuntoEquilibrioViewList() {
+	public PuntoEquilibrioSelectList() {
 
-		this.setId("PuntoEquilibrio-mdv");
 		this.setHeightFull();
 //		this.setPadding(false);
 //		this.setMargin(false);
-		this.setSpacing(false);
+//		this.setSpacing(false);
 
 		initService();
 		initListView();
@@ -70,12 +58,7 @@ public class PuntoEquilibrioViewList extends VerticalLayout {
 
 		initFormFilter();
 
-		splitLayout = new SplitLayout();
-		splitLayout.setSizeFull();
-		listView.add(splitLayout);
-
 		initGrid();
-		initFormCard();
 
 		add(listView);
 	}
@@ -87,18 +70,13 @@ public class PuntoEquilibrioViewList extends VerticalLayout {
 			private static final long serialVersionUID = 1797632226724653961L;
 
 			public void searchData() {
-				if (splitLayout.getSecondaryComponent() != null) {
-//					formCard.load(new PuntoEquilibrio());
-					splitLayout.addToSecondary(new Div());
-
-				}
 				grid.refreshAll();
 			}
-			
+
 			protected void newItem() {
-				
+
 				PuntoEquilibrio newItem = new PuntoEquilibrio();
-				newItem.setEjercicioContable(getFilter().getEjercicioContable());
+//				newItem.setEjercicioContable(getFilter().getEjercicioContable());
 
 				openFormDialog(newItem);
 			}
@@ -113,7 +91,7 @@ public class PuntoEquilibrioViewList extends VerticalLayout {
 		grid = new PuntoEquilibrioGrid(service, filterForm.getFilter()) {
 
 			protected void open(PuntoEquilibrio item) {
-//				openFormDialog(item);
+				openFormDialog(item);
 			}
 
 			/**
@@ -122,83 +100,30 @@ public class PuntoEquilibrioViewList extends VerticalLayout {
 			private static final long serialVersionUID = 4427741862102211289L;
 
 		};
-		grid.setWidthFull();
-		grid.setHeightFull();
-
-		Div wrapper = new Div();
-
-		wrapper.setId("wrapper");
-		wrapper.setWidthFull();
-		wrapper.setHeightFull();
-
-		splitLayout.addToPrimary(wrapper);
-
-		wrapper.add(grid);
+		
+		listView.add(grid);
 
 		grid.asSingleSelect().addValueChangeListener(event -> {
 
 			if (event.getValue() != null) {
-				formCard.load(event.getValue());	
-//				formCard.search(event.getValue().getId());
-				splitLayout.addToSecondary(editorDivCard);
+
 			} else {
-//				formCard.load(new PuntoEquilibrio());
-				splitLayout.addToSecondary(new Div());
+
 			}
 
 		});
+		
+		grid.showToolBarColumn = true;
+		grid.addColumnToolBar();
 
 		grid.focus();
 
 	}
 
-	private void initFormCard() {
-		
-		formCard = new PuntoEquilibrioFormCard(service) {
-
-			protected void open(PuntoEquilibrio item) {
-				openFormDialog(item);
-			}
-			
-			public boolean save() {
-				boolean b = super.save();
-				if (b) {
-					splitLayout.addToSecondary(new Div());
-					grid.refreshAll();	
-				}
-				
-				return b;				
-			}
-			
-			protected boolean delete(PuntoEquilibrio item) {
-				boolean b = super.delete(item);
-				if (b) {
-					splitLayout.addToSecondary(new Div());
-					grid.refreshAll();
-				}
-				
-				return b;
-			}
-
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 4427741862102211289L;
-
-		};
-
-		editorDivCard = new Div();
-		editorDivCard.setId("editor-layout");
-
-		splitLayout.addToSecondary(editorDivCard);
-
-		editorDivCard.add(formCard);
-	}
-
 	private void openFormDialog(PuntoEquilibrio item) {
 
-		PuntoEquilibrioFormCard form = new PuntoEquilibrioFormCard(service, false);				
-		
+		PuntoEquilibrioFormCard form = new PuntoEquilibrioFormCard(service, false);
+
 //		form.search(item.getId());
 		FormDialog formDialog = new FormDialog();
 		formDialog.setTitle("Punto equilibrio");
@@ -206,19 +131,16 @@ public class PuntoEquilibrioViewList extends VerticalLayout {
 		formDialog.addConfirmationListener(buttonClickEvent -> {
 			boolean b = form.save();
 			if (b) {
-				splitLayout.addToSecondary(new Div());
 				grid.refreshAll();
 				formDialog.close();
 			}
 		});
 		formDialog.setSizeFull();
 //		Page page = this.getUI().get().getPage();
-		
+
 		formDialog.open();
-		
+
 		form.load(item);
-		
-//		form.focusControl();
 	}
 
 	// ---------------------------------------------------------------------------------------------------------------------------

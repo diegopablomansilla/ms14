@@ -4,8 +4,8 @@ import java.time.LocalDate;
 import java.util.Locale;
 
 import com.massoftware.a.model.EjercicioContable;
-import com.massoftware.ui.util.DoubleToIntegerConverter;
-import com.massoftware.ui.util.UIDatePickerI18n_es_AR;
+import com.massoftware.ui.DoubleToIntegerConverter;
+import com.massoftware.ui.UIDatePickerI18n_es_AR;
 import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.textfield.NumberField;

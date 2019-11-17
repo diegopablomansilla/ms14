@@ -1,8 +1,8 @@
 package com.massoftware.ui.forms;
 
 import com.massoftware.a.model.PuntoEquilibrio;
+import com.massoftware.ui.DoubleToIntegerConverter;
 import com.massoftware.ui.cbx.TipoPuntoEquilibrioCBX;
-import com.massoftware.ui.util.DoubleToIntegerConverter;
 import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;

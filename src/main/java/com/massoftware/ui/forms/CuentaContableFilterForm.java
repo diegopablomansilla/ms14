@@ -6,14 +6,15 @@ import com.massoftware.b.service.EmpresaService;
 import com.massoftware.b.service.util.Exception500;
 import com.massoftware.c.persist.DataBases;
 import com.massoftware.ui.GlobalProperties;
+import com.massoftware.ui.NotificationError;
+import com.massoftware.ui.UIUtils;
 import com.massoftware.ui.cbx.CentroCostoContableCBX;
-import com.massoftware.ui.util.NotificationError;
-import com.massoftware.ui.util.UIUtils;
+import com.massoftware.ui.cbx.CentroCostoContableCBXH;
 import com.vaadin.flow.component.Key;
 //import com.vaadin.flow.component.KeyModifier;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
-import com.vaadin.flow.component.html.H3;
+import com.vaadin.flow.component.html.H4;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
@@ -46,7 +47,7 @@ public class CuentaContableFilterForm extends VerticalLayout {
 	private HorizontalLayout row1;
 	private HorizontalLayout row2;
 
-	private H3 ejercicioContable;
+	private H4 ejercicioContable;
 
 	private TextField codigo;
 	private TextField nombre;
@@ -59,7 +60,7 @@ public class CuentaContableFilterForm extends VerticalLayout {
 //	private NumberField porcentajeFrom;
 //	private NumberField porcentajeTo;
 
-	private CentroCostoContableCBX centroCostoContable;
+	private CentroCostoContableCBXH centroCostoContable;
 
 	private Button newButton;
 	private Button findButton;
@@ -76,7 +77,7 @@ public class CuentaContableFilterForm extends VerticalLayout {
 		binder.setBean(new CuentaContableFilterQ1());
 		findEjercicioFromService();
 
-		centroCostoContable.filter.setEjercicioContable(binder.getBean().getEjercicioContable());
+		centroCostoContable.cbx.filter.setEjercicioContable(binder.getBean().getEjercicioContable());
 
 		nombre.focus();
 
@@ -114,7 +115,7 @@ public class CuentaContableFilterForm extends VerticalLayout {
 
 //		initFTS();
 
-		ejercicioContable = new H3();
+		ejercicioContable = new H4();
 
 		initCodigo();
 		initNombre();
@@ -508,38 +509,73 @@ public class CuentaContableFilterForm extends VerticalLayout {
 //		});
 //	}
 
-	public CentroCostoContableCBX initCentroCostoContable() {
+//	public CentroCostoContableCBX initCentroCostoContable() {
+//
+//		// Centro costo contable
+//
+//		centroCostoContable = new CentroCostoContableCBX();
+//
+////		centroCostoContable.setLabel("Centro costo contable");
+//		centroCostoContable.setPlaceholder("Centro costo contable");
+//		centroCostoContable.setWidthFull();
+//		centroCostoContable.setClearButtonVisible(true);
+////		centroCostoContable.setItemLabelGenerator(PuntoEquilibrio::getNombre);
+//
+//		// --------------------------------------------
+//
+//		binder.forField(centroCostoContable)
+////				.asRequired(centroCostoContable.getLabel() + " es requerido.")
+//				.bind(CuentaContableFilterQ1::getCentroCostoContable, CuentaContableFilterQ1::setCentroCostoContable);
+//
+//		// --------------------------------------------
+//		
+//		centroCostoContable.addValueChangeListener(event -> {
+//			if (event.getValue() != null && event.getValue().toString().trim().length() > 0) {
+//				search();
+//			}
+//		});
+//		centroCostoContable.addBlurListener(event -> {
+//			search();
+//		});
+//
+//		// --------------------------------------------
+//
+//		return centroCostoContable;
+//	}
+	
+	public void initCentroCostoContable() {
 
 		// Centro costo contable
 
-		centroCostoContable = new CentroCostoContableCBX();
+		CentroCostoContableCBX cbx = new CentroCostoContableCBX();
 
-//		centroCostoContable.setLabel("Centro costo contable");
-		centroCostoContable.setPlaceholder("Centro costo contable");
-		centroCostoContable.setWidthFull();
-		centroCostoContable.setClearButtonVisible(true);
-//		centroCostoContable.setItemLabelGenerator(PuntoEquilibrio::getNombre);
+//		cbx.setLabel("Centro costo contable");
+		cbx.setPlaceholder("Centro costo contable");
+		cbx.setWidthFull();
+		cbx.setClearButtonVisible(true);
+//		cbx.setItemLabelGenerator(CuentaContable::getNombre);
 
 		// --------------------------------------------
 
-		binder.forField(centroCostoContable)
-//				.asRequired(centroCostoContable.getLabel() + " es requerido.")
+		binder.forField(cbx)
+//				.asRequired(cbx.getLabel() + " es requerido.")
 				.bind(CuentaContableFilterQ1::getCentroCostoContable, CuentaContableFilterQ1::setCentroCostoContable);
 
 		// --------------------------------------------
 		
-		centroCostoContable.addValueChangeListener(event -> {
+		cbx.addValueChangeListener(event -> {
 			if (event.getValue() != null && event.getValue().toString().trim().length() > 0) {
 				search();
 			}
 		});
-		centroCostoContable.addBlurListener(event -> {
+		cbx.addBlurListener(event -> {
 			search();
 		});
 
 		// --------------------------------------------
-
-		return centroCostoContable;
+		
+		centroCostoContable = new CentroCostoContableCBXH(cbx);
+		
 	}
 
 	// ---------------------------------------------------------------------------------------------------------------------------

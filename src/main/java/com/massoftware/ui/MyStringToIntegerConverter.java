@@ -1,4 +1,4 @@
-package com.massoftware.ui.util;
+package com.massoftware.ui;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;

@@ -7,11 +7,11 @@ import com.massoftware.a.model.CentroCostoContable;
 import com.massoftware.b.service.CentroCostoContableFilterQ1;
 import com.massoftware.b.service.CentroCostoContableService;
 import com.massoftware.b.service.util.Exception500;
+import com.massoftware.ui.ComboBoxCustom;
+import com.massoftware.ui.FormDialog;
 import com.massoftware.ui.GlobalProperties;
-import com.massoftware.ui.cbx.util.ComboBoxCustom;
+import com.massoftware.ui.NotificationError;
 import com.massoftware.ui.selectlist.CentroCostoContableSelectList;
-import com.massoftware.ui.util.FormDialog;
-import com.massoftware.ui.util.NotificationError;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.Notification.Position;
 import com.vaadin.flow.component.notification.NotificationVariant;
@@ -115,7 +115,7 @@ public class CentroCostoContableCBX extends ComboBoxCustom<CentroCostoContable> 
 		try {
 			service.deleteById(item.getId());
 
-			Notification notification = new Notification("Punto equilibrio " + item + " borrado con éxito.", 1000,
+			Notification notification = new Notification("Centro de costo contable " + item + " borrado con éxito.", 1000,
 					Position.BOTTOM_END);
 			notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
 			notification.open();
@@ -131,13 +131,20 @@ public class CentroCostoContableCBX extends ComboBoxCustom<CentroCostoContable> 
 
 	// --------------------------------------------------------------------------------------------------
 
-	protected void openFormDialog() {
+	public void openFormDialog() {
 
 		CentroCostoContableSelectList listView = new CentroCostoContableSelectList();
 
 //			form.search(item.getId());
 		FormDialog formDialog = new FormDialog();
-		formDialog.setTitle("Seleccionar " + this.getLabel());
+		if(this.getLabel() != null) {
+			formDialog.setTitle("Seleccionar " + this.getLabel());	
+		} else if(this.getPlaceholder() != null) {
+			formDialog.setTitle("Seleccionar " + this.getPlaceholder());	
+		} else  {
+			formDialog.setTitle("Seleccionar");	
+		}
+		
 		formDialog.setContent(listView);
 		formDialog.confirm.setText("Seleccionar");
 		formDialog.addConfirmationListener(buttonClickEvent -> {

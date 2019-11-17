@@ -3,11 +3,11 @@ package com.massoftware.ui.selectlist;
 import com.massoftware.a.model.CentroCostoContable;
 import com.massoftware.b.service.CentroCostoContableService;
 import com.massoftware.c.persist.DataBases;
+import com.massoftware.ui.FormDialog;
 import com.massoftware.ui.GlobalProperties;
 import com.massoftware.ui.forms.CentroCostoContableFilterForm;
 import com.massoftware.ui.forms.CentroCostoContableFormCard;
 import com.massoftware.ui.grids.CentroCostoContableGrid;
-import com.massoftware.ui.util.FormDialog;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 
 //@PageTitle("Centro de costo")
@@ -33,7 +33,7 @@ public class CentroCostoContableSelectList extends VerticalLayout {
 		this.setHeightFull();
 //		this.setPadding(false);
 //		this.setMargin(false);
-		this.setSpacing(false);
+//		this.setSpacing(false);
 
 		initService();
 		initListView();

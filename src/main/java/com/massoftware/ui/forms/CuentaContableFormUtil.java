@@ -1,27 +1,27 @@
 package com.massoftware.ui.forms;
 
 import com.massoftware.a.model.CuentaContable;
-import com.vaadin.flow.data.binder.Binder;
-
-import com.vaadin.flow.component.textfield.TextField;
+//import com.massoftware.a.model.CentroCostoContable;
+import com.massoftware.ui.cbx.CentroCostoContableCBX;
+import com.massoftware.ui.cbx.CentroCostoContableCBXH;
+//import com.massoftware.a.model.CostoVenta;
+import com.massoftware.ui.cbx.CostoVentaCBX;
+//import com.massoftware.ui.util.DoubleToIntegerConverter;
+//import com.massoftware.a.model.PuntoEquilibrio;
+import com.massoftware.ui.cbx.PuntoEquilibrioCBX;
+import com.massoftware.ui.cbx.PuntoEquilibrioCBXH;
+//import com.massoftware.a.model.SeguridadPuerta;
+import com.massoftware.ui.cbx.SeguridadPuertaCBX;
 //import com.massoftware.a.model.EjercicioContable;
 //import com.massoftware.ui.cbx.EjercicioContableCBX;
 //import com.massoftware.a.model.CuentaContable;
 //import com.massoftware.ui.cbx.IntegraCBX;
 import com.vaadin.flow.component.checkbox.Checkbox;
-//import com.massoftware.a.model.CentroCostoContable;
-import com.massoftware.ui.cbx.CentroCostoContableCBX;
 import com.vaadin.flow.component.textfield.NumberField;
-//import com.massoftware.ui.util.DoubleToIntegerConverter;
-//import com.massoftware.a.model.PuntoEquilibrio;
-import com.massoftware.ui.cbx.PuntoEquilibrioCBX;
-//import com.massoftware.a.model.CostoVenta;
-import com.massoftware.ui.cbx.CostoVentaCBX;
-//import com.massoftware.a.model.SeguridadPuerta;
-import com.massoftware.ui.cbx.SeguridadPuertaCBX;
+import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.binder.Binder;
 
 public class CuentaContableFormUtil {
-
 
 	public TextField initCodigo(Binder<CuentaContable> binder) {
 
@@ -37,9 +37,9 @@ public class CuentaContableFormUtil {
 		// --------------------------------------------
 
 		binder.forField(codigo)
-//				.asRequired(codigo.getLabel() + " es requerido.")
-//				.withValidator(value -> (value != null) ? value.length() >= ${ATT_NAME_MIN} : true, codigo.getLabel() + " tiene que contener al menos ${ATT_NAME_MIN} caracteres")
-//				.withValidator(value -> (value != null) ? value.length() <= ${ATT_NAME_MAX} : true, codigo.getLabel() + " tiene que contener igual o menos de ${ATT_NAME_MAX} caracteres")
+				.asRequired(codigo.getLabel() + " es requerido.")
+//				.withValidator(value -> (value != null) ? value.length() == 11 : true, codigo.getLabel() + " tiene que contener al menos 11 caracteres")
+				.withValidator(value -> (value != null) ? value.length() <= 11 : true, codigo.getLabel() + " tiene que contener igual o menos de 11 caracteres")
 				.bind(CuentaContable::getCodigo, CuentaContable::setCodigo);
 
 		// --------------------------------------------
@@ -61,9 +61,9 @@ public class CuentaContableFormUtil {
 		// --------------------------------------------
 
 		binder.forField(nombre)
-//				.asRequired(nombre.getLabel() + " es requerido.")
+				.asRequired(nombre.getLabel() + " es requerido.")
 //				.withValidator(value -> (value != null) ? value.length() >= ${ATT_NAME_MIN} : true, nombre.getLabel() + " tiene que contener al menos ${ATT_NAME_MIN} caracteres")
-//				.withValidator(value -> (value != null) ? value.length() <= ${ATT_NAME_MAX} : true, nombre.getLabel() + " tiene que contener igual o menos de ${ATT_NAME_MAX} caracteres")
+				.withValidator(value -> (value != null) ? value.length() <= 50 : true, nombre.getLabel() + " tiene que contener igual o menos de 50 caracteres")
 				.bind(CuentaContable::getNombre, CuentaContable::setNombre);
 
 		// --------------------------------------------
@@ -129,8 +129,8 @@ public class CuentaContableFormUtil {
 		// --------------------------------------------
 
 		binder.forField(cuentaJerarquia)
-//				.asRequired(cuentaJerarquia.getLabel() + " es requerido.")
-//				.withValidator(value -> (value != null) ? value.length() >= ${ATT_NAME_MIN} : true, cuentaJerarquia.getLabel() + " tiene que contener al menos ${ATT_NAME_MIN} caracteres")
+				.asRequired(cuentaJerarquia.getLabel() + " es requerido.")
+				.withValidator(value -> (value != null) ? value.length() == 11 : true, cuentaJerarquia.getLabel() + " tiene que contener 11 caracteres")
 //				.withValidator(value -> (value != null) ? value.length() <= ${ATT_NAME_MAX} : true, cuentaJerarquia.getLabel() + " tiene que contener igual o menos de ${ATT_NAME_MAX} caracteres")
 				.bind(CuentaContable::getCuentaJerarquia, CuentaContable::setCuentaJerarquia);
 
@@ -168,7 +168,8 @@ public class CuentaContableFormUtil {
 
 		// --------------------------------------------
 
-		binder.forField(ajustaPorInflacion).bind(CuentaContable::getAjustaPorInflacion, CuentaContable::setAjustaPorInflacion);
+		binder.forField(ajustaPorInflacion).bind(CuentaContable::getAjustaPorInflacion,
+				CuentaContable::setAjustaPorInflacion);
 
 		// --------------------------------------------
 
@@ -186,7 +187,18 @@ public class CuentaContableFormUtil {
 
 		// --------------------------------------------
 
-		binder.forField(cuentaContableEstado).bind(CuentaContable::getCuentaContableEstado, CuentaContable::setCuentaContableEstado);
+		binder.forField(cuentaContableEstado).bind(CuentaContable::getCuentaContableEstado,
+				CuentaContable::setCuentaContableEstado);
+		
+		// --------------------------------------------
+		
+		cuentaContableEstado.addValueChangeListener(event -> {
+			if (event.getValue() == true) {
+				cuentaContableEstado.setLabel("1. Cuentas en uso");
+			} else {
+				cuentaContableEstado.setLabel("0. Cuentas fuera de uso");
+			}
+		});
 
 		// --------------------------------------------
 
@@ -204,21 +216,22 @@ public class CuentaContableFormUtil {
 
 		// --------------------------------------------
 
-		binder.forField(cuentaConApropiacion).bind(CuentaContable::getCuentaConApropiacion, CuentaContable::setCuentaConApropiacion);
+		binder.forField(cuentaConApropiacion).bind(CuentaContable::getCuentaConApropiacion,
+				CuentaContable::setCuentaConApropiacion);
 
 		// --------------------------------------------
 
 		return cuentaConApropiacion;
 	}
 
-	public CentroCostoContableCBX initCentroCostoContable(Binder<CuentaContable> binder) {	
+	public CentroCostoContableCBX initCentroCostoContable(Binder<CuentaContable> binder) {
 
 		// Centro costo contable
 
 		CentroCostoContableCBX centroCostoContable = new CentroCostoContableCBX();
 
 		centroCostoContable.setLabel("Centro costo contable");
-//		centroCostoContable.setWidthFull();
+		centroCostoContable.setWidthFull();
 		centroCostoContable.setClearButtonVisible(true);
 //		centroCostoContable.setItemLabelGenerator(PuntoEquilibrio::getNombre);
 
@@ -231,6 +244,29 @@ public class CuentaContableFormUtil {
 		// --------------------------------------------
 
 		return centroCostoContable;
+	}
+
+	public CentroCostoContableCBXH initCentroCostoContableH(Binder<CuentaContable> binder) {
+
+		// Centro costo contable
+
+		CentroCostoContableCBX centroCostoContable = new CentroCostoContableCBX();
+
+		centroCostoContable.setLabel("Centro costo contable");
+		centroCostoContable.setWidthFull();
+		centroCostoContable.setClearButtonVisible(true);
+//		centroCostoContable.setItemLabelGenerator(PuntoEquilibrio::getNombre);
+
+		// --------------------------------------------
+
+		binder.forField(centroCostoContable)
+//				.asRequired(centroCostoContable.getLabel() + " es requerido.")
+				.bind(CuentaContable::getCentroCostoContable, CuentaContable::setCentroCostoContable);
+
+		// --------------------------------------------
+
+//		return centroCostoContable;
+		return new CentroCostoContableCBXH(centroCostoContable);
 	}
 
 	public TextField initCuentaAgrupadora(Binder<CuentaContable> binder) {
@@ -249,7 +285,7 @@ public class CuentaContableFormUtil {
 		binder.forField(cuentaAgrupadora)
 //				.asRequired(cuentaAgrupadora.getLabel() + " es requerido.")
 //				.withValidator(value -> (value != null) ? value.length() >= ${ATT_NAME_MIN} : true, cuentaAgrupadora.getLabel() + " tiene que contener al menos ${ATT_NAME_MIN} caracteres")
-//				.withValidator(value -> (value != null) ? value.length() <= ${ATT_NAME_MAX} : true, cuentaAgrupadora.getLabel() + " tiene que contener igual o menos de ${ATT_NAME_MAX} caracteres")
+				.withValidator(value -> (value != null) ? value.length() <= 50 : true, cuentaAgrupadora.getLabel() + " tiene que contener igual o menos de 50 caracteres")
 				.bind(CuentaContable::getCuentaAgrupadora, CuentaContable::setCuentaAgrupadora);
 
 		// --------------------------------------------
@@ -274,8 +310,10 @@ public class CuentaContableFormUtil {
 //				.asRequired(porcentaje.getLabel() + " es requerido.")
 //				.withConverter(new MyStringToDoubleConverter(porcentaje.getLabel() + " tiene que ser un número"))
 //				.withConverter(new DoubleToDConverter())
-				.withValidator(value -> (value != null) ? value >= 0.0 : true, porcentaje.getLabel() +  " tiene que ser >= " + 0.0)
-				.withValidator(value -> (value != null) ? value <= 999.99 : true, porcentaje.getLabel() +  " tiene que ser <= " + 999.99)
+				.withValidator(value -> (value != null) ? value >= 0.0 : true,
+						porcentaje.getLabel() + " tiene que ser >= " + 0.0)
+				.withValidator(value -> (value != null) ? value <= 999.99 : true,
+						porcentaje.getLabel() + " tiene que ser <= " + 999.99)
 
 				.bind(CuentaContable::getPorcentaje, CuentaContable::setPorcentaje);
 
@@ -284,7 +322,7 @@ public class CuentaContableFormUtil {
 		return porcentaje;
 	}
 
-	public PuntoEquilibrioCBX initPuntoEquilibrio(Binder<CuentaContable> binder) {	
+	public PuntoEquilibrioCBX initPuntoEquilibrio(Binder<CuentaContable> binder) {
 
 		// Punto de equilibrio
 
@@ -306,7 +344,29 @@ public class CuentaContableFormUtil {
 		return puntoEquilibrio;
 	}
 
-	public CostoVentaCBX initCostoVenta(Binder<CuentaContable> binder) {	
+	public PuntoEquilibrioCBXH initPuntoEquilibrioH(Binder<CuentaContable> binder) {
+
+		// Punto de equilibrio
+
+		PuntoEquilibrioCBX puntoEquilibrio = new PuntoEquilibrioCBX();
+
+		puntoEquilibrio.setLabel("Punto de equilibrio");
+		puntoEquilibrio.setWidthFull();
+		puntoEquilibrio.setClearButtonVisible(true);
+//		puntoEquilibrio.setItemLabelGenerator(PuntoEquilibrio::getNombre);
+
+		// --------------------------------------------
+
+		binder.forField(puntoEquilibrio)
+//				.asRequired(puntoEquilibrio.getLabel() + " es requerido.")
+				.bind(CuentaContable::getPuntoEquilibrio, CuentaContable::setPuntoEquilibrio);
+
+		// --------------------------------------------
+
+		return new PuntoEquilibrioCBXH(puntoEquilibrio);
+	}
+
+	public CostoVentaCBX initCostoVenta(Binder<CuentaContable> binder) {
 
 		// Costo de venta
 
@@ -328,7 +388,7 @@ public class CuentaContableFormUtil {
 		return costoVenta;
 	}
 
-	public SeguridadPuertaCBX initSeguridadPuerta(Binder<CuentaContable> binder) {	
+	public SeguridadPuertaCBX initSeguridadPuerta(Binder<CuentaContable> binder) {
 
 		// Puerta
 

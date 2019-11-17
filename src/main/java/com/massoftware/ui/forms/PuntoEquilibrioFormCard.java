@@ -7,9 +7,9 @@ import com.massoftware.a.model.PuntoEquilibrio;
 import com.massoftware.b.service.PuntoEquilibrioService;
 import com.massoftware.b.service.util.Exception500;
 import com.massoftware.c.persist.dao.ds.ex.DeleteForeignKeyViolationException;
+import com.massoftware.ui.ConfirmationDialog;
+import com.massoftware.ui.NotificationError;
 import com.massoftware.ui.cbx.TipoPuntoEquilibrioCBX;
-import com.massoftware.ui.util.ConfirmationDialog;
-import com.massoftware.ui.util.NotificationError;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.formlayout.FormLayout;
@@ -262,7 +262,8 @@ public class PuntoEquilibrioFormCard extends Div {
 		if (binder.validate().isOk()) {
 
 			ConfirmationDialog confirmationDialog = new ConfirmationDialog();
-			confirmationDialog.setTitle("¿ Estás seguro, quieres borrar el ítem " + binder.getBean() + " ?");
+//			confirmationDialog.setTitle("¿ Estás seguro, quieres borrar el ítem " + binder.getBean() + " ?");
+			confirmationDialog.setTitle("¿ Estás seguro, quieres borrar el ítem ?");
 
 			confirmationDialog.setQuestion(binder.getBean() != null ? binder.getBean().toString() : "");
 			confirmationDialog.addConfirmationListener(buttonClickEvent -> {

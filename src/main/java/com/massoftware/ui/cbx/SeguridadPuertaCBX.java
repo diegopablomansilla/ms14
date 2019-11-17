@@ -7,9 +7,9 @@ import com.massoftware.a.model.SeguridadPuerta;
 import com.massoftware.b.service.SeguridadPuertaFilterQ1;
 import com.massoftware.b.service.SeguridadPuertaService;
 import com.massoftware.b.service.util.Exception500;
+import com.massoftware.ui.ComboBoxCustom;
 import com.massoftware.ui.GlobalProperties;
-import com.massoftware.ui.cbx.util.ComboBoxCustom;
-import com.massoftware.ui.util.NotificationError;
+import com.massoftware.ui.NotificationError;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.Notification.Position;
 import com.vaadin.flow.component.notification.NotificationVariant;
@@ -113,7 +113,7 @@ public class SeguridadPuertaCBX extends ComboBoxCustom<SeguridadPuerta> {
 		try {
 			service.deleteById(item.getId());
 
-			Notification notification = new Notification("Punto equilibrio " + item + " borrado con éxito.", 1000,
+			Notification notification = new Notification("Puerta " + item + " borrado con éxito.", 1000,
 					Position.BOTTOM_END);
 			notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
 			notification.open();
@@ -125,6 +125,32 @@ public class SeguridadPuertaCBX extends ComboBoxCustom<SeguridadPuerta> {
 		}
 
 		return false;
+	}
+	
+	// --------------------------------------------------------------------------------------------------	
+	
+	public void openFormDialog() {
+
+//		SeguridadPuertaSelectList listView = new SeguridadPuertaSelectList();
+//
+////			form.search(item.getId());
+//		FormDialog formDialog = new FormDialog();
+//		formDialog.setTitle("Seleccionar " + this.getLabel());
+//		formDialog.setContent(listView);
+//		formDialog.confirm.setText("Seleccionar");
+//		formDialog.addConfirmationListener(buttonClickEvent -> {
+//
+//			SeguridadPuerta item = listView.grid.asSingleSelect().getValue();
+//			if (item != null) {
+//				this.setValue(item);
+//				formDialog.close();
+//			}
+//		});
+//		formDialog.setSizeFull();
+////			Page page = this.getUI().get().getPage();
+//
+//		formDialog.open();
+
 	}
 
 	// --------------------------------------------------------------------------------------------------
