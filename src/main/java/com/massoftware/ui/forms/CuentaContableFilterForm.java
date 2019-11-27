@@ -1,7 +1,7 @@
 package com.massoftware.ui.forms;
 
-import com.massoftware.b.service.CuentaContableFilterQ1;
 import com.massoftware.b.service.EmpresaService;
+import com.massoftware.b.service.cuentacontable.CuentaContableFilterQ1;
 //import com.massoftware.b.service.PuntoEquilibrioFilterQ1;
 import com.massoftware.b.service.util.Exception500;
 import com.massoftware.c.persist.DataBases;
@@ -258,14 +258,17 @@ public class CuentaContableFilterForm extends VerticalLayout {
 		// --------------------------------------------
 
 		nombre.addKeyPressListener(Key.ENTER, event -> {
+			binder.validate();
 			search();
 		});
 		nombre.addValueChangeListener(event -> {
+			binder.validate();
 			if (event.getValue() == null || event.getValue().toString().trim().length() == 0) {
 				search();
 			}
 		});
 		nombre.addBlurListener(event -> {
+			binder.validate();
 			search();
 		});
 	}
@@ -283,20 +286,23 @@ public class CuentaContableFilterForm extends VerticalLayout {
 		// --------------------------------------------
 
 		binder.forField(cuentaJerarquia)
-//				.asRequired(cuentaJerarquia.getLabel() + " es requerido.")		
+//				.asRequired(cuentaJerarquia.getPlaceholder() + " es requerido.")		
 				.bind(CuentaContableFilterQ1::getCuentaJerarquia, CuentaContableFilterQ1::setCuentaJerarquia);
 
 		// --------------------------------------------
 
 		cuentaJerarquia.addKeyPressListener(Key.ENTER, event -> {
+			binder.validate();
 			search();
 		});
 		cuentaJerarquia.addValueChangeListener(event -> {
+			binder.validate();
 			if (event.getValue() == null || event.getValue().toString().trim().length() == 0) {
 				search();
 			}
 		});
 		cuentaJerarquia.addBlurListener(event -> {
+			binder.validate();
 			search();
 		});
 	}
@@ -429,14 +435,17 @@ public class CuentaContableFilterForm extends VerticalLayout {
 		// --------------------------------------------
 
 		cuentaAgrupadora.addKeyPressListener(Key.ENTER, event -> {
+			binder.validate();
 			search();
 		});
 		cuentaAgrupadora.addValueChangeListener(event -> {
+			binder.validate();
 			if (event.getValue() == null || event.getValue().toString().trim().length() == 0) {
 				search();
 			}
 		});
 		cuentaAgrupadora.addBlurListener(event -> {
+			binder.validate();
 			search();
 		});
 	}
@@ -564,11 +573,13 @@ public class CuentaContableFilterForm extends VerticalLayout {
 		// --------------------------------------------
 		
 		cbx.addValueChangeListener(event -> {
+			binder.validate();
 			if (event.getValue() != null && event.getValue().toString().trim().length() > 0) {
 				search();
 			}
 		});
 		cbx.addBlurListener(event -> {
+			binder.validate();
 			search();
 		});
 

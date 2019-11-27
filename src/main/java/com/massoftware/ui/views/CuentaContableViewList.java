@@ -1,7 +1,7 @@
 package com.massoftware.ui.views;
 
 import com.massoftware.a.model.CuentaContable;
-import com.massoftware.b.service.CuentaContableService;
+import com.massoftware.b.service.cuentacontable.CuentaContableService;
 import com.massoftware.c.persist.DataBases;
 import com.massoftware.ui.FormDialog;
 import com.massoftware.ui.GlobalProperties;
@@ -28,14 +28,14 @@ public class CuentaContableViewList extends VerticalLayout {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
-	private VerticalLayout listView;	
+	private VerticalLayout listView;
 
 	private CuentaContableFilterForm filterForm;
 	private CuentaContableGrid grid;
-	private CuentaContableFormCard formCard;	
+	private CuentaContableFormCard formCard;
 
 	private Div editorDivCard;
-	private SplitLayout splitLayout;	
+	private SplitLayout splitLayout;
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -90,20 +90,23 @@ public class CuentaContableViewList extends VerticalLayout {
 			public void searchData() {
 				if (splitLayout.getSecondaryComponent() != null) {
 //					formCard.load(new CuentaContable());
-					splitLayout.addToSecondary(new Div());
+//					splitLayout.addToSecondary(new Div());666
 
 				}
 				grid.refreshAll();
 			}
-			
+
 			protected void newItem() {
-				
-				openFormDialog(new CuentaContable());
+
+				CuentaContable newItem = new CuentaContable();
+				newItem.setEjercicioContable(getFilter().getEjercicioContable());
+
+				openFormDialog(newItem);
 			}
 
 		};
 
-		listView.add(filterForm);		
+		listView.add(filterForm);
 	}
 
 	private void initGrid() {
@@ -138,13 +141,18 @@ public class CuentaContableViewList extends VerticalLayout {
 			if (event.getValue() != null) {
 //				formCard.load(event.getValue());	
 				formCard.search(event.getValue().getId());
-				splitLayout.addToSecondary(editorDivCard);
+//				splitLayout.addToSecondary(editorDivCard);666
 				formCard.resetFormCC();
-				
+				formCard.setVisible(true);
+
 			} else {
-//				formCard.load(new CuentaContable());
-				splitLayout.addToSecondary(new Div());
+				formCard.load(new CuentaContable());
+//				splitLayout.addToSecondary(new Div());666
+				formCard.resetFormCC();
+				formCard.setVisible(false);
 			}
+
+//			grid.focus();
 
 		});
 
@@ -153,30 +161,30 @@ public class CuentaContableViewList extends VerticalLayout {
 	}
 
 	private void initFormCard() {
-		
+
 		formCard = new CuentaContableFormCard(service) {
 
 			protected void open(CuentaContable item) {
 				openFormDialog(item);
 			}
-			
+
 			public boolean save() {
 				boolean b = super.save();
 				if (b) {
-					splitLayout.addToSecondary(new Div());
-					grid.refreshAll();	
+//					splitLayout.addToSecondary(new Div());666
+					grid.refreshAll();
 				}
-				
-				return b;				
+
+				return b;
 			}
-			
+
 			protected boolean delete(CuentaContable item) {
 				boolean b = super.delete(item);
 				if (b) {
-					splitLayout.addToSecondary(new Div());
+//					splitLayout.addToSecondary(new Div());666
 					grid.refreshAll();
 				}
-				
+
 				return b;
 			}
 
@@ -190,15 +198,16 @@ public class CuentaContableViewList extends VerticalLayout {
 		editorDivCard = new Div();
 		editorDivCard.setId("editor-layout");
 
+		editorDivCard.add(formCard);
+
 		splitLayout.addToSecondary(editorDivCard);
 
-		editorDivCard.add(formCard);
 	}
 
 	private void openFormDialog(CuentaContable item) {
 
-		CuentaContableFormCard form = new CuentaContableFormCard(service, false);				
-		
+		CuentaContableFormCard form = new CuentaContableFormCard(service, false);
+
 //		form.search(item.getId());
 		FormDialog formDialog = new FormDialog();
 		formDialog.setTitle("Cuenta contable");
@@ -213,9 +222,9 @@ public class CuentaContableViewList extends VerticalLayout {
 		});
 		formDialog.setSizeFull();
 //		Page page = this.getUI().get().getPage();
-		
+
 		formDialog.open();
-		
+
 		form.load(item);
 	}
 

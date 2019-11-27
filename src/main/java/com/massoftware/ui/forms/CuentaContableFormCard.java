@@ -4,12 +4,29 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.massoftware.a.model.CuentaContable;
-import com.massoftware.b.service.CuentaContableService;
+import com.massoftware.a.model.CuentaJerarquia;
+import com.massoftware.b.service.cuentacontable.CuentaContableSaveCodigoExistsEx;
+import com.massoftware.b.service.cuentacontable.CuentaContableSaveCodigoIsLengthMayor11ErrorEx;
+import com.massoftware.b.service.cuentacontable.CuentaContableSaveCodigoIsNullEx;
+import com.massoftware.b.service.cuentacontable.CuentaContableSaveCuentaJerarquiaExistsEx;
+import com.massoftware.b.service.cuentacontable.CuentaContableSaveCuentaJerarquiaIsCharsNotNumberErrorEx;
+import com.massoftware.b.service.cuentacontable.CuentaContableSaveCuentaJerarquiaIsEmptyEx;
+import com.massoftware.b.service.cuentacontable.CuentaContableSaveCuentaJerarquiaIsIntegraEqualsErrorEx;
+import com.massoftware.b.service.cuentacontable.CuentaContableSaveCuentaJerarquiaIsLengthMayor11ErrorEx;
+import com.massoftware.b.service.cuentacontable.CuentaContableSaveCuentaJerarquiaIsLengthMinor11ErrorEx;
+import com.massoftware.b.service.cuentacontable.CuentaContableSaveCuentaJerarquiaIsNullEx;
+import com.massoftware.b.service.cuentacontable.CuentaContableSaveCuentaJerarquiaIsValueErrorEx;
+import com.massoftware.b.service.cuentacontable.CuentaContableSaveEjercicioContableIsNullEx;
+import com.massoftware.b.service.cuentacontable.CuentaContableSaveIntegraNotExistsEx;
+import com.massoftware.b.service.cuentacontable.CuentaContableSaveIsNullEx;
+import com.massoftware.b.service.cuentacontable.CuentaContableSaveNombreExistsEx;
+import com.massoftware.b.service.cuentacontable.CuentaContableSaveNombreIsLengthMayor50ErrorEx;
+import com.massoftware.b.service.cuentacontable.CuentaContableSaveNombreIsNullEx;
+import com.massoftware.b.service.cuentacontable.CuentaContableService;
 import com.massoftware.b.service.util.Exception500;
 import com.massoftware.c.persist.dao.ds.ex.DeleteForeignKeyViolationException;
 import com.massoftware.ui.ConfirmationDialog;
 import com.massoftware.ui.NotificationError;
-import com.massoftware.ui.UIUtils;
 import com.massoftware.ui.cbx.CentroCostoContableCBXH;
 import com.massoftware.ui.cbx.CostoVentaCBX;
 import com.massoftware.ui.cbx.PuntoEquilibrioCBXH;
@@ -64,10 +81,19 @@ public class CuentaContableFormCard extends Div {
 
 	private boolean header;
 
-	private H5 mascaraPadrePrefix;
-	private H5 mascaraPadreSufix;
-	private H5 mascaraHijoPrefix;
-	private H5 mascaraHioSufix;
+	private H5 s0Integra;
+	private H5 s1Integra;
+	private H5 s2Integra;
+	private H5 s3Integra;
+	private H5 s4Integra;
+	private H5 s5Integra;
+
+	private H5 s0Jerarquia;
+	private H5 s1Jerarquia;
+	private H5 s2Jerarquia;
+	private H5 s3Jerarquia;
+	private H5 s4Jerarquia;
+	private H5 s5Jerarquia;
 
 	private TextField codigo;
 	private TextField nombre;
@@ -119,7 +145,7 @@ public class CuentaContableFormCard extends Div {
 			cuentaContableEstado.setLabel("0. Cuentas fuera de uso");
 		}
 
-		codigo.focus();
+//		codigo.focus();
 	}
 
 	private void initBinder() {
@@ -181,92 +207,47 @@ public class CuentaContableFormCard extends Div {
 		mascaraPadre.setPadding(false);
 		mascaraPadre.setMargin(false);
 		mascaraPadre.setSpacing(false);
-		mascaraPadrePrefix = new H5();
-		mascaraPadreSufix = new H5();
-		mascaraPadreSufix.getStyle().set("color", "#9e9e9e");
-		mascaraPadre.add(mascaraPadrePrefix, mascaraPadreSufix);
+
+		s0Integra = new H5("_");
+		s1Integra = new H5("__");
+		s2Integra = new H5("__");
+		s3Integra = new H5("__");
+		s4Integra = new H5("__");
+		s5Integra = new H5("__");
+
+		mascaraPadre.add(s0Integra, new H5("."), s1Integra, new H5("."), s2Integra, new H5("."), s3Integra, new H5("."),
+				s4Integra, new H5("."), s5Integra);
 
 		HorizontalLayout mascaraHijo = new HorizontalLayout();
 		mascaraHijo.setPadding(false);
 		mascaraHijo.setMargin(false);
 		mascaraHijo.setSpacing(false);
-		mascaraHijoPrefix = new H5();
-		mascaraHijoPrefix.getStyle().set("color", "#9e9e9e");
-		mascaraHioSufix = new H5();
-		mascaraHijo.add(mascaraHijoPrefix, mascaraHioSufix);
+
+		s0Jerarquia = new H5("_");
+		s1Jerarquia = new H5("__");
+		s2Jerarquia = new H5("__");
+		s3Jerarquia = new H5("__");
+		s4Jerarquia = new H5("__");
+		s5Jerarquia = new H5("__");
+
+		mascaraHijo.add(s0Jerarquia, new H5("."), s1Jerarquia, new H5("."), s2Jerarquia, new H5("."), s3Jerarquia,
+				new H5("."), s4Jerarquia, new H5("."), s5Jerarquia);
 
 		HorizontalLayout mascara = new HorizontalLayout();
 		mascara.setPadding(false);
 		mascara.setMargin(false);
 //		mascara.setSpacing(false);
-		mascara.add(mascaraPadre, mascaraHijo);		
-		
+		mascara.add(mascaraPadre, mascaraHijo);
+
 		codigo = utilForm.initCodigo(binder);
 		nombre = utilForm.initNombre(binder);
 //		ejercicioContable = utilForm.initEjercicioContable(binder);
 //		integra = utilForm.initIntegra(binder);
 
 		cuentaJerarquia = utilForm.initCuentaJerarquia(binder);
-//		cuentaJerarquia.addKeyPressListener(Key.ENTER, event -> {
-//			search();
-//		});
-		
 		cuentaJerarquia.addValueChangeListener(event -> {
-			if (event.getValue() == null || event.getValue().toString().trim().length() == 0) {
-				mascaraHijoPrefix.setText("0.00.00.00.00.00");
-			} else {
-
-				String padre = "";
-				if (binder.getBean().getIntegra() != null
-						&& binder.getBean().getIntegra().getCuentaJerarquia() != null) {
-					padre = binder.getBean().getIntegra().getCuentaJerarquia();
-				}
-				String hijo = event.getValue();
-
-				// ---------------
-
-				String padrePprefixSufix = UIUtils.formtatCCIntegraPrefixSufix(padre);
-
-				if (padrePprefixSufix != null && padrePprefixSufix.trim().length() > 0) {
-					String padrePprefixSufixArray[] = padrePprefixSufix.split(";");
-					String padrePrefix = padrePprefixSufixArray[0];
-					String padreSufix = "." + padrePprefixSufixArray[1];
-
-//					
-					mascaraPadrePrefix.setText(padrePrefix);
-					mascaraPadreSufix.setText(padreSufix);
-				} else {
-					
-					mascaraPadrePrefix.setText("");
-//					mascaraPadreSufix.setText("");
-					mascaraPadreSufix.setText("0.00.00.00.00.00");
-				}
-				
-				String hijoPprefixSufix = UIUtils.formtatCCPrefixSufix(hijo);
-				
-				if (hijoPprefixSufix != null && hijoPprefixSufix.trim().length() > 0) {
-					String hijoPprefixSufixArray[] = hijoPprefixSufix.split(";");
-					String hijoPrefix = hijoPprefixSufixArray[0];
-					String hijoSufix = hijoPprefixSufixArray[1];
-					if(hijoPrefix.length() > 0) {
-						hijoPrefix = hijoPrefix + ".";
-					}
-
-					mascaraHijoPrefix.setText(hijoPrefix);
-					mascaraHioSufix.setText(hijoSufix);
-				} else {
-					mascaraHijoPrefix.setText("");
-					mascaraHioSufix.setText("");
-				}
-
-				
-				
-
-			}
+			setColorJerarquia(event.getValue());
 		});
-//		cuentaJerarquia.addBlurListener(event -> {
-//			search();
-//		});
 
 		imputable = utilForm.initImputable(binder);
 		imputable.addValueChangeListener(event -> {
@@ -293,7 +274,7 @@ public class CuentaContableFormCard extends Div {
 
 		formGeneral.add(mascara);
 		formGeneral.add(cuentaJerarquia);
-		formGeneral.add(codigo);		
+		formGeneral.add(codigo);
 		formGeneral.add(nombre);
 //		form.add(ejercicioContable);			
 		formGeneral.add(imputable);
@@ -336,6 +317,244 @@ public class CuentaContableFormCard extends Div {
 
 	}
 
+	private void setColorJerarquia(String cuentaJerarquiaString) {
+
+		CuentaJerarquia cj = new CuentaJerarquia(cuentaJerarquiaString,
+				(binder.getBean().getIntegra() != null ? binder.getBean().getIntegra().getCuentaJerarquia() : null));
+
+		s0Jerarquia.setText(cj.s0);
+		s1Jerarquia.setText(cj.s1);
+		s2Jerarquia.setText(cj.s2);
+		s3Jerarquia.setText(cj.s3);
+		s4Jerarquia.setText(cj.s4);
+		s5Jerarquia.setText(cj.s5);
+
+		setColorOk(s0Jerarquia);
+		setColorOk(s1Jerarquia);
+		setColorOk(s2Jerarquia);
+		setColorOk(s3Jerarquia);
+		setColorOk(s4Jerarquia);
+		setColorOk(s5Jerarquia);
+
+		setColorOk(s0Integra);
+		setColorOk(s1Integra);
+		setColorOk(s2Integra);
+		setColorOk(s3Integra);
+		setColorOk(s4Integra);
+		setColorOk(s5Integra);
+
+//		cuentaJerarquia.setLabel(cj.integra + " --> " + cj.integraCompute + " --> " + cj.formatIntegra
+//				+ " | isIntegraEqualsError: " + cj.isIntegraEqualsError);
+
+		if (cj.p0 == null || cj.p0NumberError || cj.p0ValueError || cj.isLengthMayor11Error) { // en las rayitas
+			setColorRed(s0Jerarquia);
+//			setColorRed(s0Integra);
+		} else {
+			setColorOk(s0Jerarquia);
+//			setColorOk(s0Integra);
+		}
+
+		if (cj.p1 == null || cj.p1NumberError || cj.p1ValueError || cj.isLengthMayor11Error) { // en las rayitas
+			setColorRed(s1Jerarquia);
+//			setColorRed(s1Integra);
+		} else {
+			setColorOk(s1Jerarquia);
+//			setColorOk(s1Integra);
+		}
+
+		if (cj.p2 == null || cj.p2NumberError || cj.p2ValueError || cj.isLengthMayor11Error) { // en las rayitas
+			setColorRed(s2Jerarquia);
+//			setColorRed(s2Integra);
+		} else {
+			setColorOk(s2Jerarquia);
+//			setColorOk(s2Integra);
+		}
+
+		if (cj.p3 == null || cj.p3NumberError || cj.p3ValueError || cj.isLengthMayor11Error) { // en las rayitas
+			setColorRed(s3Jerarquia);
+//			setColorRed(s3Integra);
+		} else {
+			setColorOk(s3Jerarquia);
+//			setColorOk(s3Integra);
+		}
+
+		if (cj.p4 == null || cj.p4NumberError || cj.p4ValueError || cj.isLengthMayor11Error) { // en las rayitas
+			setColorRed(s4Jerarquia);
+//			setColorRed(s4Integra);
+		} else {
+			setColorOk(s4Jerarquia);
+//			setColorOk(s4Integra);
+		}
+
+		if (cj.p5 == null || cj.p5NumberError || cj.p5ValueError || cj.isLengthMayor11Error) { // en las rayitas
+			setColorRed(s5Jerarquia);
+//			setColorRed(s5Integra);
+		} else {
+			setColorOk(s5Jerarquia);
+//			setColorOk(s5Integra);
+		}
+
+		if (cj.isErrorOnlyJerarquia() == false) {
+
+			s0Integra.setText(cj.sI0);
+			s1Integra.setText(cj.sI1);
+			s2Integra.setText(cj.sI2);
+			s3Integra.setText(cj.sI3);
+			s4Integra.setText(cj.sI4);
+			s5Integra.setText(cj.sI5);
+
+			if (cj.p5ValueSufix) {
+				setColorOk(s5Jerarquia);
+				setColorGrey(s5Integra);
+			} else {
+				setColorGrey(s5Jerarquia);
+				setColorOk(s5Integra);
+			}
+
+			if (cj.p4ValueSufix) {
+				setColorOk(s4Jerarquia);
+				setColorOk(s5Jerarquia);
+
+				setColorGrey(s4Integra);
+				setColorGrey(s5Integra);
+			} else {
+				setColorGrey(s4Jerarquia);
+				setColorOk(s4Integra);
+			}
+
+			if (cj.p3ValueSufix) {
+				setColorOk(s3Jerarquia);
+				setColorOk(s4Jerarquia);
+				setColorOk(s5Jerarquia);
+
+				setColorGrey(s3Integra);
+				setColorGrey(s4Integra);
+				setColorGrey(s5Integra);
+			} else {
+				setColorGrey(s3Jerarquia);
+				setColorOk(s3Integra);
+			}
+
+			if (cj.p2ValueSufix) {
+				setColorOk(s2Jerarquia);
+				setColorOk(s3Jerarquia);
+				setColorOk(s4Jerarquia);
+				setColorOk(s5Jerarquia);
+
+				setColorGrey(s2Integra);
+				setColorGrey(s3Integra);
+				setColorGrey(s4Integra);
+				setColorGrey(s5Integra);
+
+			} else {
+				setColorGrey(s2Jerarquia);
+				setColorOk(s2Integra);
+			}
+
+			if (cj.p1ValueSufix) {
+				setColorOk(s1Jerarquia);
+				setColorOk(s2Jerarquia);
+				setColorOk(s3Jerarquia);
+				setColorOk(s4Jerarquia);
+				setColorOk(s5Jerarquia);
+
+				setColorGrey(s1Integra);
+				setColorGrey(s2Integra);
+				setColorGrey(s3Integra);
+				setColorGrey(s4Integra);
+				setColorGrey(s5Integra);
+
+			} else {
+				setColorGrey(s1Jerarquia);
+				setColorOk(s1Integra);
+			}
+
+			if (cj.p0ValueSufix) {
+				setColorOk(s0Jerarquia);
+				setColorOk(s1Jerarquia);
+				setColorOk(s2Jerarquia);
+				setColorOk(s3Jerarquia);
+				setColorOk(s4Jerarquia);
+				setColorOk(s5Jerarquia);
+
+				setColorGrey(s0Integra);
+				setColorGrey(s1Integra);
+				setColorGrey(s2Integra);
+				setColorGrey(s3Integra);
+				setColorGrey(s4Integra);
+				setColorGrey(s5Integra);
+
+			} else {
+				setColorGrey(s0Jerarquia);
+				setColorOk(s0Integra);
+			}
+
+		} 
+		
+		
+		if (cj.isError()) {
+			
+			setColorRed(s0Integra);
+			setColorRed(s1Integra);
+			setColorRed(s2Integra);
+			setColorRed(s3Integra);
+			setColorRed(s4Integra);
+			setColorRed(s5Integra);
+
+			if (cj.isIntegraEqualsError) {
+
+				if (cj.integra.length() == 11) {
+					s0Integra.setText(cj.integra.charAt(0) + "");
+					s1Integra.setText(cj.integra.charAt(1) + "" + cj.integra.charAt(2));
+					s2Integra.setText(cj.integra.charAt(3) + "" + cj.integra.charAt(4));
+					s3Integra.setText(cj.integra.charAt(5) + "" + cj.integra.charAt(6));
+					s4Integra.setText(cj.integra.charAt(7) + "" + cj.integra.charAt(8));
+					s5Integra.setText(cj.integra.charAt(9) + "" + cj.integra.charAt(10));
+				} else {
+					s0Integra.setText(cj.sI0);
+					s1Integra.setText(cj.sI1);
+					s2Integra.setText(cj.sI2);
+					s3Integra.setText(cj.sI3);
+					s4Integra.setText(cj.sI4);
+					s5Integra.setText(cj.sI5);
+				}
+
+				setColorRedA400(s0Integra);
+				setColorRedA400(s1Integra);
+				setColorRedA400(s2Integra);
+				setColorRedA400(s3Integra);
+				setColorRedA400(s4Integra);
+				setColorRedA400(s5Integra);
+
+			} else {
+				s0Integra.setText("_");
+				s1Integra.setText("__");
+				s2Integra.setText("__");
+				s3Integra.setText("__");
+				s4Integra.setText("__");
+				s5Integra.setText("__");
+			}
+
+		}
+
+	}
+
+	private void setColorRed(H5 h) {
+		h.getStyle().set("color", "#f44336");
+	}
+
+	private void setColorRedA400(H5 h) {
+		h.getStyle().set("color", "#ff1744");
+	}
+
+	private void setColorGrey(H5 h) {
+		h.getStyle().set("color", "#9e9e9e");
+	}
+
+	private void setColorOk(H5 h) {
+		h.getStyle().set("color", "#000000");
+	}
+
 	private void createButtonLayout() {
 		saveButton = new Button("Guardar");
 		saveButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
@@ -376,10 +595,32 @@ public class CuentaContableFormCard extends Div {
 
 		binder.setBean(item);
 
+		// -----------------------
+
 		centroCostoContable.cbx.filter.setEjercicioContable(binder.getBean().getEjercicioContable());
 		puntoEquilibrio.cbx.filter.setEjercicioContable(binder.getBean().getEjercicioContable());
 
-//		ccPanel.setEnabled(imputable.getValue());
+		if (binder.getBean().getCuentaContableEstado() == true) {
+			cuentaContableEstado.setLabel("1. Cuentas en uso");
+			cuentaContableEstado.getStyle().set("color", "#00897b");
+		} else {
+			cuentaContableEstado.setLabel("0. Cuentas fuera de uso");
+			cuentaContableEstado.getStyle().set("color", "#80cbc4");
+		}
+
+		if (binder.getBean().getImputable() == false) {
+
+			ccPanel.setEnabled(binder.getBean().getImputable());
+
+			centroCostoContable.cbx.setValue(null);
+			puntoEquilibrio.cbx.setValue(null);
+			porcentaje.setValue(null);
+			cuentaAgrupadora.setValue("");
+			costoVenta.setValue(null);
+
+		}
+
+		// -----------------------
 
 		binder.validate();
 
@@ -421,7 +662,9 @@ public class CuentaContableFormCard extends Div {
 
 		if (binder.validate().isOk()) {
 			try {
-				CuentaContable item = service.save(binder.getBean());
+				CuentaContable item;
+
+				item = service.save(binder.getBean());
 
 				Notification notification = new Notification("Cuenta contable " + item + " guardado con éxito.", 1000,
 						Position.BOTTOM_END);
@@ -431,7 +674,108 @@ public class CuentaContableFormCard extends Div {
 				return true;
 
 			} catch (Exception500 e) {
+
 				new NotificationError(e, "No se pudo guardar el ítem !!");
+
+			} catch (CuentaContableSaveCodigoExistsEx e) {
+
+				this.codigo.setInvalid(true);
+				openNotificationSaveException(this.codigo.getLabel(),
+						"En la base de datos ya existe una Cuenta Contable con el mismo código y el mismo ejercicio contable.");
+
+			} catch (CuentaContableSaveNombreExistsEx e) {
+
+				this.nombre.setInvalid(true);
+				openNotificationSaveException(this.nombre.getLabel(),
+						"En la base de datos ya existe una Cuenta Contable con el mismo nombre y el mismo ejercicio contable.");
+
+			} catch (CuentaContableSaveCuentaJerarquiaExistsEx e) {
+
+				this.cuentaJerarquia.setInvalid(true);
+				openNotificationSaveException(this.cuentaJerarquia.getLabel(),
+						"En la base de datos ya existe una Cuenta Contable con la misma cuenta jerarquía y el mismo ejercicio contable.");
+
+			} catch (CuentaContableSaveIntegraNotExistsEx e) {
+
+				this.cuentaJerarquia.setInvalid(true);
+				openNotificationSaveException(this.cuentaJerarquia.getLabel(),
+						"En la base de datos no existe una Cuenta Contable integradora con el mismo ejercicio contable para esta cuenta contable.");
+
+			} catch (CuentaContableSaveCuentaJerarquiaIsNullEx e) {
+
+				this.cuentaJerarquia.setInvalid(true);
+				openNotificationSaveException(this.cuentaJerarquia.getLabel(), "Debe ingresar un valor.");
+
+			} catch (CuentaContableSaveCuentaJerarquiaIsEmptyEx e) {
+
+				this.cuentaJerarquia.setInvalid(true);
+				openNotificationSaveException(this.cuentaJerarquia.getLabel(), "Debe ingresar un valor.");
+
+			} catch (CuentaContableSaveCuentaJerarquiaIsLengthMinor11ErrorEx e) {
+
+				this.cuentaJerarquia.setInvalid(true);
+				openNotificationSaveException(this.cuentaJerarquia.getLabel(),
+						"Debe ingresar un valor con 11 caracteres. Valor ingresado "
+								+ e.getCuentaContable().getCuentaJerarquia().length());
+
+			} catch (CuentaContableSaveCuentaJerarquiaIsLengthMayor11ErrorEx e) {
+
+				this.cuentaJerarquia.setInvalid(true);
+				openNotificationSaveException(this.cuentaJerarquia.getLabel(),
+						"Debe ingresar un valor con 11 caracteres. Valor ingresado "
+								+ e.getCuentaContable().getCuentaJerarquia().length());
+
+			} catch (CuentaContableSaveCuentaJerarquiaIsCharsNotNumberErrorEx e) {
+
+				this.cuentaJerarquia.setInvalid(true);
+				openNotificationSaveException(this.cuentaJerarquia.getLabel(),
+						"Debe ingresar un valor con 11 caracteres y el formato #.##.##.##.##.##, donde # es un número de 0-9");
+
+			} catch (CuentaContableSaveCuentaJerarquiaIsValueErrorEx e) {
+
+				this.cuentaJerarquia.setInvalid(true);
+				openNotificationSaveException(this.cuentaJerarquia.getLabel(),
+						"Debe ingresar un valor con 11 caracteres y el formato #.##.##.##.##.##, donde # es un número de 0-9. Recordar que node pueden existir pares de valores 00 como padres, por ejemplo 1.23.45.67.00.12 es erróneo.");
+
+			} catch (CuentaContableSaveCuentaJerarquiaIsIntegraEqualsErrorEx e) {
+
+				this.cuentaJerarquia.setInvalid(true);
+				openNotificationSaveException(this.cuentaJerarquia.getLabel(),
+						"La cuenta inntegra no coincide con la cuenta jerarquía. Cuenta recibida " + e.cj.integra
+								+ ", se esperaba " + e.cj.integraCompute);
+
+			} catch (CuentaContableSaveCodigoIsNullEx e) {
+
+				this.codigo.setInvalid(true);
+				openNotificationSaveException(this.codigo.getLabel(), "Debe ingresar un valor.");
+
+			} catch (CuentaContableSaveNombreIsNullEx e) {
+
+				this.nombre.setInvalid(true);
+				openNotificationSaveException(this.nombre.getLabel(), "Debe ingresar un valor.");
+
+			} catch (CuentaContableSaveCodigoIsLengthMayor11ErrorEx e) {
+
+				this.codigo.setInvalid(true);
+				openNotificationSaveException(this.codigo.getLabel(),
+						"Debe ingresar un valor con más de 11 caracteres. Valor ingresado "
+								+ e.getCuentaContable().getCuentaJerarquia().length());
+
+			} catch (CuentaContableSaveNombreIsLengthMayor50ErrorEx e) {
+
+				this.nombre.setInvalid(true);
+				openNotificationSaveException(this.nombre.getLabel(),
+						"Debe ingresar un valor con más de 50 caracteres. Valor ingresado "
+								+ e.getCuentaContable().getCuentaJerarquia().length());
+
+			} catch (CuentaContableSaveEjercicioContableIsNullEx e) {
+
+				openNotificationSaveException("Ejercicio contable",
+						"No se puede guardar una Cuenta Contable sin especificar su ejercicio.");
+
+			} catch (CuentaContableSaveIsNullEx e) {
+
+				openNotificationSaveException("Cuenta contable", "No se puede guardar una Cuenta Contable nula.");
 			}
 		}
 
@@ -504,6 +848,13 @@ public class CuentaContableFormCard extends Div {
 //			binder.getBean().setCostoVenta(null);
 		}
 
+	}
+
+	private void openNotificationSaveException(String label, String msg) {
+		Notification notification = new Notification("El campo " + label + " es incorrecto. " + msg, 3500,
+				Position.BOTTOM_END);
+		notification.addThemeVariants(NotificationVariant.LUMO_ERROR);
+		notification.open();
 	}
 
 	// ---------------------------------------------------------------------------------------------------------------------------

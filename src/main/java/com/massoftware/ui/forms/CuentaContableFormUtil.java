@@ -1,6 +1,7 @@
 package com.massoftware.ui.forms;
 
 import com.massoftware.a.model.CuentaContable;
+import com.massoftware.a.model.CuentaJerarquia;
 //import com.massoftware.a.model.CentroCostoContable;
 import com.massoftware.ui.cbx.CentroCostoContableCBX;
 import com.massoftware.ui.cbx.CentroCostoContableCBXH;
@@ -12,11 +13,13 @@ import com.massoftware.ui.cbx.PuntoEquilibrioCBX;
 import com.massoftware.ui.cbx.PuntoEquilibrioCBXH;
 //import com.massoftware.a.model.SeguridadPuerta;
 import com.massoftware.ui.cbx.SeguridadPuertaCBX;
+import com.vaadin.flow.component.Key;
 //import com.massoftware.a.model.EjercicioContable;
 //import com.massoftware.ui.cbx.EjercicioContableCBX;
 //import com.massoftware.a.model.CuentaContable;
 //import com.massoftware.ui.cbx.IntegraCBX;
 import com.vaadin.flow.component.checkbox.Checkbox;
+import com.vaadin.flow.component.html.H5;
 import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
@@ -32,14 +35,14 @@ public class CuentaContableFormUtil {
 		codigo.setLabel("Cuenta contable");
 //		codigo.setWidthFull();
 		codigo.setClearButtonVisible(true);
-		codigo.setAutoselect(true);
+//		codigo.setAutoselect(true);
 
 		// --------------------------------------------
 
-		binder.forField(codigo)
-				.asRequired(codigo.getLabel() + " es requerido.")
+		binder.forField(codigo).asRequired(codigo.getLabel() + " es requerido.")
 //				.withValidator(value -> (value != null) ? value.length() == 11 : true, codigo.getLabel() + " tiene que contener al menos 11 caracteres")
-				.withValidator(value -> (value != null) ? value.length() <= 11 : true, codigo.getLabel() + " tiene que contener igual o menos de 11 caracteres")
+				.withValidator(value -> (value != null) ? value.length() <= 11 : true,
+						codigo.getLabel() + " tiene que contener igual o menos de 11 caracteres")
 				.bind(CuentaContable::getCodigo, CuentaContable::setCodigo);
 
 		// --------------------------------------------
@@ -60,10 +63,10 @@ public class CuentaContableFormUtil {
 
 		// --------------------------------------------
 
-		binder.forField(nombre)
-				.asRequired(nombre.getLabel() + " es requerido.")
+		binder.forField(nombre).asRequired(nombre.getLabel() + " es requerido.")
 //				.withValidator(value -> (value != null) ? value.length() >= ${ATT_NAME_MIN} : true, nombre.getLabel() + " tiene que contener al menos ${ATT_NAME_MIN} caracteres")
-				.withValidator(value -> (value != null) ? value.length() <= 50 : true, nombre.getLabel() + " tiene que contener igual o menos de 50 caracteres")
+				.withValidator(value -> (value != null) ? value.length() <= 50 : true,
+						nombre.getLabel() + " tiene que contener igual o menos de 50 caracteres")
 				.bind(CuentaContable::getNombre, CuentaContable::setNombre);
 
 		// --------------------------------------------
@@ -124,17 +127,29 @@ public class CuentaContableFormUtil {
 		cuentaJerarquia.setLabel("Cuenta de jerarquia");
 //		cuentaJerarquia.setWidthFull();
 		cuentaJerarquia.setClearButtonVisible(true);
-		cuentaJerarquia.setAutoselect(true);
+//		cuentaJerarquia.setAutoselect(true);
 
 		// --------------------------------------------
 
 		binder.forField(cuentaJerarquia)
-				.asRequired(cuentaJerarquia.getLabel() + " es requerido.")
-				.withValidator(value -> (value != null) ? value.length() == 11 : true, cuentaJerarquia.getLabel() + " tiene que contener 11 caracteres")
+//				.asRequired(cuentaJerarquia.getLabel() + " es requerido.")
+//				.withValidator(value -> (value != null) ? value.length() == 11 : true, cuentaJerarquia.getLabel() + " tiene que contener 11 caracteres")
 //				.withValidator(value -> (value != null) ? value.length() <= ${ATT_NAME_MAX} : true, cuentaJerarquia.getLabel() + " tiene que contener igual o menos de ${ATT_NAME_MAX} caracteres")
+//				.withValidator(value -> (value != null) ? (new UtilJerarquia().validateJerarquia(value)) : (true), cuentaJerarquia.getLabel() + " con formato incorrecto.")
+//				.withValidator(value -> (value != null) ? (new CuentaJerarquia(value, null).validate()) : (true), cuentaJerarquia.getLabel() + " con formato incorrecto.")
 				.bind(CuentaContable::getCuentaJerarquia, CuentaContable::setCuentaJerarquia);
 
 		// --------------------------------------------
+		
+		cuentaJerarquia.addKeyPressListener(Key.ENTER, event -> {
+			binder.validate();
+		});
+		cuentaJerarquia.addValueChangeListener(event -> {
+			binder.validate();			
+		});
+		cuentaJerarquia.addBlurListener(event -> {
+			binder.validate();
+		});
 
 		return cuentaJerarquia;
 	}
@@ -189,14 +204,16 @@ public class CuentaContableFormUtil {
 
 		binder.forField(cuentaContableEstado).bind(CuentaContable::getCuentaContableEstado,
 				CuentaContable::setCuentaContableEstado);
-		
+
 		// --------------------------------------------
-		
+
 		cuentaContableEstado.addValueChangeListener(event -> {
 			if (event.getValue() == true) {
 				cuentaContableEstado.setLabel("1. Cuentas en uso");
+				cuentaContableEstado.getStyle().set("color", "#00897b");
 			} else {
 				cuentaContableEstado.setLabel("0. Cuentas fuera de uso");
+				cuentaContableEstado.getStyle().set("color", "#80cbc4");
 			}
 		});
 
@@ -278,14 +295,15 @@ public class CuentaContableFormUtil {
 		cuentaAgrupadora.setLabel("Cuenta agrupadora");
 //		cuentaAgrupadora.setWidthFull();
 		cuentaAgrupadora.setClearButtonVisible(true);
-		cuentaAgrupadora.setAutoselect(true);
+//		cuentaAgrupadora.setAutoselect(true);
 
 		// --------------------------------------------
 
 		binder.forField(cuentaAgrupadora)
 //				.asRequired(cuentaAgrupadora.getLabel() + " es requerido.")
 //				.withValidator(value -> (value != null) ? value.length() >= ${ATT_NAME_MIN} : true, cuentaAgrupadora.getLabel() + " tiene que contener al menos ${ATT_NAME_MIN} caracteres")
-				.withValidator(value -> (value != null) ? value.length() <= 50 : true, cuentaAgrupadora.getLabel() + " tiene que contener igual o menos de 50 caracteres")
+				.withValidator(value -> (value != null) ? value.length() <= 50 : true,
+						cuentaAgrupadora.getLabel() + " tiene que contener igual o menos de 50 caracteres")
 				.bind(CuentaContable::getCuentaAgrupadora, CuentaContable::setCuentaAgrupadora);
 
 		// --------------------------------------------

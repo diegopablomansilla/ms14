@@ -201,14 +201,17 @@ public class CentroCostoContableFilterForm extends VerticalLayout {
 		// --------------------------------------------
 
 		numeroFrom.addKeyPressListener(Key.ENTER, event -> {
+			binder.validate();
 			search();
 		});
 		numeroFrom.addValueChangeListener(event -> {
+			binder.validate();
 			if (event.getValue() == null || event.getValue().toString().trim().length() == 0) {
 				search();
 			}
 		});
 		numeroFrom.addBlurListener(event -> {
+			binder.validate();
 			search();
 		});
 	}
@@ -236,14 +239,17 @@ public class CentroCostoContableFilterForm extends VerticalLayout {
 		// --------------------------------------------
 
 		numeroTo.addKeyPressListener(Key.ENTER, event -> {
+			binder.validate();
 			search();
 		});
 		numeroTo.addValueChangeListener(event -> {
-			if (event.getValue() == null || event.getValue().toString().trim().length() == 0) {
+			binder.validate();
+			if (event.getValue() == null || event.getValue().toString().trim().length() == 0) {				
 				search();
 			}
 		});
 		numeroTo.addBlurListener(event -> {
+			binder.validate();
 			search();
 		});
 	}
@@ -268,14 +274,17 @@ public class CentroCostoContableFilterForm extends VerticalLayout {
 		// --------------------------------------------
 
 		nombre.addKeyPressListener(Key.ENTER, event -> {
+			binder.validate();
 			search();
 		});
 		nombre.addValueChangeListener(event -> {
+			binder.validate();
 			if (event.getValue() == null || event.getValue().toString().trim().length() == 0) {
 				search();
 			}
 		});
 		nombre.addBlurListener(event -> {
+			binder.validate();
 			search();
 		});
 	}
@@ -300,14 +309,17 @@ public class CentroCostoContableFilterForm extends VerticalLayout {
 		// --------------------------------------------
 
 		abreviatura.addKeyPressListener(Key.ENTER, event -> {
+			binder.validate();
 			search();
 		});
 		abreviatura.addValueChangeListener(event -> {
+			binder.validate();
 			if (event.getValue() == null || event.getValue().toString().trim().length() == 0) {
 				search();
 			}
 		});
 		abreviatura.addBlurListener(event -> {
+			binder.validate();
 			search();
 		});
 	}

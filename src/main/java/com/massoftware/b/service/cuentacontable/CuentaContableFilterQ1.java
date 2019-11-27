@@ -1,4 +1,4 @@
-package com.massoftware.b.service;
+package com.massoftware.b.service.cuentacontable;
 
 //import com.massoftware.a.model.*;
 import com.massoftware.b.service.util.GenericFilter;

@@ -74,6 +74,13 @@ public abstract class AbstractDAO {
 			sqlWhereArgs.add(buildEQ(attName));
 		}
 	}
+	
+	protected void addArgNEQ(Statement statement, List<String> sqlWhereArgs, String attName, Object value) {
+		if (value != null) {
+			statement.addArg(value);
+			sqlWhereArgs.add(buildNEQ(attName));
+		}
+	}
 
 	protected void addArgLIKE(Statement statement, List<String> sqlWhereArgs, String attName, String value) {
 		if (value != null) {
@@ -90,14 +97,22 @@ public abstract class AbstractDAO {
 
 		}
 	}
-	
+
+	protected void addArgEQLIKE(Statement statement, List<String> sqlWhereArgs, String attName, String value) {
+		if (value != null) {
+			value = value.trim().toLowerCase();
+			statement.addArg(value);
+			sqlWhereArgs.add(buildLIKE(attName));
+		}
+	}
+
 	protected void addArgStartEQ(Statement statement, List<String> sqlWhereArgs, String attName, String value) {
-		if (value != null) {			
+		if (value != null) {
 			statement.addArg(value + "%");
 			sqlWhereArgs.add(buildStartEQ(attName));
 		}
 	}
-	
+
 	protected String buildStartEQ(String attName) {
 		return attName + " LIKE ?";
 	}

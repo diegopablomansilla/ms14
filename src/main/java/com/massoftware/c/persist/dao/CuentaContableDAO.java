@@ -13,8 +13,12 @@ import com.massoftware.a.model.PuntoEquilibrio;
 import com.massoftware.a.model.SeguridadModulo;
 import com.massoftware.a.model.SeguridadPuerta;
 import com.massoftware.a.model.TipoPuntoEquilibrio;
-import com.massoftware.b.service.CuentaContableFilterQ1;
-import com.massoftware.b.service.CuentaContableFilterQ2;
+import com.massoftware.b.service.cuentacontable.CuentaContableFilterQ1;
+import com.massoftware.b.service.cuentacontable.CuentaContableFilterQ2;
+import com.massoftware.b.service.cuentacontable.CuentaContableFilterQ3;
+import com.massoftware.b.service.cuentacontable.CuentaContableFilterQ4;
+import com.massoftware.b.service.cuentacontable.CuentaContableFilterQ5;
+import com.massoftware.b.service.cuentacontable.CuentaContableFilterQ6;
 import com.massoftware.c.persist.dao.ds.ConnectionWrapper;
 import com.massoftware.c.persist.dao.ds.ex.SelectException;
 import com.massoftware.c.persist.dao.ds.info.Result;
@@ -165,7 +169,7 @@ public class CuentaContableDAO extends AbstractDAO {
 			}
 
 			CuentaContable objRowIntegra = new CuentaContable();
-			objRowIntegra.setId((String) row[++c]);			
+			objRowIntegra.setId((String) row[++c]);
 
 			if (objRowIntegra.getId() != null) {
 				objRow.setIntegra(objRowIntegra);
@@ -273,9 +277,9 @@ public class CuentaContableDAO extends AbstractDAO {
 
 			objRow.setCodigo((String) row[++c]);
 			objRow.setNombre((String) row[++c]);
-			
+
 			EjercicioContable objRowEjercicioContable = new EjercicioContable();
-			objRowEjercicioContable.setId((String) row[++c]);			
+			objRowEjercicioContable.setId((String) row[++c]);
 
 			if (objRowEjercicioContable.getId() != null) {
 				objRow.setEjercicioContable(objRowEjercicioContable);
@@ -283,7 +287,7 @@ public class CuentaContableDAO extends AbstractDAO {
 
 			CuentaContable objRowIntegra = new CuentaContable();
 			objRowIntegra.setId((String) row[++c]);
-			objRowIntegra.setCuentaJerarquia((String) row[++c]);			
+			objRowIntegra.setCuentaJerarquia((String) row[++c]);
 
 			if (objRowIntegra.getId() != null) {
 				objRow.setIntegra(objRowIntegra);
@@ -298,12 +302,12 @@ public class CuentaContableDAO extends AbstractDAO {
 			// ------------------------ CentroCostoContable
 
 			CentroCostoContable objRowCentroCostoContable = new CentroCostoContable();
-			
+
 			objRowCentroCostoContable.setId((String) row[++c]);
 			objRowCentroCostoContable.setNumero((Integer) row[++c]);
 			objRowCentroCostoContable.setNombre((String) row[++c]);
 			objRowCentroCostoContable.setAbreviatura((String) row[++c]);
-			
+
 			EjercicioContable objRowCentroCostoContableEjercicioContable = new EjercicioContable();
 			objRowCentroCostoContableEjercicioContable.setId((String) row[++c]);
 			if (objRowCentroCostoContableEjercicioContable.getId() != null) {
@@ -334,11 +338,11 @@ public class CuentaContableDAO extends AbstractDAO {
 			if (objRowTipoPuntoEquilibrio.getId() != null) {
 				objRowPuntoEquilibrio.setTipoPuntoEquilibrio(objRowTipoPuntoEquilibrio);
 			}
-			
+
 			EjercicioContable objRowPuntoEquilibrioEjercicioContable = new EjercicioContable();
 			objRowPuntoEquilibrioEjercicioContable.setId((String) row[++c]);
-			
-			if(objRowPuntoEquilibrioEjercicioContable.getId() != null){
+
+			if (objRowPuntoEquilibrioEjercicioContable.getId() != null) {
 				objRowPuntoEquilibrio.setEjercicioContable(objRowPuntoEquilibrioEjercicioContable);
 			}
 
@@ -352,8 +356,8 @@ public class CuentaContableDAO extends AbstractDAO {
 
 			// ------------------------ CostoVenta
 
-			CostoVenta objRowCostoVenta = new CostoVenta();			
-			objRowCostoVenta.setId((String) row[++c]);						
+			CostoVenta objRowCostoVenta = new CostoVenta();
+			objRowCostoVenta.setId((String) row[++c]);
 			objRowCostoVenta.setNumero((Integer) row[++c]);
 			objRowCostoVenta.setNombre((String) row[++c]);
 
@@ -390,6 +394,167 @@ public class CuentaContableDAO extends AbstractDAO {
 		}
 
 		return items;
+	}
+
+	public List<CuentaContable> find(ConnectionWrapper connection, CuentaContableFilterQ3 filter)
+			throws SelectException, SQLException {
+
+		Objects.requireNonNull(connection, "connection is null!!");
+		Objects.requireNonNull(filter, "filter is null!!");
+		Objects.requireNonNull(filter.getEjercicioContable(), "ejercicioContable is null!!");
+		Objects.requireNonNull(filter.getEjercicioContable().getId(), "ejercicioContable.id is null!!");
+		Objects.requireNonNull(filter.getCuentaJerarquia(), "cuentaJerarquia is null!!");
+
+		Statement statement = new Statement();
+
+//		String sql = this.sourceSQL.get("CuentaContable_q3");
+
+		String sql = "SELECT id, cuentaJerarquia FROM massoftware.CuentaContable ${WHERE}";
+
+		List<String> sqlWhereArgs = new ArrayList<String>();
+
+		addArgEQ(statement, sqlWhereArgs, "ejercicioContable",
+				(filter.getEjercicioContable() != null) ? filter.getEjercicioContable().getId() : null);
+
+		addArgEQ(statement, sqlWhereArgs, "cuentaJerarquia", filter.getCuentaJerarquia());
+
+//		addArgsPage(filter, statement);
+
+		sql = sql.replace("${WHERE}", buildWhereSQL(sqlWhereArgs)).trim();
+
+//		sql = sql.replace("${ORDER_BY}", buildOrderSQL(filter)).trim();
+
+//		sql = sql.replace("${PAGE}", buildPageSQL(filter)).trim();
+
+		statement.setSql(sql);
+
+		Result r = connection.query(statement);
+
+		return buildObjsQ3(r);
+	}
+
+	private List<CuentaContable> buildObjsQ3(Result r) {
+
+		List<CuentaContable> items = new ArrayList<CuentaContable>();
+
+		if (r.getRowCount() == 0) {
+			return items;
+		}
+
+		for (Object[] row : r.getTable()) {
+			int c = -1;
+
+			CuentaContable objRow = new CuentaContable();
+
+			objRow.setId((String) row[++c]);
+
+			objRow.setCuentaJerarquia((String) row[++c]);
+
+			items.add(objRow);
+		}
+
+		return items;
+	}
+
+	public boolean exists(ConnectionWrapper connection, CuentaContableFilterQ4 filter)
+			throws SelectException, SQLException {
+
+		Objects.requireNonNull(connection, "connection is null!!");
+		Objects.requireNonNull(filter, "filter is null!!");
+		Objects.requireNonNull(filter.getId(), "filter id is null!!");
+		Objects.requireNonNull(filter.getEjercicioContable(), "filter ejercicioContable is null!!");
+		Objects.requireNonNull(filter.getEjercicioContable().getId(), "filter ejercicioContable.id is null!!");
+		Objects.requireNonNull(filter.getCodigo(), "filter codigo is null!!");
+
+		Statement statement = new Statement();
+
+		String sql = "SELECT count(*) > 0 FROM massoftware.CuentaContable ${WHERE}";
+
+		List<String> sqlWhereArgs = new ArrayList<String>();
+
+		addArgNEQ(statement, sqlWhereArgs, "id", filter.getId());
+
+		addArgEQLIKE(statement, sqlWhereArgs, "codigo", filter.getCodigo());
+
+		addArgEQ(statement, sqlWhereArgs, "ejercicioContable",
+				(filter.getEjercicioContable() != null) ? filter.getEjercicioContable().getId() : null);
+
+		sql = sql.replace("${WHERE}", buildWhereSQL(sqlWhereArgs)).trim();
+
+		statement.setSql(sql);
+
+		Result r = connection.query(statement);
+
+		return (boolean) r.getTable()[0][0];
+	}
+
+	public boolean exists(ConnectionWrapper connection, CuentaContableFilterQ5 filter)
+			throws SelectException, SQLException {
+
+		Objects.requireNonNull(connection, "connection is null!!");
+		Objects.requireNonNull(filter, "filter is null!!");
+		Objects.requireNonNull(filter.getId(), "filter id is null!!");
+		Objects.requireNonNull(filter.getEjercicioContable(), "filter ejercicioContable is null!!");
+		Objects.requireNonNull(filter.getEjercicioContable().getId(), "filter ejercicioContable.id is null!!");
+		Objects.requireNonNull(filter.getNombre(), "filter nombre is null!!");
+
+		Statement statement = new Statement();
+
+		String sql = "SELECT count(*) > 0 FROM massoftware.CuentaContable ${WHERE}";
+
+		List<String> sqlWhereArgs = new ArrayList<String>();
+
+		addArgNEQ(statement, sqlWhereArgs, "id", filter.getId());
+
+		addArgEQLIKE(statement, sqlWhereArgs, "nombre", filter.getNombre());
+
+		addArgEQ(statement, sqlWhereArgs, "ejercicioContable",
+				(filter.getEjercicioContable() != null) ? filter.getEjercicioContable().getId() : null);
+
+		sql = sql.replace("${WHERE}", buildWhereSQL(sqlWhereArgs)).trim();
+
+		statement.setSql(sql);
+
+		Result r = connection.query(statement);
+
+		return (boolean) r.getTable()[0][0];
+	}
+
+	public boolean exists(ConnectionWrapper connection, CuentaContableFilterQ6 filter)
+			throws SelectException, SQLException {
+
+		Objects.requireNonNull(connection, "connection is null!!");
+		Objects.requireNonNull(filter, "filter is null!!");
+		Objects.requireNonNull(filter.getId(), "filter id is null!!");
+		Objects.requireNonNull(filter.getEjercicioContable(), "filter ejercicioContable is null!!");
+		Objects.requireNonNull(filter.getEjercicioContable().getId(), "filter ejercicioContable.id is null!!");
+//		Objects.requireNonNull(filter.getIntegra(), "filter Integra is null!!");
+//		Objects.requireNonNull(filter.getIntegra().getId(), "filter integra.id is null!!");
+		Objects.requireNonNull(filter.getCuentaJerarquia(), "filter cuentaJerarquia is null!!");
+
+		Statement statement = new Statement();
+
+		String sql = "SELECT count(*) > 0 FROM massoftware.CuentaContable ${WHERE}";
+
+		List<String> sqlWhereArgs = new ArrayList<String>();
+
+		addArgNEQ(statement, sqlWhereArgs, "id", filter.getId());
+
+		addArgEQ(statement, sqlWhereArgs, "integra",
+				(filter.getIntegra() != null) ? filter.getIntegra().getId() : null);
+
+		addArgEQ(statement, sqlWhereArgs, "cuentaJerarquia", filter.getCuentaJerarquia());
+
+		addArgEQ(statement, sqlWhereArgs, "ejercicioContable",
+				(filter.getEjercicioContable() != null) ? filter.getEjercicioContable().getId() : null);
+
+		sql = sql.replace("${WHERE}", buildWhereSQL(sqlWhereArgs)).trim();
+
+		statement.setSql(sql);
+
+		Result r = connection.query(statement);
+
+		return (boolean) r.getTable()[0][0];
 	}
 
 } // END CLASS -----------------------------------------------------------------

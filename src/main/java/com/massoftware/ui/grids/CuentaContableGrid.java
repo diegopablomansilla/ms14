@@ -7,8 +7,9 @@ import java.util.List;
 import java.util.Locale;
 
 import com.massoftware.a.model.CuentaContable;
-import com.massoftware.b.service.CuentaContableFilterQ1;
-import com.massoftware.b.service.CuentaContableService;
+import com.massoftware.a.model.CuentaJerarquia;
+import com.massoftware.b.service.cuentacontable.CuentaContableFilterQ1;
+import com.massoftware.b.service.cuentacontable.CuentaContableService;
 import com.massoftware.b.service.util.Exception500;
 import com.massoftware.ui.GridCustom;
 import com.massoftware.ui.NotificationError;
@@ -135,55 +136,146 @@ public class CuentaContableGrid extends GridCustom<CuentaContable> {
 	}
 
 	private Component createRendererCuentaJerarquia(CuentaContable item) {
+//		HorizontalLayout mascaraHijo = new HorizontalLayout();
+//		mascaraHijo.setPadding(false);
+//		mascaraHijo.setMargin(false);
+//		mascaraHijo.setSpacing(false);
+//
+//		H5 s0Jerarquia = new H5("_");
+//		H5 s1Jerarquia = new H5("__");
+//		H5 s2Jerarquia = new H5("__");
+//		H5 s3Jerarquia = new H5("__");
+//		H5 s4Jerarquia = new H5("__");
+//		H5 s5Jerarquia = new H5("__");
+//		
+//		
+//		setColorJerarquia(item.getCuentaJerarquia(), s0Jerarquia, s1Jerarquia, s2Jerarquia, s3Jerarquia, s4Jerarquia,
+//				s5Jerarquia);
+//		
+//		mascaraHijo.add(s0Jerarquia, new H5("."), s1Jerarquia, new H5("."), s2Jerarquia, new H5("."), s3Jerarquia,
+//				new H5("."), s4Jerarquia, new H5("."), s5Jerarquia);
 
-//		String formatted = "";
+
+//		return mascaraHijo;
+		return new H5(CuentaJerarquia.formtatCC(item.getCuentaJerarquia()));
+	}
+
+//	private void setColorJerarquia(String cuentaJerarquiaString, H5 s0Jerarquia, H5 s1Jerarquia, H5 s2Jerarquia,
+//			H5 s3Jerarquia, H5 s4Jerarquia, H5 s5Jerarquia) {
 //
-//		if (item.getCuentaJerarquia() != null && item.getCuentaJerarquia().length() == 11) {
+//		CuentaJerarquia cj = new CuentaJerarquia(cuentaJerarquiaString, null);
+//		System.out.println(cuentaJerarquiaString);
 //
-//			for (int i = 0; i < 11; i++) {
+//		setColorOk(s0Jerarquia);
+//		setColorOk(s1Jerarquia);
+//		setColorOk(s2Jerarquia);
+//		setColorOk(s3Jerarquia);
+//		setColorOk(s4Jerarquia);
+//		setColorOk(s5Jerarquia);
 //
-//				if (i == 1 || i == 3 || i == 5 || i == 7 || i == 9) {
-//					formatted += ".";
-//				}
-//				formatted += item.getCuentaJerarquia().charAt(i);
+//		if (cj.p0 == null || cj.p0NumberError || cj.p0ValueError || cj.isLengthMayor11Error) { // en las rayitas
+//			setColorRed(s0Jerarquia);
+//		} else {
+//			setColorOk(s0Jerarquia);
+//		}
 //
-////				if (i == 0) {
-////					formatted += item.getCuentaJerarquia().charAt(i);
-////				} else if (i == 1) {
-////					formatted += ".";
-////					formatted += item.getCuentaJerarquia().charAt(i);
-////				} else if (i == 2) {
-////					formatted += item.getCuentaJerarquia().charAt(i);
-////				} else if (i == 3) {
-////					formatted += ".";
-////					formatted += item.getCuentaJerarquia().charAt(i);
-////				} else if (i == 4) {
-////					formatted += item.getCuentaJerarquia().charAt(i);
-////				} else if (i == 5) {
-////					formatted += ".";
-////					formatted += item.getCuentaJerarquia().charAt(i);
-////				} else if (i == 6) {
-////					formatted += item.getCuentaJerarquia().charAt(i);
-////				} else if (i == 7) {
-////					formatted += ".";
-////					formatted += item.getCuentaJerarquia().charAt(i);
-////				} else if (i == 8) {
-////					formatted += item.getCuentaJerarquia().charAt(i);
-////				} else if (i == 9) {
-////					formatted += ".";
-////					formatted += item.getCuentaJerarquia().charAt(i);
-////				} else if (i == 10) {
-////					formatted += item.getCuentaJerarquia().charAt(i);
-////				}
+//		if (cj.p1 == null || cj.p1NumberError || cj.p1ValueError || cj.isLengthMayor11Error) { // en las rayitas
+//			setColorRed(s1Jerarquia);
+//		} else {
+//			setColorOk(s1Jerarquia);
+//		}
+//
+//		if (cj.p2 == null || cj.p2NumberError || cj.p2ValueError || cj.isLengthMayor11Error) { // en las rayitas
+//			setColorRed(s2Jerarquia);
+//		} else {
+//			setColorOk(s2Jerarquia);
+//		}
+//
+//		if (cj.p3 == null || cj.p3NumberError || cj.p3ValueError || cj.isLengthMayor11Error) { // en las rayitas
+//			setColorRed(s3Jerarquia);
+//		} else {
+//			setColorOk(s3Jerarquia);
+//		}
+//
+//		if (cj.p4 == null || cj.p4NumberError || cj.p4ValueError || cj.isLengthMayor11Error) { // en las rayitas
+//			setColorRed(s4Jerarquia);
+//		} else {
+//			setColorOk(s4Jerarquia);
+//		}
+//
+//		if (cj.p5 == null || cj.p5NumberError || cj.p5ValueError || cj.isLengthMayor11Error) { // en las rayitas
+//			setColorRed(s5Jerarquia);
+//		} else {
+//			setColorOk(s5Jerarquia);
+//		}
+//
+//		if (cj.isError() == false) {
+//
+//			if (cj.p5ValueSufix) {
+//				setColorOk(s5Jerarquia);
+//			} else {
+//				setColorGrey(s5Jerarquia);
 //			}
 //
-//		} else if (item.getCuentaJerarquia() != null && item.getCuentaJerarquia().length() != 11) {
+//			if (cj.p4ValueSufix) {
+//				setColorOk(s4Jerarquia);
+//				setColorOk(s5Jerarquia);
+//			} else {
+//				setColorGrey(s4Jerarquia);
+//			}
 //
-//			return new H5(item.getCuentaJerarquia());
+//			if (cj.p3ValueSufix) {
+//				setColorOk(s3Jerarquia);
+//				setColorOk(s4Jerarquia);
+//				setColorOk(s5Jerarquia);
+//			} else {
+//				setColorGrey(s3Jerarquia);
+//			}
+//
+//			if (cj.p2ValueSufix) {
+//				setColorOk(s2Jerarquia);
+//				setColorOk(s3Jerarquia);
+//				setColorOk(s4Jerarquia);
+//				setColorOk(s5Jerarquia);
+//			} else {
+//				setColorGrey(s2Jerarquia);
+//			}
+//
+//			if (cj.p1ValueSufix) {
+//				setColorOk(s1Jerarquia);
+//				setColorOk(s2Jerarquia);
+//				setColorOk(s3Jerarquia);
+//				setColorOk(s4Jerarquia);
+//				setColorOk(s5Jerarquia);
+//			} else {
+//				setColorGrey(s1Jerarquia);
+//			}
+//
+//			if (cj.p0ValueSufix) {
+//				setColorOk(s0Jerarquia);
+//				setColorOk(s1Jerarquia);
+//				setColorOk(s2Jerarquia);
+//				setColorOk(s3Jerarquia);
+//				setColorOk(s4Jerarquia);
+//				setColorOk(s5Jerarquia);
+//			} else {
+//				setColorGrey(s0Jerarquia);
+//			}
+//
 //		}
-
-		return new H5(UIUtils.formtatCC(item.getCuentaJerarquia()));
-	}
+//	}
+//
+//	private void setColorRed(H5 h) {
+//		h.getStyle().set("color", "#f44336");
+//	}
+//
+//	private void setColorGrey(H5 h) {
+//		h.getStyle().set("color", "#9e9e9e");
+//	}
+//
+//	private void setColorOk(H5 h) {
+//		h.getStyle().set("color", "#000000");
+//	}
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
